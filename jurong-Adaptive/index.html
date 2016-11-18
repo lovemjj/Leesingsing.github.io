@@ -4,17 +4,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/log.ico">
+    <script src="js/jquery-1.9.1.js" charset="utf-8"></script>
+    <script src="js/jquery.infinitescroll.min.js" ></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.infinitescroll.min.js" ></script>
+
     <title>魅力句容</title>
     <script type="text/javascript">
       $(document).ready(function(){
         $('#container').infinitescroll({
           navSelector:"#navigation",
           nextSelector:"#navigation a",
-          itemSelector:".wft",
+          itemSelector:"#container div.wft",
           debug:true,
           animate:true,
           extraScrollPx:150,
@@ -69,8 +71,6 @@
     <div class="container">
       <div id="container">
       <div class="wtf">
-
-
         <section class="col-md-12 content" id="first">
            <div class="col-lg-6 col-md-6 content-item">
                <img src="images/1.jpg" alt="Image" class="tm-image">
