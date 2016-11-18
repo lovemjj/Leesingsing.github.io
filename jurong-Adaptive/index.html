@@ -19,9 +19,9 @@
           debug:true,
           animate:true,
           extraScrollPx:150,
-          donetext:"finish",
+          // donetext:"finish",
           bufferPx: 40, //载入信息的显示时间，时间越大，载入信息显示时间越短
-              errorCallback: function() {
+          errorCallback: function() {
                   alert('error');
               }, //当出错的时候，比如404页面的时候执行的函数
               localMode: true, //是否允许载入具有相同函数的页面，默认为false
@@ -65,6 +65,9 @@
 
 
     <div class="container test">
+      <div class="wtf">
+
+
         <section class="col-md-12 content" id="first">
            <div class="col-lg-6 col-md-6 content-item">
                <img src="images/1.jpg" alt="Image" class="tm-image">
@@ -82,6 +85,9 @@
 
            </div>
        </section>
+      </div>
+      <div class="wft">
+
 
        <section class="col-md-12 content padding" id="second">
         <div class="col-lg-6 col-md-6 col-md-push-6 content-item">
@@ -101,6 +107,8 @@
        </div>
 
    </section>
+</div>
+<div class="wft">
 
 
    <section class="col-md-12 content" id="third">
@@ -120,6 +128,8 @@
 
        </div>
    </section>
+</div>
+<div class="wft">
 
 
    <section class="col-md-12 content" id="fourth">
@@ -140,7 +150,7 @@
     </div>
 
 </section>
-
+</div>
 <!-- <footer class="col-md-12 content" id="externals">
  <div class="col-lg-6 col-md-6 last">
    <img src="images/5.png" alt="Image" class="tm-image">
@@ -157,13 +167,13 @@
   <a href="page.htm?page=1"></a>
 </div>
 
-<div class="text-center footer">
+<!-- <div class="text-center footer">
 	<div class="container">
 	<p>
 
 	</p>
     </div>
-</div>
+</div> -->
 
 
 <script src="js/bootstrap.min.js"></script>
