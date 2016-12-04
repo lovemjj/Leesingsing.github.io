@@ -25,13 +25,13 @@
           errorCallback: function() {
                   alert('error');
               }, //当出错的时候，比如404页面的时候执行的函数
-              localMode: true, //是否允许载入具有相同函数的页面，默认为false
-              dataType: 'html',//可以是json
+          localMode: true, //是否允许载入具有相同函数的页面，默认为false
+          dataType: 'html',//可以是json
 //                template: function(data) {
 //                    //data表示服务端返回的json格式数据，这里需要把data转换成瀑布流块的html格式，然后返回给回到函数
 //                    return '';
 //                },
-              loading: {
+          loading: {
                   msgText: "加载中...",
                   finishedMsg: '没有新数据了...',
                   selector: '.loading' // 显示loading信息的div
@@ -222,5 +222,8 @@ $(window).on("scroll", function() {
     checkScrollPosition();
 });
 </script>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?move=0" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 </body>
 </html>
