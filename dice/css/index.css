@@ -429,10 +429,12 @@ video {
 .main .schedule-copy .liquidity {
   margin-left: -170px;
   margin-right: -150px;
+  width: 910px;
 }
 .main .schedule-copy .price {
   margin-left: -150px;
   margin-right: -170px;
+  width: 910px;
 }
 .main .community .block {
   width: 34px;
