@@ -31,11 +31,15 @@ img {
 .header .logo {
   width: 153px;
   margin-top: 70px;
+  cursor: pointer;
 }
 .header .nav {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.header .nav .item {
+  cursor: pointer;
 }
 .header .nav .item + .item {
   margin-left: 30px;
@@ -56,6 +60,7 @@ img {
   width: 100px;
   height: 30px;
   background-color: rgba(170, 184, 206, 0.1);
+  cursor: pointer;
 }
 .main {
   background-image: url(../img/main/bg.jpg);
@@ -86,6 +91,7 @@ img {
 .main .enter .right .button {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 .main .enter .right .btn {
   display: flex;
@@ -187,30 +193,52 @@ img {
   justify-content: center;
   align-items: center;
   width: 250px;
-  height: 70px;
+  height: 68px;
   border-radius: 2px;
   position: relative;
+  cursor: pointer;
 }
 .main .introduction .button .item + .item {
   margin-left: 25px;
 }
 .main .introduction .button .item:hover {
-  height: 74px;
+  height: 72px;
   border-bottom-width: 4px;
 }
 .main .introduction .button .video {
-  background-color: #f72071;
+  background: linear-gradient(#fa4495, #f8297a);
+  border-top: 2px solid #fc7fc0;
   border-bottom: 8px solid #b00c4a;
   box-shadow: 0px 10px 40px rgba(247, 32, 113, 0.4);
 }
 .main .introduction .button .white-paper {
-  background-color: #0449f9;
+  background: linear-gradient(#0777fd, #0554fa);
+  border-top: 2px solid #139bfe;
   border-bottom: 8px solid #0027ba;
   box-shadow: 0px 10px 40px rgba(4, 73, 249, 0.4);
 }
 .main .introduction .button .jion {
-  background-color: #01ccf8;
+  background: linear-gradient(#02e8fc, #01d3f9);
+  border-top: 2px solid #07f3fd;
   border-bottom: 8px solid #019cdc;
+  box-shadow: 0px 10px 40px rgba(1, 204, 248, 0.4);
+}
+.main .introduction .button .video:hover {
+  background: linear-gradient(#f82778, #fa499a);
+  border-top: 2px solid #fb5da9;
+  border-bottom: 4px solid #c61f62;
+  box-shadow: 0px 10px 40px rgba(247, 32, 113, 0.4);
+}
+.main .introduction .button .white-paper:hover {
+  background: linear-gradient(#0452fa, #0677fd);
+  border-top: 2px solid #0b77fb;
+  border-bottom: 4px solid #023aca;
+  box-shadow: 0px 10px 40px rgba(4, 73, 249, 0.4);
+}
+.main .introduction .button .jion:hover {
+  background: linear-gradient(#01d2f9, #02e7fc);
+  border-top: 2px solid #04e4fc;
+  border-bottom: 4px solid #0289c2;
   box-shadow: 0px 10px 40px rgba(1, 204, 248, 0.4);
 }
 .main .introduction .button .video .icon {
@@ -300,6 +328,7 @@ video {
   right: 20px;
   width: 22px;
   z-index: 10;
+  cursor: pointer;
 }
 .main .more {
   padding-top: 230px;
@@ -486,6 +515,7 @@ video {
   width: 153px;
   margin-top: 70px;
   margin-left: -10px;
+  cursor: pointer;
 }
 .footer .center {
   display: flex;
@@ -495,6 +525,7 @@ video {
   height: 30px;
   background-image: url(../img/header/nav-center.png);
   background-size: 100% 100%;
+  cursor: pointer;
 }
 .footer .else {
   display: flex;
@@ -503,6 +534,7 @@ video {
 }
 .footer .else .item {
   font-size: 15px;
+  cursor: pointer;
 }
 .footer .else .item + .item {
   margin-left: 15px;
@@ -531,12 +563,14 @@ video {
 .goTop .icon {
   width: 31px;
   margin: 0 auto;
+  cursor: pointer;
 }
 .goTop .text {
   color: #ffffff;
   opacity: 0.6;
   font-size: 14px;
   padding-top: 10px;
+  cursor: pointer;
 }
 .left-pop {
   position: fixed;
@@ -555,6 +589,7 @@ video {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  cursor: pointer;
 }
 .left-pop .item:hover {
   background-color: #888c9f;
