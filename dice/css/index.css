@@ -527,6 +527,7 @@ video {
   font-size: 14px;
   line-height: 24px;
   padding-bottom: 35px;
+  opacity: 0.6;
 }
 .footer {
   background-color: #060816;
