@@ -33,7 +33,7 @@ function emailClick () {
 }
 window.onscroll = function (ele) {
   const fairJustObject = document.getElementById('fair-just').getBoundingClientRect()
-  if (fairJustObject.top < window.innerHeight && fairJustObject.bottom > 0) {
+  if (fairJustObject.top < window.innerHeight + 100 && fairJustObject.bottom > 100) {
     document.getElementById('shield').style.top = '0'
     document.getElementById('shield').style.opacity = '1'
     document.getElementById('shield').style.transition = 'all 1s ease-in-out'
@@ -43,7 +43,7 @@ window.onscroll = function (ele) {
     document.getElementById('shield').style.transition = 'none'
   }
   const profitObject = document.getElementById('profit').getBoundingClientRect()
-  if (profitObject.top < window.innerHeight && profitObject.bottom > 0) {
+  if (profitObject.top < window.innerHeight + 100 && profitObject.bottom > 100) {
     document.getElementById('money-left').style.top = '0'
     document.getElementById('money-left').style.opacity = '1'
     document.getElementById('money-left').style.transition = 'all 1s ease-in-out'
@@ -65,7 +65,7 @@ window.onscroll = function (ele) {
     document.getElementById('fifty').style.transition = 'none'
   }
   const openObject = document.getElementById('open').getBoundingClientRect()
-  if (openObject.top < window.innerHeight && openObject.bottom > 0) {
+  if (openObject.top < window.innerHeight + 100 && openObject.bottom > 100) {
     document.getElementById('sifter-left').style.top = '80px'
     document.getElementById('sifter-left').style.opacity = '1'
     document.getElementById('sifter-left').style.transition = 'all 1s ease-in-out'
@@ -87,7 +87,7 @@ window.onscroll = function (ele) {
     document.getElementById('seven').style.transition = 'none'
   }
   const distributedObject = document.getElementById('distributed').getBoundingClientRect()
-  if (distributedObject.top < window.innerHeight && distributedObject.bottom > 0) {
+  if (distributedObject.top < window.innerHeight + 100 && distributedObject.bottom > 100) {
     document.getElementById('distributed').style.opacity = '1'
     document.getElementById('distributed').style.transition = 'all 1.5s ease-in-out'
   } else {
