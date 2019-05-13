@@ -1,8 +1,10 @@
 html,body {
   margin: 0;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif ;
   text-align: center;
   scroll-behavior: smooth;
+  user-select: none;
+  font-weight: 300;
 }
 img {
   display: block;
@@ -29,8 +31,7 @@ img {
   height: 80px;
 }
 .header .logo {
-  width: 153px;
-  margin-top: 70px;
+  width: 100px;
   cursor: pointer;
 }
 .header .nav {
@@ -40,6 +41,7 @@ img {
 }
 .header .nav .item {
   cursor: pointer;
+  letter-spacing: 1px;
 }
 .header .nav .item + .item {
   margin-left: 30px;
@@ -147,12 +149,10 @@ img {
 }
 .main .data .item span.eos {
   font-size: 12px;
-  font-weight: normal;
   margin-left: 7px;
 }
 .main .data .item span.reward {
   font-size: 11px;
-  font-weight: normal;
   margin-right: 10px;
   background-image: url(../img/main/data/reward-bg.png);
   background-size: 100% 100%;
@@ -282,10 +282,11 @@ img {
   top: 84px;
   left: 40px;
   width: 155px;
-  display: none;
+  opacity: 0;
+  transition: all 1s;
 }
 .main .introduction .button .item:hover  .text {
-  display: block;
+  opacity: 1;
 }
 .main .introduction .button .video .text {
   left: 40px;
@@ -351,7 +352,7 @@ video {
 }
 .main .more .item .text .title {
   font-size: 36px;
-  font-weight: 900;
+  font-weight: 700;
   padding-top: 35px;
   padding-bottom: 25px;
 }
@@ -510,11 +511,10 @@ video {
 }
 .footer .top .mid {
   height: 100px;
+  letter-spacing: 1px;
 }
 .footer .logo {
-  width: 153px;
-  margin-top: 70px;
-  margin-left: -10px;
+  width: 100px;
   cursor: pointer;
 }
 .footer .center {
@@ -548,10 +548,28 @@ video {
   line-height: 30px;
   opacity: 0.6;
 }
+.footer .tips .bx {
+  padding-top: 15px;
+  padding-bottom: 18px;
+  max-width: 1121px;
+  margin: 0 auto;
+  min-height: 180px;
+}
+.footer .bx {
+  padding-left: 28px;
+  padding-right: 28px;
+}
+.footer .tips .bx p {
+  font-size: 11px;
+  text-align: center;
+  color: #494d64;
+}
+p {
+  margin: 0 0 10px;
+}
 .footer .line {
   height: 1px;
   background-color: rgba(255, 255, 255, 0.1);
-  margin-top: 40px;
 }
 .footer .copyright {
   text-align: left;
@@ -571,11 +589,12 @@ video {
   font-size: 14px;
   padding-top: 10px;
   cursor: pointer;
+  white-space: nowrap;
 }
 .left-pop {
   position: fixed;
   top: 615px;
-  left: 325px;
+  left: 50px;
   z-index: 8;
   border-radius: 26px;
   background-color: #ffffff;

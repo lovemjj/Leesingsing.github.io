@@ -86,4 +86,12 @@ window.onscroll = function (ele) {
     document.getElementById('seven').style.opacity = '0'
     document.getElementById('seven').style.transition = 'none'
   }
+  const distributedObject = document.getElementById('distributed').getBoundingClientRect()
+  if (distributedObject.top < window.innerHeight && distributedObject.bottom > 0) {
+    document.getElementById('distributed').style.opacity = '1'
+    document.getElementById('distributed').style.transition = 'all 1.5s ease-in-out'
+  } else {
+    document.getElementById('distributed').style.opacity = '0'
+    document.getElementById('distributed').style.transition = 'none'
+  }
 }
