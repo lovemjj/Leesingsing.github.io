@@ -13,6 +13,14 @@ img {
 .btn {
   user-select: none;
 }
+.first {
+  background-color: #ffffff;
+}
+.second {
+  background-image: url(../img/main/bg-1.png);
+  background-size: 1920px auto;
+  background-position: top center;
+}
 .mid {
   width: 1180px;
   margin: 0 auto;
@@ -118,30 +126,34 @@ img {
   height: 200px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   border-radius: 10px;
   font-size: 14px;
   box-shadow: 0px 14px 38px rgba(87, 111, 159, 0.15);
+  padding-bottom: 35px;
+  box-sizing: border-box;
 }
 .main .data .item .icon {
   margin: 0 auto;
-  margin-bottom: 30px;
 }
 .main .data .item + .item {
   margin-left: 20px;
 }
 .main .data .day.item .icon {
   width: 54px;
+  margin-bottom: 38px;
 }
 .main .data .month.item .icon {
   width: 56px;
+  margin-bottom: 38px;
 }
 .main .data .pie-chart.item .icon {
   width: 52px;
+  margin-bottom: 36px;
 }
 .main .data .iron-man.item .icon {
   width: 51px;
-  margin-bottom: 20px;
+  margin-bottom: 27px;
 }
 .main .data .item span {
   font-size: 21px;
@@ -150,6 +162,7 @@ img {
 .main .data .item span.eos {
   font-size: 12px;
   margin-left: 7px;
+  font-weight: 300;
 }
 .main .data .item span.reward {
   font-size: 11px;
@@ -181,6 +194,9 @@ img {
   font-size: 36px;
   font-weight: 900;
   padding-bottom: 35px;
+}
+.main .introduction .subtitle {
+  opacity: 0.8;
 }
 .main .introduction .button {
   display: flex;
@@ -356,9 +372,21 @@ video {
   padding-top: 35px;
   padding-bottom: 25px;
 }
+.main .more .item .text .title span {
+  font-size: 42px;
+  vertical-align: top;
+}
 .main .more .item .text .subtitle {
   font-size: 14px;
   line-height: 24px;
+  opacity: 0.8;
+}
+.main .more .item .text .subtitle .icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #34385b;
+  display: inline-block;
 }
 .main .more .item .img {
   position: relative;
@@ -482,6 +510,7 @@ video {
   justify-content: space-between;
   align-items: center;
   flex-flow:row wrap;
+  padding-bottom: 130px;
 }
 .main .list .item {
   width: 376px;
@@ -500,7 +529,6 @@ video {
   padding-bottom: 35px;
 }
 .footer {
-  margin-top: 130px;
   background-color: #060816;
   color: #ffffff;
 }
