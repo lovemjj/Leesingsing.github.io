@@ -1,6 +1,6 @@
 html,body {
   margin: 0;
-  font-family: 'MicroSoft YaHei',sans-serif ;
+  font-family: 'MicroSoft YaHei',sans-serif;
   text-align: center;
   scroll-behavior: smooth;
   user-select: none;
@@ -374,7 +374,7 @@ video {
 }
 .main .more .item .text .title span {
   font-size: 42px;
-  vertical-align: top;
+  vertical-align: bottom;
 }
 .main .more .item .text .subtitle {
   font-size: 14px;
@@ -623,7 +623,7 @@ p {
 .left-pop {
   position: fixed;
   top: 615px;
-  left: 50px;
+  left: 120px;
   z-index: 8;
   border-radius: 26px;
   background-color: #ffffff;
