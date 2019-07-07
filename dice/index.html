@@ -82,47 +82,865 @@
                         </div>
                     </div>
                     <div class="data">
-                        <div class="day item">
-                            <div>
-                                <div class="icon">
-                                    <img src="./img/main/data/day.png" alt="">
-                                </div>
-                                <div class="text">
-                                    <div><span>000,000,000</span><span class="eos">EOS</span></div>
-                                    <div>总交易量</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="month item">
-                            <div>
-                                <div class="icon">
-                                    <img src="./img/main/data/month.png" alt="">
-                                </div>
-                                <div class="text">
-                                    <div><span>000,000,000</span><span class="eos">EOS</span></div>
-                                    <div>奖池总金额</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pie-chart item">
+                        <div class="pie-chart item item-no-hover" id="pie-chart" onclick="selectData('pie-chart')" onmouseover="dataOnmouseover('pie-chart')" onmouseout="dataOnmouseout('pie-chart')">
                             <div>
                                 <div class="icon">
                                     <img src="./img/main/data/pie-chart.png" alt="">
                                 </div>
                                 <div class="text">
-                                    <div><span>000,000,000</span><span class="eos">EOS</span></div>
-                                    <div>每日分红金额</div>
+                                    <div>分红与质押</div>
+                                </div>
+                            </div>
+                            <div class="pop" id="pie-chart-pop">
+                                <div class="pop-main">
+                                    <img src="./img/main/data/pop.png" alt="">
+                                    <div class="pop-text">
+                                        查看分红情况及质 押/解除质押 DICE TOKEN
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="iron-man item">
+                        <div class="day item item-no-hover" id="day" onclick="selectData('day')" onmouseover="dataOnmouseover('day')" onmouseout="dataOnmouseout('day')">
                             <div>
                                 <div class="icon">
-                                    <img src="./img/main/data/iron-man.png" alt="">
+                                    <img src="./img/main/data/day.png" alt="">
                                 </div>
                                 <div class="text">
-                                    <div><span class="reward">奖励</span><span>00,000</span><span class="eos">EOS</span></div>
-                                    <div>每日最大赢家</div>
+                                    <div>交易额统计</div>
+                                </div>
+                            </div>
+                            <div class="pop" id="day-pop">
+                                <div class="pop-main">
+                                    <img src="./img/main/data/pop.png" alt="">
+                                    <div class="pop-text">
+                                        查看平台日活、交 易总次数及总交易额
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="month item item-no-hover" id="month"  onclick="selectData('month')" onmouseover="dataOnmouseover('month')" onmouseout="dataOnmouseout('month')">
+                            <div>
+                                <div class="icon">
+                                    <img src="./img/main/data/month.png" alt="">
+                                </div>
+                                <div class="text">
+                                    <div>游戏统计</div>
+                                </div>
+                            </div>
+                            <div class="pop" id="month-pop">
+                                <div class="pop-main">
+                                    <img src="./img/main/data/pop.png" alt="">
+                                    <div class="pop-text">
+                                        查看单个游戏日活、 投注总次数及总交易量
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-list" id="data-list" style="display: none;">
+                        <div class="nav">
+                            <div class="nav-list" id="pie-chart-nav-list" style="display: none;">
+                                <div class="item" id="pie-chart-0" onclick="selectPieChartId('pie-chart-0')">
+                                    分红池
+                                </div>
+                                <div class="item" id="pie-chart-1" onclick="selectPieChartId('pie-chart-1')">
+                                    质押
+                                </div>
+                                <div class="item" id="pie-chart-2" onclick="selectPieChartId('pie-chart-2')">
+                                    分红记录
+                                </div>
+                                <div class="item" id="pie-chart-3" onclick="selectPieChartId('pie-chart-3')">
+                                    我的余额
+                                </div>
+                            </div>
+                            <div class="nav-left" id="day-nav-list" style="display: none;">
+                                交易额统计
+                            </div>
+                            <div class="nav-left" id="month-nav-list" style="display: none;">
+                                游戏统计
+                            </div>
+                            <div class="money" id="flag-list" style="display: none;">
+                                <div class="money-list">
+                                    <div class="top" onclick="pullMoneyList()">
+                                        <img id="flag" class="flag" src="./img/main/data/CN.png" alt="">
+                                        <div id="money-name">CNY</div>
+                                        <img id="pull-up" class="pull" src="./img/main/data/pull-up.png" alt="">
+                                        <img id="pull-down" style="display: none;" class="pull" src="./img/main/data/pull-down.png" alt="">
+                                    </div>
+                                    <div class="items" id="money-list" style="display: none;">
+                                        <div class="item" onclick="selectMoney('USD')">
+                                            <img class="flag" src="./img/main/data/US.png" alt="">
+                                            <div>USD</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
+                                        <div class="item" onclick="selectMoney('CNY')">
+                                            <img class="flag" src="./img/main/data/CN.png" alt="">
+                                            <div>CNY</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
+                                        <div class="item" onclick="selectMoney('HKD')">
+                                            <img class="flag" src="./img/main/data/HK.png" alt="">
+                                            <div>HKD</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
+                                        <div class="item" onclick="selectMoney('KRW')">
+                                            <img class="flag" src="./img/main/data/KR.png" alt="">
+                                            <div>KRW</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
+                                        <div class="item" onclick="selectMoney('EUR')">
+                                            <img class="flag" src="./img/main/data/EU.png" alt="">
+                                            <div>EUR</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
+                                        <div class="item" onclick="selectMoney('USD')">
+                                            <img class="flag" src="./img/main/data/GB.png" alt="">
+                                            <div>GBP</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="close" onclick="closeDataList()">
+                                <img src="./img/main/data/close.png" alt="">
+                            </div>
+                        </div>
+                        <div id="pie-chart-list" style="display: none;">
+                            <div class="list-main" id="pie-chart-0-list" style="display: none;">
+                                <div class="nav">
+                                    <div class="pie-chart-help">
+                                        <div>当前分红池累计</div>
+                                        <div onclick="openHelp('pie-chart-0-help')"><img src="./img/main/data/help.png" alt=""></div>
+                                        <div class="help-pop" id="pie-chart-0-help" style="display: none">
+                                            <div class="help-pop-main">
+                                                <img src="./img/main/data/pop01.png" alt="">
+                                                <div class="help-pop-close" onclick="closeHelp('pie-chart-0-help')">
+                                                    <img src="./img/main/data/close.png" alt="">
+                                                </div>
+                                                <div class="help-pop-text">
+                                                    <div class="help-pop-title">
+                                                        分红池
+                                                    </div>
+                                                    <div>
+                                                        当平台拥有任何收入，分红部分将会直接拨入分红池等待分配，每小时将会结算一次，所得的分红会自动累积到您的余额上
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div>下次分红</div>
+                                        <div class="time">
+                                            <img src="./img/main/data/time.png" alt="">
+                                            <div>
+                                                正在分红
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lists">
+                                    <div class="item">
+                                        <div class="item-left">
+                                            <div>
+                                                <img src="./img/main/data/DICE.png" alt="">
+                                                <div><span>297.07</span>DICE</div>
+                                            </div>
+                                        </div>
+                                        <div class="item-right">
+                                            <div>
+                                                <div>预估收益</div>
+                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            </div>
+                                            <div class="line"></div>
+                                            <div>
+                                                <div>每万DICE 预期收益</div>
+                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-left">
+                                            <div>
+                                                <img src="./img/main/data/BLACK.png" alt="">
+                                                <div><span>6.59005</span>BLACK</div>
+                                            </div>
+                                        </div>
+                                        <div class="item-right">
+                                            <div>
+                                                <div>预估收益</div>
+                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            </div>
+                                            <div class="line"></div>
+                                            <div>
+                                                <div>每万DICE 预期收益</div>
+                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-left">
+                                            <div>
+                                                <img src="./img/main/data/KARMA.png" alt="">
+                                                <div><span>1089.39325</span>KARMA</div>
+                                            </div>
+                                        </div>
+                                        <div class="item-right">
+                                            <div>
+                                                <div>预估收益</div>
+                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            </div>
+                                            <div class="line"></div>
+                                            <div>
+                                                <div>每万DICE 预期收益</div>
+                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-main-bottom">*每小时结算一次，依质押比例进行分红分配，所得的分红会自动累积到您到余额上</div>
+                            </div>
+                            <div class="list-main pie-chart-1-list" id="pie-chart-1-list" style="display: none;">
+                                <div class="nav">
+                                    <div class="pie-chart-help">
+                                        <div>质押您的DICE</div>
+                                        <div onclick="openHelp('pie-chart-1-help')"><img src="./img/main/data/help.png" alt=""></div>
+                                        <div class="help-pop" id="pie-chart-1-help" style="display: none;">
+                                            <div class="help-pop-main">
+                                                <img src="./img/main/data/pop01.png" alt="">
+                                                <div class="help-pop-close" onclick="closeHelp('pie-chart-1-help')">
+                                                    <img src="./img/main/data/close.png" alt="">
+                                                </div>
+                                                <div class="help-pop-text">
+                                                    <div class="help-pop-title">
+                                                        质押DICE
+                                                    </div>
+                                                    <div>
+                                                        您可以随时质押，系统将会依您所质押的量进行利润分配。质押后将会被锁定，无法交易和使用，你可以随时质押，需要24小时去完成解押，期间不能获得利润分配
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lists">
+                                    <div class="item">
+                                        <div class="item-center">
+                                            <img src="./img/main/data/DICE.png" alt="">
+                                            <div>
+                                                <span>5091866777.6300</span>DICE
+                                            </div>
+                                            <div class="note">89.96% of circulating 5660160396.6039 DICE</div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-main">
+                                            <div>可质押</div>
+                                            <div class="flex flex-center">
+                                                <div>
+                                                    <span>0.0010</span>
+                                                </div>
+                                                <div style="font-size: 12px;">DICE</div>
+                                            </div>
+                                            <div class="flex">
+                                                <div class="flex flex-left">
+                                                    <img src="./img/main/data/DICE.png" alt="">
+                                                    <div>
+                                                        0.0000
+                                                    </div>
+                                                    <div style="font-size: 12px;">DICE</div>
+                                                </div>
+                                                <div class="pie-chart-3-btn zy">
+                                                    质押
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-main">
+                                            <div>已质押</div>
+                                            <div class="flex flex-center">
+                                                <div>
+                                                    <span>332462.5430</span>
+                                                </div>
+                                                <div style="font-size: 12px;">DICE</div>
+                                                <div class="line"></div>
+                                                <div style="font-size: 12px;">0.00652% 占总质押</div>
+                                            </div>
+                                            <div class="flex">
+                                                <div class="flex flex-left">
+                                                    <img src="./img/main/data/DICE.png" alt="">
+                                                    <div>
+                                                        0.0000
+                                                    </div>
+                                                    <div style="font-size: 12px;">DICE</div>
+                                                </div>
+                                                <div class="pie-chart-3-btn sh">
+                                                    赎回
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-main-bottom">*解除质押需要24小时</div>
+                            </div>
+                            <div class="list-main pie-chart-2-list" id="pie-chart-2-list" style="display: none;">
+                                <div class="pie-chart-2-help">
+                                    <div class="pie-chart-2-title">分红记录</div>
+                                    <div class="pie-chart-2-date">
+                                        <img src="./img/main/data/left.png" alt="">
+                                        <div>2019/06/27</div>
+                                        <img src="./img/main/data/right.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="pie-chart-2-lists">
+                                    <div class="pie-chart-2-item">
+                                        <div class="item">时间</div>
+                                        <div class="item">数量</div>
+                                    </div>
+                                    <div class="pie-chart-2-items">
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">TOTAL</div>
+                                            <div class="item">9999.90 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                        <div class="pie-chart-2-item">
+                                            <div class="item">09:00:00</div>
+                                            <div class="item">999.99 <span>DICE</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-main pie-chart-3-list" id="pie-chart-3-list" style="display: none;">
+                                <div class="pie-chart-3-items">
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 40px;" src="./img/main/data/DICE-s.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> DICE</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 39px;" src="./img/main/data/BLACK-s.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> BLACK</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 27px;" src="./img/main/data/MEETONE-s.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> MEETONE</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 39px;" src="./img/main/data/KARMA-s.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> KARMA</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 41px;" src="./img/main/data/EGT-s.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> EGT</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 31px;" src="./img/main/data/ZKS-s.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> ZKS</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 41px;" src="./img/main/data/PIXEOS-s.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> PIXEOS</div>
+                                    </div>
+                                </div>
+                                <div class="pie-chart-3-btn">
+                                    领取
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-list" id="day-list" style="display: none;">
+                            <div class="day-lists">
+                                <div class="day-item">
+                                    <div class="day-item-name"></div>
+                                    <div class="day-item-text">24小时</div>
+                                    <div class="day-item-text">历史总计</div>
+                                </div>
+                                <div class="day-items">
+                                    <div class="day-item">
+                                        <div class="day-item-name">活跃人数</div>
+                                        <div class="day-item-text"><span>2145</span></div>
+                                        <div class="day-item-text"><span>132324</span></div>
+                                    </div>
+                                    <div class="day-item">
+                                        <div class="day-item-name">活跃人数</div>
+                                        <div class="day-item-text"><span>2145</span></div>
+                                        <div class="day-item-text"><span>132324</span></div>
+                                    </div>
+                                    <div class="day-item">
+                                        <div class="day-item-name">活跃人数</div>
+                                        <div class="day-item-text"><span>2145</span></div>
+                                        <div class="day-item-text"><span>132324</span></div>
+                                    </div>
+                                </div>
+                                <img src="./img/main/data/zx.png" alt="">
+                            </div>
+                        </div>
+                        <div class="month-list" id="month-list" style="display: none;">
+                            <div class="month-items">
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/BLACKJACK.png" alt="">
+                                        <span>BLACKJACK</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/ROULETTE.png" alt="">
+                                        <span>ROULETTE</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/LUCKY DRAW.png" alt="">
+                                        <span>LUCKY DRAW</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/BIDDING.png" alt="">
+                                        <span>BIDDING</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/BACCARAT.png" alt="">
+                                        <span>BACCARAT</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/EXCHANGE.png" alt="">
+                                        <span>EXCHANGE</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/SPORTBET.png" alt="">
+                                        <span>SPORTBET</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/TEXAS HOLD’EM.png" alt="">
+                                        <span>TEXAS HOLD’EM</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-item">
+                                    <div class="month-item-name">
+                                        <img src="./img/main/data/DICE-G.png" alt="">
+                                        <span>DICE</span>
+                                    </div>
+                                    <div class="month-item-list">
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/01.png" alt="">
+                                            <div>
+                                                <div>累计投注次数</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/02.png" alt="">
+                                            <div>
+                                                <div>累计派发奖励</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/03.png" alt="">
+                                            <div>
+                                                <div>24小时投注率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/04.png" alt="">
+                                            <div>
+                                                <div>累计投注金额</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="month-item-list-item">
+                                            <img src="./img/main/data/05.png" alt="">
+                                            <div>
+                                                <div>净利润率</div>
+                                                <div><span>999999999</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +963,12 @@
                                     <img class="video-icon-hover" src="./img/main/introduction/button/video-hover.png" alt="">
                                 </div>
                                 <div class="text">
-                                    <img src="./img/main/introduction/button/video-text.png" alt="">
+                                    <div class="text-img">
+                                        <img src="./img/main/introduction/button/video-text.png" alt="">
+                                        <div class="text-text">
+                                            DICE品牌视频
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="item white-paper">
@@ -154,7 +977,12 @@
                                     <img class="white-paper-icon-hover" src="./img/main/introduction/button/white-paper-hover.png" alt="">
                                 </div>
                                 <div class="text">
-                                    <img src="./img/main/introduction/button/white-paper-text.png" alt="">
+                                    <div class="text-img">
+                                        <img src="./img/main/introduction/button/white-paper-text.png" alt="">
+                                        <div class="text-text">
+                                            白皮书
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="item jion" onclick="flyClick()">
@@ -163,7 +991,12 @@
                                     <img class="jion-icon-hover" src="./img/main/introduction/button/jion-hover.png" alt="">
                                 </div>
                                 <div class="text">
-                                    <img src="./img/main/introduction/button/jion-text.png" alt="">
+                                    <div class="text-img">
+                                        <img src="./img/main/introduction/button/jion-text.png" alt="">
+                                        <div class="text-text">
+                                            加入DICE社区
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -95,3 +95,153 @@ window.onscroll = function (ele) {
     document.getElementById('distributed').style.transition = 'none'
   }
 }
+let dataId = ''
+function dataOnmouseover (id) {
+  if (dataId === '') {
+    document.getElementById('pie-chart').style.width = '270px'
+    document.getElementById('pie-chart').style.height = '180px'
+    document.getElementById('pie-chart').style.margin = '0 13px'
+    document.getElementById('pie-chart').style.fontWeight = 'normal'
+    document.getElementById('pie-chart').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
+    document.getElementById('pie-chart').style.paddingBottom = '35px'
+    document.getElementById('pie-chart').style.opacity = '0.4'
+    document.getElementById('day').style.width = '270px'
+    document.getElementById('day').style.height = '180px'
+    document.getElementById('day').style.margin = '0 13px'
+    document.getElementById('day').style.fontWeight = 'normal'
+    document.getElementById('day').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
+    document.getElementById('day').style.paddingBottom = '35px'
+    document.getElementById('day').style.opacity = '0.4'
+    document.getElementById('month').style.width = '270px'
+    document.getElementById('month').style.height = '180px'
+    document.getElementById('month').style.margin = '0 13px'
+    document.getElementById('month').style.fontWeight = 'normal'
+    document.getElementById('month').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
+    document.getElementById('month').style.paddingBottom = '35px'
+    document.getElementById('month').style.opacity = '0.4'
+    document.getElementById('month').style.opacity = '0.4'
+    document.getElementById(id).style.width = '296px'
+    document.getElementById(id).style.height = '198px'
+    document.getElementById(id).style.margin = '0'
+    document.getElementById(id).style.fontWeight = '700'
+    document.getElementById(id).style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.3)'
+    document.getElementById(id).style.paddingBottom = '40px'
+    document.getElementById(id).style.opacity = '1'
+  } else {
+    document.getElementById("pie-chart").classList.remove('item-no-hover')
+    document.getElementById("day").classList.remove('item-no-hover')
+    document.getElementById("month").classList.remove('item-no-hover')
+  }
+}
+function dataOnmouseout (id) {
+  if (dataId === '') {
+    document.getElementById('pie-chart').style.width = '270px'
+    document.getElementById('pie-chart').style.height = '180px'
+    document.getElementById('pie-chart').style.margin = '0 13px'
+    document.getElementById('pie-chart').style.fontWeight = 'normal'
+    document.getElementById('pie-chart').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
+    document.getElementById('pie-chart').style.paddingBottom = '35px'
+    document.getElementById('pie-chart').style.opacity = '1'
+    document.getElementById("pie-chart").classList.add('item-no-hover')
+    document.getElementById('day').style.width = '270px'
+    document.getElementById('day').style.height = '180px'
+    document.getElementById('day').style.margin = '0 13px'
+    document.getElementById('day').style.fontWeight = 'normal'
+    document.getElementById('day').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
+    document.getElementById('day').style.paddingBottom = '35px'
+    document.getElementById('day').style.opacity = '1'
+    document.getElementById("day").classList.add('item-no-hover')
+    document.getElementById('month').style.width = '270px'
+    document.getElementById('month').style.height = '180px'
+    document.getElementById('month').style.margin = '0 13px'
+    document.getElementById('month').style.fontWeight = 'normal'
+    document.getElementById('month').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
+    document.getElementById('month').style.paddingBottom = '35px'
+    document.getElementById('month').style.opacity = '1'
+    document.getElementById("month").classList.add('item-no-hover')
+  }
+}
+let pieChartId = 'pie-chart-0'
+function selectData (id) {
+  if (dataId === '') {
+    dataId = id
+    document.getElementById('data-list').style.display = 'block'
+    document.getElementById(id + '-list').style.display = 'block'
+    document.getElementById(id + '-nav-list').style.display = 'flex'
+    if (id === 'pie-chart') {
+      selectPieChartId(pieChartId)
+      document.getElementById('flag-list').style.display = 'block'
+    }
+    if (id === 'month') {
+      document.getElementById('flag-list').style.display = 'block'
+      selectPieChartId(pieChartId)
+    }
+    if (id === 'day') {
+      document.getElementById('flag-list').style.display = 'none'
+    }
+    document.getElementById('data-list').style.maxHeight = '1000px'
+  }
+}
+function closeDataList () {
+  dataId = ''
+  document.getElementById('pie-chart-list').style.display = 'none'
+  document.getElementById('day-list').style.display = 'none'
+  document.getElementById('month-list').style.display = 'none'
+  document.getElementById('pie-chart-nav-list').style.display = 'none'
+  document.getElementById('day-nav-list').style.display = 'none'
+  document.getElementById('month-nav-list').style.display = 'none'
+  document.getElementById('data-list').style.maxHeight = '0'
+  document.getElementById('data-list').style.display = 'none'
+  document.getElementById('money-list').style.display = 'none'
+  document.getElementById('pull-up').style.display = 'block'
+  document.getElementById('pull-down').style.display = 'none'
+  dataOnmouseout()
+}
+function selectPieChartId (id) {
+  pieChartId = id
+  document.getElementById('pie-chart-0').style.backgroundColor = '#ffffff'
+  document.getElementById('pie-chart-0').style.color = '#40496b'
+  document.getElementById('pie-chart-0').style.fontWeight = '400'
+  document.getElementById('pie-chart-0-list').style.display = 'none'
+  document.getElementById('pie-chart-1').style.backgroundColor = '#ffffff'
+  document.getElementById('pie-chart-1').style.color = '#40496b'
+  document.getElementById('pie-chart-1').style.fontWeight = '400'
+  document.getElementById('pie-chart-1-list').style.display = 'none'
+  document.getElementById('pie-chart-2').style.backgroundColor = '#ffffff'
+  document.getElementById('pie-chart-2').style.color = '#40496b'
+  document.getElementById('pie-chart-2').style.fontWeight = '400'
+  document.getElementById('pie-chart-2-list').style.display = 'none'
+  document.getElementById('pie-chart-3').style.backgroundColor = '#ffffff'
+  document.getElementById('pie-chart-3').style.color = '#40496b'
+  document.getElementById('pie-chart-3').style.fontWeight = '400'
+  document.getElementById('pie-chart-3-list').style.display = 'none'
+  document.getElementById(id).style.backgroundColor = '#4f4f7b'
+  document.getElementById(id).style.color = '#ffffff'
+  document.getElementById(id).style.fontWeight = '700'
+  document.getElementById(id + '-list').style.display = 'block'
+  
+}
+function pullMoneyList () {
+  if (document.getElementById('money-list').style.display === 'none') {
+    document.getElementById('money-list').style.display = 'block'
+    document.getElementById('pull-up').style.display = 'none'
+    document.getElementById('pull-down').style.display = 'block'
+  } else {
+    document.getElementById('money-list').style.display = 'none'
+    document.getElementById('pull-up').style.display = 'block'
+    document.getElementById('pull-down').style.display = 'none'
+  }
+}
+function selectMoney (name) {
+  document.getElementById('money-name').innerHTML = name
+  document.getElementById('flag').src = './img/main/data/' + name.slice(0, 2) + '.png'
+  pullMoneyList()
+}
+function openHelp (id) {
+  document.getElementById('data-list').style.overflow = 'visible'
+  document.getElementById(id).style.display = 'block'
+}
+function closeHelp (id) {
+  document.getElementById('data-list').style.overflow = 'hidden'
+  document.getElementById(id).style.display = 'none'
+}
