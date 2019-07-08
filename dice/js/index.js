@@ -104,33 +104,32 @@ function dataOnmouseover (id) {
     document.getElementById('pie-chart').style.fontWeight = 'normal'
     document.getElementById('pie-chart').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
     document.getElementById('pie-chart').style.paddingBottom = '35px'
-    document.getElementById('pie-chart').style.opacity = '0.4'
+    document.getElementById('pie-chart-main').style.opacity = '0.4'
     document.getElementById('day').style.width = '270px'
     document.getElementById('day').style.height = '180px'
     document.getElementById('day').style.margin = '0 13px'
     document.getElementById('day').style.fontWeight = 'normal'
     document.getElementById('day').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
     document.getElementById('day').style.paddingBottom = '35px'
-    document.getElementById('day').style.opacity = '0.4'
+    document.getElementById('day-main').style.opacity = '0.4'
     document.getElementById('month').style.width = '270px'
     document.getElementById('month').style.height = '180px'
     document.getElementById('month').style.margin = '0 13px'
     document.getElementById('month').style.fontWeight = 'normal'
     document.getElementById('month').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
     document.getElementById('month').style.paddingBottom = '35px'
-    document.getElementById('month').style.opacity = '0.4'
-    document.getElementById('month').style.opacity = '0.4'
+    document.getElementById('month-main').style.opacity = '0.4'
     document.getElementById(id).style.width = '296px'
     document.getElementById(id).style.height = '198px'
     document.getElementById(id).style.margin = '0'
     document.getElementById(id).style.fontWeight = '700'
     document.getElementById(id).style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.3)'
     document.getElementById(id).style.paddingBottom = '40px'
-    document.getElementById(id).style.opacity = '1'
+    document.getElementById(id + '-main').style.opacity = '1'
   } else {
-    document.getElementById("pie-chart").classList.remove('item-no-hover')
-    document.getElementById("day").classList.remove('item-no-hover')
-    document.getElementById("month").classList.remove('item-no-hover')
+    document.getElementById('pie-chart').classList.remove('item-no-hover')
+    document.getElementById('day').classList.remove('item-no-hover')
+    document.getElementById('month').classList.remove('item-no-hover')
   }
 }
 function dataOnmouseout (id) {
@@ -141,24 +140,24 @@ function dataOnmouseout (id) {
     document.getElementById('pie-chart').style.fontWeight = 'normal'
     document.getElementById('pie-chart').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
     document.getElementById('pie-chart').style.paddingBottom = '35px'
-    document.getElementById('pie-chart').style.opacity = '1'
-    document.getElementById("pie-chart").classList.add('item-no-hover')
+    document.getElementById('pie-chart-main').style.opacity = '1'
+    document.getElementById('pie-chart').classList.add('item-no-hover')
     document.getElementById('day').style.width = '270px'
     document.getElementById('day').style.height = '180px'
     document.getElementById('day').style.margin = '0 13px'
     document.getElementById('day').style.fontWeight = 'normal'
     document.getElementById('day').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
     document.getElementById('day').style.paddingBottom = '35px'
-    document.getElementById('day').style.opacity = '1'
-    document.getElementById("day").classList.add('item-no-hover')
+    document.getElementById('day-main').style.opacity = '1'
+    document.getElementById('day').classList.add('item-no-hover')
     document.getElementById('month').style.width = '270px'
     document.getElementById('month').style.height = '180px'
     document.getElementById('month').style.margin = '0 13px'
     document.getElementById('month').style.fontWeight = 'normal'
     document.getElementById('month').style.boxShadow = '0px 14px 38px rgba(87, 111, 159, 0.2)'
     document.getElementById('month').style.paddingBottom = '35px'
-    document.getElementById('month').style.opacity = '1'
-    document.getElementById("month").classList.add('item-no-hover')
+    document.getElementById('month-main').style.opacity = '1'
+    document.getElementById('month').classList.add('item-no-hover')
   }
 }
 let pieChartId = 'pie-chart-0'
@@ -179,22 +178,27 @@ function selectData (id) {
     if (id === 'day') {
       document.getElementById('flag-list').style.display = 'none'
     }
-    document.getElementById('data-list').style.maxHeight = '1000px'
+    setTimeout(() => {
+      document.getElementById('data-list').style.maxHeight = '1000px'
+    }, 50)
   }
 }
 function closeDataList () {
   dataId = ''
-  document.getElementById('pie-chart-list').style.display = 'none'
-  document.getElementById('day-list').style.display = 'none'
-  document.getElementById('month-list').style.display = 'none'
-  document.getElementById('pie-chart-nav-list').style.display = 'none'
-  document.getElementById('day-nav-list').style.display = 'none'
-  document.getElementById('month-nav-list').style.display = 'none'
   document.getElementById('data-list').style.maxHeight = '0'
-  document.getElementById('data-list').style.display = 'none'
-  document.getElementById('money-list').style.display = 'none'
+  document.getElementById('money-list').style.maxHeight = '0'
   document.getElementById('pull-up').style.display = 'block'
   document.getElementById('pull-down').style.display = 'none'
+  setTimeout(() => {
+    document.getElementById('pie-chart-list').style.display = 'none'
+    document.getElementById('day-list').style.display = 'none'
+    document.getElementById('month-list').style.display = 'none'
+    document.getElementById('pie-chart-nav-list').style.display = 'none'
+    document.getElementById('day-nav-list').style.display = 'none'
+    document.getElementById('month-nav-list').style.display = 'none'
+    document.getElementById('data-list').style.display = 'none'
+    document.getElementById('money-list').style.display = 'none'
+  }, 300)
   dataOnmouseout()
 }
 function selectPieChartId (id) {
@@ -226,10 +230,16 @@ function pullMoneyList () {
     document.getElementById('money-list').style.display = 'block'
     document.getElementById('pull-up').style.display = 'none'
     document.getElementById('pull-down').style.display = 'block'
+    setTimeout(() => {
+      document.getElementById('money-list').style.maxHeight = '350px'
+    }, 50)
   } else {
-    document.getElementById('money-list').style.display = 'none'
-    document.getElementById('pull-up').style.display = 'block'
+    document.getElementById('money-list').style.maxHeight = '0'
     document.getElementById('pull-down').style.display = 'none'
+    document.getElementById('pull-up').style.display = 'block'
+    setTimeout(() => {
+      document.getElementById('money-list').style.display = 'none'
+    }, 300)
   }
 }
 function selectMoney (name) {

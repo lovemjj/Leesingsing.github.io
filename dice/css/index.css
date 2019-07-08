@@ -217,7 +217,7 @@ img {
   box-sizing: border-box;
   color: #40496b;
   letter-spacing: 1px;
-  transition: all 0.2s;
+  transition: max-height 0.3s;
   overflow: hidden;
   max-height: 0;
 }
@@ -287,6 +287,9 @@ img {
   background-color: #f7f7fa;
   border-radius: 5px;
   margin: 0 9px 9px 9px;
+  transition: max-height 0.3s;
+  max-height: 0;
+  overflow: hidden;
 }
 .main .data-list .nav .money .money-list .items .item {
   display: flex;
@@ -738,7 +741,7 @@ img {
 }
 .main .introduction {
   padding: 0 185px;
-  padding-top: 90px;
+  padding-top: 45px;
   color: #40496b;
   font-size: 14px;
   line-height: 28px;
