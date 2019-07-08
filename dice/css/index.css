@@ -403,6 +403,7 @@ input {
   padding-left: 15px;
   font-size: 20px;
   box-sizing: border-box;
+  vertical-align: middle;
 }
 .main .data-list .nav .right .time {
   width: 190px;
@@ -719,8 +720,12 @@ input {
   height: 50px;
   border-radius: 2.5px;
   background-color: #ffffff;
+  padding: 0 20px;
 }
 .main .day-items {
+  padding: 0 10px;
+}
+.main .day-items .day-item {
   padding: 0 10px;
 }
 .main .day-items .day-item:nth-child(odd) {
