@@ -181,10 +181,14 @@ function selectData (id) {
     setTimeout(() => {
       document.getElementById('data-list').style.maxHeight = '1000px'
     }, 50)
+    setTimeout(() => {
+      document.getElementById('data-list').style.overflow = 'visible'
+    }, 350)
   }
 }
 function closeDataList () {
   dataId = ''
+  document.getElementById('data-list').style.overflow = 'hidden'
   document.getElementById('data-list').style.maxHeight = '0'
   document.getElementById('money-list').style.maxHeight = '0'
   document.getElementById('pull-up').style.display = 'block'
@@ -243,15 +247,20 @@ function pullMoneyList () {
   }
 }
 function selectMoney (name) {
-  document.getElementById('money-name').innerHTML = name
+  let arr = document.getElementsByClassName('money-name')
+  for (var i = 0; i < arr.length; i++) {
+    arr[i].innerHTML = name
+  }
   document.getElementById('flag').src = './img/main/data/' + name.slice(0, 2) + '.png'
   pullMoneyList()
 }
 function openHelp (id) {
-  document.getElementById('data-list').style.overflow = 'visible'
   document.getElementById(id).style.display = 'block'
+  document.getElementById(id + '-normal').style.display = 'none'
+  document.getElementById(id + '-hover').style.display = 'block'
 }
 function closeHelp (id) {
-  document.getElementById('data-list').style.overflow = 'hidden'
   document.getElementById(id).style.display = 'none'
+  document.getElementById(id + '-normal').style.display = 'block'
+  document.getElementById(id + '-hover').style.display = 'none'
 }

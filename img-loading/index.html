@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片加载</title>
+  <style>
+    img {
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <img class="loading-img" src="./img/DICE.png" data-src="./img/logo.png" alt="">
+  <img class="loading-img" src="./img/DICE1.png" data-src="./img/logo1.png" alt="">
+  <img class="loading-img" src="./img/DICE2.png" data-src="./img/logo2.png" alt="">
+  <img class="loading-img" src="./img/DICE3.png" data-src="./img/logo3.png" alt="">
+</body>
+<script>
+  //图片加载
+function loadImg (imgClass,imgSrc) {
+  //data-src:存放需要加载的图片的路径
+  let arrImg = document.getElementsByClassName(imgClass) //需要实时加载class为imgClass的图片数组
+  for(var i = 0; i < arrImg.length; i++) {
+    const top = arrImg[i].getBoundingClientRect().top
+    const bottom = arrImg[i].getBoundingClientRect().bottom
+    if (!arrImg[i].getAttribute(imgSrc)) continue
+    // if (top < window.innerHeight && bottom > 0) {
+    //   arrImg[i].setAttribute('src',arrImg[i].getAttribute(imgSrc))
+    //   arrImg[i].removeAttribute(imgSrc)
+    // }
+    if (document.documentElement.scrollTop + document.body.scrollTop + document.documentElement.clientHeight > arrImg[i].offsetTop) {
+      arrImg[i].setAttribute('src',arrImg[i].getAttribute(imgSrc))
+      arrImg[i].removeAttribute(imgSrc)
+    }
+  }
+}
+window.onload = window.onscroll = function () {loadImg('loading-img', 'data-src')}
+</script>
+</html>

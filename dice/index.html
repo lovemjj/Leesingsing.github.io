@@ -95,7 +95,7 @@
                                 <div class="pop-main">
                                     <img src="./img/main/data/pop.png" alt="">
                                     <div class="pop-text">
-                                        查看分红情况及质 押/解除质押 DICE TOKEN
+                                        查看分红情况及质押/解除质押 DICE TOKEN
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                 <div class="money-list">
                                     <div class="top" onclick="pullMoneyList()">
                                         <img id="flag" class="flag" src="./img/main/data/CN.png" alt="">
-                                        <div id="money-name">CNY</div>
+                                        <div class="money-name">CNY</div>
                                         <img id="pull-up" class="pull" src="./img/main/data/pull-up.png" alt="">
                                         <img id="pull-down" style="display: none;" class="pull" src="./img/main/data/pull-down.png" alt="">
                                     </div>
@@ -193,12 +193,21 @@
                                             <div>EUR</div>
                                             <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
                                         </div>
-                                        <div class="item" onclick="selectMoney('USD')">
+                                        <div class="item" onclick="selectMoney('GBP')">
                                             <img class="flag" src="./img/main/data/GB.png" alt="">
                                             <div>GBP</div>
                                             <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
                                         </div>
-                                        
+                                        <div class="item" onclick="selectMoney('EOS')">
+                                            <img class="flag" src="./img/main/data/EO.png" alt="">
+                                            <div>EOS</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
+                                        <div class="item" onclick="selectMoney('BTC')">
+                                            <img class="flag" src="./img/main/data/BT.png" alt="">
+                                            <div>BTC</div>
+                                            <img class="pull" style="opacity: 0" src="./img/main/data/pull-up.png" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +220,7 @@
                                 <div class="nav">
                                     <div class="pie-chart-help">
                                         <div>当前分红池累计</div>
-                                        <div onclick="openHelp('pie-chart-0-help')"><img src="./img/main/data/help.png" alt=""></div>
+                                        <div class="pie-chart-help-img" onclick="openHelp('pie-chart-0-help')"><img id="pie-chart-0-help-normal" class="h-normal" src="./img/main/data/help.png" alt=""><img id="pie-chart-0-help-hover" class="h-hover" src="./img/main/data/help-hover.png" alt=""></div>
                                         <div class="help-pop" id="pie-chart-0-help" style="display: none">
                                             <div class="help-pop-main">
                                                 <img src="./img/main/data/pop01.png" alt="">
@@ -243,57 +252,401 @@
                                     <div class="item">
                                         <div class="item-left">
                                             <div>
-                                                <img src="./img/main/data/DICE.png" alt="">
-                                                <div><span>297.07</span>DICE</div>
+                                                <img style="width: 80px;" src="./img/main/data/CNY.png" alt="">
+                                                <div><span class="number">1089.39325</span> <span class="money-name">CNY</span></div>
                                             </div>
                                         </div>
                                         <div class="item-right">
                                             <div>
                                                 <div>预估收益</div>
-                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                                <div class="item-right-second"><span class="number">0.0193984978</span> <span class="money-name">CNY</span></div>
                                             </div>
                                             <div class="line"></div>
                                             <div>
                                                 <div>每万DICE 预期收益</div>
-                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                                <div class="item-right-second"><span class="number">0.0193984978</span> <span class="money-name">CNY</span></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <div class="item-left">
-                                            <div>
-                                                <img src="./img/main/data/BLACK.png" alt="">
-                                                <div><span>6.59005</span>BLACK</div>
+                                    <div class="items">
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/EOS.png" alt="">
+                                                    <div><span class="number">297.07</span> EOS</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EOS</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EOS</span></div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="item-right">
-                                            <div>
-                                                <div>预估收益</div>
-                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/DICE.png" alt="">
+                                                    <div><span class="number">297.07</span> DICE</div>
+                                                </div>
                                             </div>
-                                            <div class="line"></div>
-                                            <div>
-                                                <div>每万DICE 预期收益</div>
-                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>DICE</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>DICE</span></div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="item-left">
-                                            <div>
-                                                <img src="./img/main/data/KARMA.png" alt="">
-                                                <div><span>1089.39325</span>KARMA</div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 55px;" src="./img/main/data/EBTC.png" alt="">
+                                                    <div><span class="number">297.07</span> EBTC</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EBTC</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EBTC</span></div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="item-right">
-                                            <div>
-                                                <div>预估收益</div>
-                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 55px;" src="./img/main/data/EETH.png" alt="">
+                                                    <div><span class="number">297.07</span> EETH</div>
+                                                </div>
                                             </div>
-                                            <div class="line"></div>
-                                            <div>
-                                                <div>每万DICE 预期收益</div>
-                                                <div class="item-right-second"><span>0.0193984978</span>CNY</div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EETH</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EETH</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 50px;" src="./img/main/data/EUSD.png" alt="">
+                                                    <div><span class="number">297.07</span> EUSD</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EUSD</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EUSD</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 50px;" src="./img/main/data/BLACK.png" alt="">
+                                                    <div><span class="number">297.07</span> BLACK</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>BLACK</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>BLACK</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/MEETONE.png" alt="">
+                                                    <div><span class="number">297.07</span> MEETONE</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>MEETONE</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>MEETONE</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 55px;" src="./img/main/data/EGT.png" alt="">
+                                                    <div><span class="number">297.07</span> EGT</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EGT</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EGT</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 55px;" src="./img/main/data/TPT.png" alt="">
+                                                    <div><span class="number">297.07</span> TPT</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>TPT</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>TPT</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/ZKS.png" alt="">
+                                                    <div><span class="number">297.07</span> ZKS</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>ZKS</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>ZKS</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 50px;" src="./img/main/data/KARMA.png" alt="">
+                                                    <div><span class="number">297.07</span> KARMA</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>KARMA</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>KARMA</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 52px;" src="./img/main/data/TGC.png" alt="">
+                                                    <div><span class="number">297.07</span> TGC</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>TGC</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>TGC</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 55px;" src="./img/main/data/TEA.png" alt="">
+                                                    <div><span class="number">297.07</span> TEA</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>TEA</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>TEA</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/POKER.png" alt="">
+                                                    <div><span class="number">297.07</span> POKER</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>POKER</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>POKER</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 57px;" src="./img/main/data/DBET.png" alt="">
+                                                    <div><span class="number">297.07</span> DBET</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>DBET</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>DBET</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/ZKSPLAY.png" alt="">
+                                                    <div><span class="number">297.07</span> ZKSPLAY</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>ZKSPLAY</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>ZKSPLAY</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/EPT.png" alt="">
+                                                    <div><span class="number">297.07</span> EPT</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EPT</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>EPT</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 50px;" src="./img/main/data/OCT.png" alt="">
+                                                    <div><span class="number">297.07</span> OCT</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>OCT</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>OCT</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 57px;" src="./img/main/data/LT.png" alt="">
+                                                    <div><span class="number">297.07</span> LT</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>LT</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>LT</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-left">
+                                                <div>
+                                                    <img style="width: 60px;" src="./img/main/data/PIXEOS.png" alt="">
+                                                    <div><span class="number">297.07</span> PIXEOS</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-right">
+                                                <div>
+                                                    <div>预估收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>PIXEOS</span></div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div>
+                                                    <div>每万DICE 预期收益</div>
+                                                    <div class="item-right-second"><span class="number">0.0193984978</span> <span>PIXEOS</span></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -304,7 +657,7 @@
                                 <div class="nav">
                                     <div class="pie-chart-help">
                                         <div>质押您的DICE</div>
-                                        <div onclick="openHelp('pie-chart-1-help')"><img src="./img/main/data/help.png" alt=""></div>
+                                        <div class="pie-chart-help-img" onclick="openHelp('pie-chart-1-help')"><img id="pie-chart-1-help-normal" class="h-normal" src="./img/main/data/help.png" alt=""><img id="pie-chart-1-help-hover" class="h-hover" src="./img/main/data/help-hover.png" alt=""></div>
                                         <div class="help-pop" id="pie-chart-1-help" style="display: none;">
                                             <div class="help-pop-main">
                                                 <img src="./img/main/data/pop01.png" alt="">
@@ -346,7 +699,7 @@
                                                 <div class="flex flex-left">
                                                     <img src="./img/main/data/DICE.png" alt="">
                                                     <div>
-                                                        0.0000
+                                                        <input type="text" value="0.0000">
                                                     </div>
                                                     <div style="font-size: 12px;">DICE</div>
                                                 </div>
@@ -372,7 +725,7 @@
                                                 <div class="flex flex-left">
                                                     <img src="./img/main/data/DICE.png" alt="">
                                                     <div>
-                                                        0.0000
+                                                        <input type="text" value="0.0000">
                                                     </div>
                                                     <div style="font-size: 12px;">DICE</div>
                                                 </div>
@@ -480,43 +833,121 @@
                                 <div class="pie-chart-3-items">
                                     <div class="pie-chart-3-item">
                                         <div class="img">
-                                            <img style="width: 40px;" src="./img/main/data/DICE-s.png" alt="" srcset="">
+                                            <img style="width: 50px;" src="./img/main/data/EOS.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> EOS</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 50px;" src="./img/main/data/DICE.png" alt="" srcset="">
                                         </div>
                                         <div><span>0.0069673232</span> DICE</div>
                                     </div>
                                     <div class="pie-chart-3-item">
                                         <div class="img">
-                                            <img style="width: 39px;" src="./img/main/data/BLACK-s.png" alt="" srcset="">
+                                            <img style="width: 40px;" src="./img/main/data/EBTC.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> EBTC</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 40px;" src="./img/main/data/EETH.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> EETH</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 38px;" src="./img/main/data/EUSD.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> EUSD</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 40px;" src="./img/main/data/BLACK.png" alt="" srcset="">
                                         </div>
                                         <div><span>0.0069673232</span> BLACK</div>
                                     </div>
                                     <div class="pie-chart-3-item">
                                         <div class="img">
-                                            <img style="width: 27px;" src="./img/main/data/MEETONE-s.png" alt="" srcset="">
+                                            <img style="width: 50px;" src="./img/main/data/MEETONE.png" alt="" srcset="">
                                         </div>
                                         <div><span>0.0069673232</span> MEETONE</div>
                                     </div>
                                     <div class="pie-chart-3-item">
                                         <div class="img">
-                                            <img style="width: 39px;" src="./img/main/data/KARMA-s.png" alt="" srcset="">
-                                        </div>
-                                        <div><span>0.0069673232</span> KARMA</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 41px;" src="./img/main/data/EGT-s.png" alt="" srcset="">
+                                            <img style="width: 44px;" src="./img/main/data/EGT.png" alt="" srcset="">
                                         </div>
                                         <div><span>0.0069673232</span> EGT</div>
                                     </div>
                                     <div class="pie-chart-3-item">
                                         <div class="img">
-                                            <img style="width: 31px;" src="./img/main/data/ZKS-s.png" alt="" srcset="">
+                                            <img style="width: 40px;" src="./img/main/data/TPT.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> TPT</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 50px;" src="./img/main/data/ZKS.png" alt="" srcset="">
                                         </div>
                                         <div><span>0.0069673232</span> ZKS</div>
                                     </div>
                                     <div class="pie-chart-3-item">
                                         <div class="img">
-                                            <img style="width: 41px;" src="./img/main/data/PIXEOS-s.png" alt="" srcset="">
+                                            <img style="width: 40px;" src="./img/main/data/KARMA.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> KARMA</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 42px;" src="./img/main/data/TGC.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> TGC</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 44px;" src="./img/main/data/TEA.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> TEA</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 48px;" src="./img/main/data/POKER.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> POKER</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 44px;" src="./img/main/data/DBET.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> DBET</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 50px;" src="./img/main/data/ZKSPLAY.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> ZKSPLAY</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 50px;" src="./img/main/data/EPT.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> EPT</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 40px;" src="./img/main/data/OCT.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> OCT</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 44px;" src="./img/main/data/LT.png" alt="" srcset="">
+                                        </div>
+                                        <div><span>0.0069673232</span> LT</div>
+                                    </div>
+                                    <div class="pie-chart-3-item">
+                                        <div class="img">
+                                            <img style="width: 50px;" src="./img/main/data/PIXEOS.png" alt="" srcset="">
                                         </div>
                                         <div><span>0.0069673232</span> PIXEOS</div>
                                     </div>
