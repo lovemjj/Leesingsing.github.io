@@ -433,28 +433,13 @@ input {
   border: 1px solid #f2f2f5;
 }
 .main .data-list .list-main .lists .items {
-  margin-right: -10px;
   margin-top: 10px;
   height: 370px;
   overflow: auto;
 }
 ::-webkit-scrollbar
 {
-	width: 10px;
-	height: 10px;
-	background-color: #F5F5F5;
-}
-/*定义滚动条轨道 内阴影+圆角*/
-::-webkit-scrollbar-track
-{
-	border-radius: 10px;
-	background-color: #F5F5F5;
-} 
-/*定义滑块 内阴影+圆角*/
-::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-color: #555;
+	width: 0px;
 }
 .main .data-list .list-main .lists .item + .item {
   margin-top: 10px;
