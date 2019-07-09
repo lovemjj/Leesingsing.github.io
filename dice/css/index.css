@@ -21,7 +21,7 @@ input {
   color: #40496b;
   font-size: 12px;
 }
-.v-btn {
+.btn {
   user-select: none;
 }
 .first {
@@ -54,18 +54,18 @@ input {
   width: 100px;
   cursor: pointer;
 }
-.header .v-nav {
+.header .nav {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.header .v-nav .item {
+.header .nav .item {
   cursor: pointer;
 }
-.header .v-nav .item + .item {
+.header .nav .item + .item {
   margin-left: 30px;
 }
-.header .v-nav .center {
+.header .nav .center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,7 +113,7 @@ input {
   display: flex;
   justify-content: center;
 }
-.main .enter .right .v-btn {
+.main .enter .right .btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,7 +175,7 @@ input {
   left: 22px;
   right: 22px;
   letter-spacing: 1px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .data .item .text {
   font-size: 21px;
@@ -201,7 +201,7 @@ input {
 }
 .main .data .item span {
   font-size: 21px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .data .item span.eos {
   font-size: 12px;
@@ -233,12 +233,12 @@ input {
   max-height: 0;
   background-color: #ffffff;
 }
-.main .data-list .v-nav {
+.main .data-list .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.main .data-list .v-nav .nav-list {
+.main .data-list .nav .nav-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -246,7 +246,7 @@ input {
   border-radius: 5px;
   padding: 6px;
 }
-.main .data-list .v-nav .nav-list .item {
+.main .data-list .nav .nav-list .item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -259,10 +259,10 @@ input {
   font-weight: normal;
   cursor: pointer;
 }
-.main .data-list .v-nav .nav-list .item + .item {
+.main .data-list .nav .nav-list .item + .item {
   margin-left: 6px;
 }
-.main .data-list .v-nav .money {
+.main .data-list .nav .money {
   width: 125px;
   height: 60px;
   font-size: 14px;
@@ -270,22 +270,22 @@ input {
   position: relative;
   cursor: pointer;
 }
-.main .data-list .v-nav .money .top {
+.main .data-list .nav .money .top {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 123px;
   height: 58px;
 }
-.main .data-list .v-nav .money .flag {
+.main .data-list .nav .money .flag {
   width: 31px;
   margin-right: 5px;
 }
-.main .data-list .v-nav .money .pull {
+.main .data-list .nav .money .pull {
   width: 12px;
   margin-left: 5px;
 }
-.main .data-list .v-nav .money .money-list {
+.main .data-list .nav .money .money-list {
   z-index: 2;
   position: absolute;
   top: 0;
@@ -295,7 +295,7 @@ input {
   border: 1px solid #f2f2f5;
   background-color: #ffffff;
 }
-.main .data-list .v-nav .money .money-list .items {
+.main .data-list .nav .money .money-list .items {
   background-color: #f7f7fa;
   border-radius: 5px;
   margin: 0 9px 9px 9px;
@@ -303,13 +303,13 @@ input {
   max-height: 0;
   overflow: hidden;
 }
-.main .data-list .v-nav .money .money-list .items .item {
+.main .data-list .nav .money .money-list .items .item {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 12px 0;
 }
-.main .data-list .v-nav .v-close {
+.main .data-list .nav .v-close {
   width: 58px;
   height: 58px;
   border-radius: 5px;
@@ -319,10 +319,10 @@ input {
   justify-content: center;
   cursor: pointer;
 }
-.main .data-list .v-nav .v-close img {
+.main .data-list .nav .v-close img {
   width: 14px;
 }
-.main .data-list .v-nav .pie-chart-help {
+.main .data-list .nav .pie-chart-help {
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -330,7 +330,7 @@ input {
   padding-left: 15px;
   position: relative;
 }
-.main .data-list .v-nav .pie-chart-help img {
+.main .data-list .nav .pie-chart-help img {
   width: 13px;
   height: 13px;
   margin-left: 10px;
@@ -364,7 +364,7 @@ input {
 .main .data-list .pie-chart-help .help-pop .help-pop-main .help-pop-title {
   font-size: 20px;
   line-height: 35px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .data-list .pie-chart-help .help-pop .help-pop-main .help-pop-text {
   position: absolute;
@@ -391,21 +391,21 @@ input {
 .pie-chart-help-img:hover .h-hover {
   display: block;
 }
-.main .data-list .v-nav .right {
+.main .data-list .nav .right {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   line-height: 14px;
 }
-.main .data-list .v-nav .nav-left {
+.main .data-list .nav .nav-left {
   width: 625px;
   padding-left: 15px;
   font-size: 20px;
   box-sizing: border-box;
   vertical-align: middle;
 }
-.main .data-list .v-nav .right .time {
+.main .data-list .nav .right .time {
   width: 190px;
   height: 38px;
   border-radius: 5px;
@@ -415,7 +415,7 @@ input {
   justify-content: center;
   margin-left: 8px;
 }
-.main .data-list .v-nav .right .time img {
+.main .data-list .nav .right .time img {
   width: 15px;
   margin-right: 10px;
 }
@@ -456,7 +456,7 @@ input {
 }
 .main .data-list .list-main .lists .item .item-left .number {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .data-list .list-main .lists .item .item-left img {
   width: 55px;
@@ -484,7 +484,7 @@ input {
 }
 .main .data-list .list-main .lists .item .item-right .item-right-second .number {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .data-list .list-main-bottom {
   font-size: 14px;
@@ -497,7 +497,7 @@ input {
   justify-content: center;
   align-items: center;
 }
-.main .pie-chart-1-list .v-nav {
+.main .pie-chart-1-list .nav {
   justify-content: center;
   padding: 10px 0;
 }
@@ -523,16 +523,16 @@ input {
 .main .pie-chart-1-list .lists .item span {
   font-size: 24px;
   margin-right: 5px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .pie-chart-1-list .lists .item:nth-child(2) span {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: bolder;
   color: #04da8a;
 }
 .main .pie-chart-1-list .lists .item:nth-child(3) span {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: bolder;
   color: #ffae00;
 }
 .main .pie-chart-1-list .lists .item .note {
@@ -597,7 +597,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 700;
+  font-weight: bolder;
   font-size: 15px;
 }
 .main .pie-chart-2-date img {
@@ -658,7 +658,7 @@ input {
 }
 .main .pie-chart-3-item span {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .pie-chart-3-btn {
   width: 270px;
@@ -670,7 +670,7 @@ input {
   background: linear-gradient(#ffce21, #ffc513);
   border-bottom: 5px solid #fdb209;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: bolder;
   margin-top: 30px;
   margin-bottom: 20px;
   border-radius: 2.5px;
@@ -732,7 +732,7 @@ input {
   background-color: #f7f7fa;
 }
 .main .day-item span {
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .day-item .day-item-name {
   width: 20%;
@@ -784,7 +784,7 @@ input {
 }
 .main .month-item-list-item span {
   margin-top: 10px;
-  font-weight: 700;
+  font-weight: bolder;
 }
 .main .introduction {
   padding: 0 185px;
@@ -939,7 +939,7 @@ input {
   right: 0;
   bottom: 0;
   z-index: 3;
-  font-weight: 700;
+  font-weight: bolder;
 }
 #video-pop {
   display: none;
@@ -994,7 +994,7 @@ video {
 }
 .main .more .item .text .title {
   font-size: 36px;
-  font-weight: 700;
+  font-weight: bolder;
   padding-top: 35px;
   padding-bottom: 25px;
 }
@@ -1145,7 +1145,7 @@ video {
 }
 .main .list .item .subtitle {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: bolder;
   padding-top: 20px;
   padding-bottom: 10px;
 }

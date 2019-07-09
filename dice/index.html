@@ -7,7 +7,6 @@
     <title>Dice</title>
     <link rel="icon" href="https://dice.one/img/favicon.ico">
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script src="./js/index.js"></script>
 </head>
 <body>
@@ -50,7 +49,7 @@
             <div class="logo" onclick="logoClick()">
                 <img src="https://dice.one/img/logo_2.png" alt="">
             </div>
-            <div class="v-nav">
+            <div class="nav">
                 <div class="item v-btn">邀请好友</div>
                 <div class="item v-btn" onclick="vipClick()">VIP</div>
                 <div class="item v-btn" onclick="contactClick()">联络我们</div>
@@ -139,7 +138,7 @@
                         </div>
                     </div>
                     <div class="data-list" id="data-list" style="display: none;">
-                        <div class="v-nav">
+                        <div class="nav">
                             <div class="nav-list" id="pie-chart-nav-list" style="display: none;">
                                 <div class="item" id="pie-chart-0" onclick="selectPieChartId('pie-chart-0')">
                                     分红池
@@ -218,7 +217,7 @@
                         </div>
                         <div id="pie-chart-list" style="display: none;">
                             <div class="list-main" id="pie-chart-0-list" style="display: none;">
-                                <div class="v-nav">
+                                <div class="nav">
                                     <div class="pie-chart-help">
                                         <div>当前分红池累计</div>
                                         <div class="pie-chart-help-img" onclick="openHelp('pie-chart-0-help')"><img id="pie-chart-0-help-normal" class="h-normal" src="./img/main/data/help.png" alt=""><img id="pie-chart-0-help-hover" class="h-hover" src="./img/main/data/help-hover.png" alt=""></div>
@@ -655,7 +654,7 @@
                                 <div class="list-main-bottom">*每小时结算一次，依质押比例进行分红分配，所得的分红会自动累积到您到余额上</div>
                             </div>
                             <div class="list-main pie-chart-1-list" id="pie-chart-1-list" style="display: none;">
-                                <div class="v-nav">
+                                <div class="nav">
                                     <div class="pie-chart-help">
                                         <div>质押您的DICE</div>
                                         <div class="pie-chart-help-img" onclick="openHelp('pie-chart-1-help')"><img id="pie-chart-1-help-normal" class="h-normal" src="./img/main/data/help.png" alt=""><img id="pie-chart-1-help-hover" class="h-hover" src="./img/main/data/help-hover.png" alt=""></div>
