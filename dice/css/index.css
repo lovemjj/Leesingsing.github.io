@@ -1,6 +1,6 @@
 html,body {
   margin: 0;
-  font-family: 'SimHei', 'Microsoft JhengHei',sans-serif;
+  font-family: 'SimHei', 'Microsoft YaHei',sans-serif;
   text-align: center;
   scroll-behavior: smooth;
   user-select: none;
@@ -438,8 +438,23 @@ input {
   height: 370px;
   overflow: auto;
 }
-.main .data-list .list-main .lists .items .item {
-  margin-right: 10px;
+::-webkit-scrollbar
+{
+	width: 10px;
+	height: 10px;
+	background-color: #F5F5F5;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: #F5F5F5;
+} 
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #555;
 }
 .main .data-list .list-main .lists .item + .item {
   margin-top: 10px;
