@@ -50,14 +50,14 @@
                 <img src="https://dice.one/img/logo_2.png" alt="">
             </div>
             <div class="nav">
-                <div class="item v-btn">邀请好友</div>
-                <div class="item v-btn" onclick="vipClick()">VIP</div>
-                <div class="item v-btn" onclick="contactClick()">联络我们</div>
-                <div class="item center v-btn" onclick="goinClick()">进入平台</div>
-                <div class="item v-btn" onclick="cooperationClick()">投资合作</div>
-                <div class="item v-btn">语言选择</div>
+                <div class="item btn">邀请好友</div>
+                <div class="item btn" onclick="vipClick()">VIP</div>
+                <div class="item btn" onclick="contactClick()">联络我们</div>
+                <div class="item center btn" onclick="goinClick()">进入平台</div>
+                <div class="item btn" onclick="cooperationClick()">投资合作</div>
+                <div class="item btn">语言选择</div>
             </div>
-            <div class="sign v-btn">
+            <div class="sign btn">
                 登入
             </div>
         </div>
@@ -75,14 +75,14 @@
                                 <img src="./img/main/enter/logo-text.png" alt="">
                             </div>
                             <div class="button">
-                                <div class="v-btn" onclick="goinClick()">
+                                <div class="btn" onclick="goinClick()">
                                     进入平台
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="data">
-                        <div class="pie-chart item item-no-hover" id="pie-chart" onclick="selectData('pie-chart')" onmouseover="dataOnmouseover('pie-chart')" onmouseout="dataOnmouseout('pie-chart')">
+                        <div class="pie-chart item" id="pie-chart" onclick="selectData('pie-chart')" onmouseover="dataOnmouseover('pie-chart')" onmouseout="dataOnmouseout('pie-chart')">
                             <div id="pie-chart-main">
                                 <div class="icon">
                                     <img src="./img/main/data/pie-chart.png" alt="">
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="day item item-no-hover" id="day" onclick="selectData('day')" onmouseover="dataOnmouseover('day')" onmouseout="dataOnmouseout('day')">
+                        <div class="day item" id="day" onclick="selectData('day')" onmouseover="dataOnmouseover('day')" onmouseout="dataOnmouseout('day')">
                             <div id="day-main">
                                 <div class="icon">
                                     <img src="./img/main/data/day.png" alt="">
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="month item item-no-hover" id="month"  onclick="selectData('month')" onmouseover="dataOnmouseover('month')" onmouseout="dataOnmouseout('month')">
+                        <div class="month item" id="month"  onclick="selectData('month')" onmouseover="dataOnmouseover('month')" onmouseout="dataOnmouseout('month')">
                             <div id="month-main">
                                 <div class="icon">
                                     <img src="./img/main/data/month.png" alt="">
@@ -139,18 +139,20 @@
                     </div>
                     <div class="data-list" id="data-list" style="display: none;">
                         <div class="nav">
-                            <div class="nav-list" id="pie-chart-nav-list" style="display: none;">
-                                <div class="item" id="pie-chart-0" onclick="selectPieChartId('pie-chart-0')">
-                                    分红池
-                                </div>
-                                <div class="item" id="pie-chart-1" onclick="selectPieChartId('pie-chart-1')">
-                                    质押
-                                </div>
-                                <div class="item" id="pie-chart-2" onclick="selectPieChartId('pie-chart-2')">
-                                    分红记录
-                                </div>
-                                <div class="item" id="pie-chart-3" onclick="selectPieChartId('pie-chart-3')">
-                                    我的余额
+                            <div style="width: 585px;" id="pie-chart-nav-list" style="display: none;">
+                                <div class="nav-list">
+                                    <div class="item" id="pie-chart-0" onclick="selectPieChartId('pie-chart-0')">
+                                        分红池
+                                    </div>
+                                    <div class="item" id="pie-chart-1" onclick="selectPieChartId('pie-chart-1')">
+                                        质押
+                                    </div>
+                                    <div class="item" id="pie-chart-2" onclick="selectPieChartId('pie-chart-2')">
+                                        分红记录
+                                    </div>
+                                    <div class="item" id="pie-chart-3" onclick="selectPieChartId('pie-chart-3')">
+                                        我的余额
+                                    </div>
                                 </div>
                             </div>
                             <div class="nav-left" id="day-nav-list" style="display: none;">
@@ -211,7 +213,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="v-close" onclick="closeDataList()">
+                            <div class="close" onclick="closeDataList()">
                                 <img src="./img/main/data/close.png" alt="">
                             </div>
                         </div>
@@ -681,7 +683,7 @@
                                         <div class="item-center">
                                             <img src="./img/main/data/DICE.png" alt="">
                                             <div>
-                                                <span>5091866777.6300</span>DICE
+                                                <span class="number">5091866777.6300</span>DICE
                                             </div>
                                             <div class="note">89.96% of circulating 5660160396.6039 DICE</div>
                                         </div>
@@ -691,7 +693,7 @@
                                             <div>可质押</div>
                                             <div class="flex flex-center">
                                                 <div>
-                                                    <span>0.0010</span>
+                                                    <span class="number">0.0010</span>
                                                 </div>
                                                 <div style="font-size: 12px;">DICE</div>
                                             </div>
@@ -715,7 +717,7 @@
                                             <div>已质押</div>
                                             <div class="flex flex-center">
                                                 <div>
-                                                    <span>332462.5430</span>
+                                                    <span class="number">332462.5430</span>
                                                 </div>
                                                 <div style="font-size: 12px;">DICE</div>
                                                 <div class="line"></div>
@@ -830,126 +832,137 @@
                                 </div>
                             </div>
                             <div class="list-main pie-chart-3-list" id="pie-chart-3-list" style="display: none;">
-                                <div class="pie-chart-3-items">
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 48px;" src="./img/main/data/EOS.png" alt="" srcset="">
+                                <div class="pie-chart-3-lists">
+                                    <div style="padding: 40px 0 10px 0;">
+                                        <div style="font-size: 18px;">我的余额总计:</div>
+                                        <div class="pie-chart-3-item" style="padding: 0 10px 0 259px;">
+                                            <div class="img" style="width: 55px;">
+                                                <img style="width: 70px;" src="./img/main/data/CNY.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> <span class="money-name">CNY</span></div>
                                         </div>
-                                        <div><span>0.0069673232</span> EOS</div>
                                     </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 50px;" src="./img/main/data/DICE.png" alt="" srcset="">
+                                    <div class="pie-chart-3-items">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 48px;" src="./img/main/data/EOS.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> EOS</div>
                                         </div>
-                                        <div><span>0.0069673232</span> DICE</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 40px;" src="./img/main/data/EBTC.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 50px;" src="./img/main/data/DICE.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> DICE</div>
                                         </div>
-                                        <div><span>0.0069673232</span> EBTC</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 40px;" src="./img/main/data/EETH.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 40px;" src="./img/main/data/EBTC.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> EBTC</div>
                                         </div>
-                                        <div><span>0.0069673232</span> EETH</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 38px;" src="./img/main/data/EUSD.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 40px;" src="./img/main/data/EETH.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> EETH</div>
                                         </div>
-                                        <div><span>0.0069673232</span> EUSD</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 40px;" src="./img/main/data/BLACK.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 38px;" src="./img/main/data/EUSD.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> EUSD</div>
                                         </div>
-                                        <div><span>0.0069673232</span> BLACK</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 50px;" src="./img/main/data/MEETONE.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 40px;" src="./img/main/data/BLACK.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> BLACK</div>
                                         </div>
-                                        <div><span>0.0069673232</span> MEETONE</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 44px;" src="./img/main/data/EGT.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 50px;" src="./img/main/data/MEETONE.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> MEETONE</div>
                                         </div>
-                                        <div><span>0.0069673232</span> EGT</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 40px;" src="./img/main/data/TPT.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 44px;" src="./img/main/data/EGT.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> EGT</div>
                                         </div>
-                                        <div><span>0.0069673232</span> TPT</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 50px;" src="./img/main/data/ZKS.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 40px;" src="./img/main/data/TPT.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> TPT</div>
                                         </div>
-                                        <div><span>0.0069673232</span> ZKS</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 40px;" src="./img/main/data/KARMA.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 50px;" src="./img/main/data/ZKS.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> ZKS</div>
                                         </div>
-                                        <div><span>0.0069673232</span> KARMA</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 42px;" src="./img/main/data/TGC.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 40px;" src="./img/main/data/KARMA.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> KARMA</div>
                                         </div>
-                                        <div><span>0.0069673232</span> TGC</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 44px;" src="./img/main/data/TEA.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 42px;" src="./img/main/data/TGC.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> TGC</div>
                                         </div>
-                                        <div><span>0.0069673232</span> TEA</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 48px;" src="./img/main/data/POKER.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 44px;" src="./img/main/data/TEA.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> TEA</div>
                                         </div>
-                                        <div><span>0.0069673232</span> POKER</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 44px;" src="./img/main/data/DBET.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 48px;" src="./img/main/data/POKER.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> POKER</div>
                                         </div>
-                                        <div><span>0.0069673232</span> DBET</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 50px;" src="./img/main/data/ZKSPLAY.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 44px;" src="./img/main/data/DBET.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> DBET</div>
                                         </div>
-                                        <div><span>0.0069673232</span> ZKSPLAY</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 50px;" src="./img/main/data/EPT.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 50px;" src="./img/main/data/ZKSPLAY.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> ZKSPLAY</div>
                                         </div>
-                                        <div><span>0.0069673232</span> EPT</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 40px;" src="./img/main/data/OCT.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 50px;" src="./img/main/data/EPT.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> EPT</div>
                                         </div>
-                                        <div><span>0.0069673232</span> OCT</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 44px;" src="./img/main/data/LT.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 40px;" src="./img/main/data/OCT.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> OCT</div>
                                         </div>
-                                        <div><span>0.0069673232</span> LT</div>
-                                    </div>
-                                    <div class="pie-chart-3-item">
-                                        <div class="img">
-                                            <img style="width: 50px;" src="./img/main/data/PIXEOS.png" alt="" srcset="">
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 44px;" src="./img/main/data/LT.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> LT</div>
                                         </div>
-                                        <div><span>0.0069673232</span> PIXEOS</div>
+                                        <div class="pie-chart-3-item">
+                                            <div class="img">
+                                                <img style="width: 50px;" src="./img/main/data/PIXEOS.png" alt="" srcset="">
+                                            </div>
+                                            <div><span class="number">0.0069673232</span> PIXEOS</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="pie-chart-3-btn">
@@ -967,25 +980,25 @@
                                 <div class="day-items">
                                     <div class="day-item">
                                         <div class="day-item-name">活跃人数</div>
-                                        <div class="day-item-text"><span>2145</span></div>
-                                        <div class="day-item-text"><span>132324</span></div>
+                                        <div class="day-item-text"><span class="number">2145</span></div>
+                                        <div class="day-item-text"><span class="number">132324</span></div>
                                     </div>
                                     <div class="day-item">
-                                        <div class="day-item-name">活跃人数</div>
-                                        <div class="day-item-text"><span>2145</span></div>
-                                        <div class="day-item-text"><span>132324</span></div>
+                                        <div class="day-item-name">交易量</div>
+                                        <div class="day-item-text"><span class="number">2145</span></div>
+                                        <div class="day-item-text"><span class="number">132324</span></div>
                                     </div>
                                     <div class="day-item">
-                                        <div class="day-item-name">活跃人数</div>
-                                        <div class="day-item-text"><span>2145</span></div>
-                                        <div class="day-item-text"><span>132324</span></div>
+                                        <div class="day-item-name">交一次数</div>
+                                        <div class="day-item-text"><span class="number">2145</span></div>
+                                        <div class="day-item-text"><span class="number">132324</span></div>
                                     </div>
                                 </div>
                                 <img src="./img/main/data/zx.png" alt="">
                             </div>
                         </div>
                         <div class="month-list" id="month-list" style="display: none;">
-                            <div class="month-items">
+                            <div class="month-items" id="month-items">
                                 <div class="month-item">
                                     <div class="month-item-name">
                                         <img src="./img/main/data/BLACKJACK.png" alt="">
@@ -1374,6 +1387,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="open-list" class="open-list" onclick="openMonthList()">
+                                <img src="./img/main/data/open.png" alt="">
+                                向下展开
+                            </div>
                         </div>
                     </div>
                     <div class="introduction">
@@ -1434,7 +1451,7 @@
                     </div>
                     <div class="video-pop" id="video-pop">
                         <div class="video">
-                            <div class="v-close" onclick="closeVideo()">
+                            <div class="close" onclick="closeVideo()">
                                 <img src="./img/main/video-pop/video-close.png" alt="">
                             </div>
                             <video src="https://dice.one/video/Dice1.17_Chinese subtitles with 3D Logo .mp4" controls poster="https://dice.one/img/home/video_cover.jpg" preload></video>
@@ -1611,7 +1628,7 @@
                 <div class="logo" onclick="logoClick()">
                     <img src="https://dice.one/img/logo_2.png" alt="">
                 </div>
-                <div class="item center v-btn" onclick="goinClick()">进入平台</div>
+                <div class="item center btn" onclick="goinClick()">进入平台</div>
                 <div class="else">
                     <div class="item" style="cursor: auto;">
                         联系我们
@@ -1637,7 +1654,7 @@
                 <div class="icon" onclick="goTop()">
                     <img src="./img/main/top.png" alt="">
                 </div>
-                <div class="text v-btn" onclick="goTop()">
+                <div class="text btn" onclick="goTop()">
                     返回顶部
                 </div>
             </div>
