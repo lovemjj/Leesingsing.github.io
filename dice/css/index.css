@@ -54,18 +54,18 @@ input {
   width: 100px;
   cursor: pointer;
 }
-.header .nav {
+.header .v-nav {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.header .nav .item {
+.header .v-nav .item {
   cursor: pointer;
 }
-.header .nav .item + .item {
+.header .v-nav .item + .item {
   margin-left: 30px;
 }
-.header .nav .center {
+.header .v-nav .center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,7 +155,7 @@ input {
   bottom: -97px;
   left: 0;
   right: 0;
-  font-size: calc(14/16*1rem);
+  font-size: 14px;
   opacity: 0;
   transition: opacity 1s;
   z-index: 0;
@@ -178,7 +178,7 @@ input {
   font-weight: 700;
 }
 .main .data .item .text {
-  font-size: calc(21/16*1rem);
+  font-size: 21px;
 }
 .main .data .item .icon {
   margin: 0 auto;
@@ -233,12 +233,12 @@ input {
   max-height: 0;
   background-color: #ffffff;
 }
-.main .data-list .nav {
+.main .data-list .v-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.main .data-list .nav .nav-list {
+.main .data-list .v-nav .nav-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -246,7 +246,7 @@ input {
   border-radius: 5px;
   padding: 6px;
 }
-.main .data-list .nav .nav-list .item {
+.main .data-list .v-nav .nav-list .item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -259,10 +259,10 @@ input {
   font-weight: normal;
   cursor: pointer;
 }
-.main .data-list .nav .nav-list .item + .item {
+.main .data-list .v-nav .nav-list .item + .item {
   margin-left: 6px;
 }
-.main .data-list .nav .money {
+.main .data-list .v-nav .money {
   width: 125px;
   height: 60px;
   font-size: 14px;
@@ -270,22 +270,22 @@ input {
   position: relative;
   cursor: pointer;
 }
-.main .data-list .nav .money .top {
+.main .data-list .v-nav .money .top {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 123px;
   height: 58px;
 }
-.main .data-list .nav .money .flag {
+.main .data-list .v-nav .money .flag {
   width: 31px;
   margin-right: 5px;
 }
-.main .data-list .nav .money .pull {
+.main .data-list .v-nav .money .pull {
   width: 12px;
   margin-left: 5px;
 }
-.main .data-list .nav .money .money-list {
+.main .data-list .v-nav .money .money-list {
   z-index: 2;
   position: absolute;
   top: 0;
@@ -295,7 +295,7 @@ input {
   border: 1px solid #f2f2f5;
   background-color: #ffffff;
 }
-.main .data-list .nav .money .money-list .items {
+.main .data-list .v-nav .money .money-list .items {
   background-color: #f7f7fa;
   border-radius: 5px;
   margin: 0 9px 9px 9px;
@@ -303,13 +303,13 @@ input {
   max-height: 0;
   overflow: hidden;
 }
-.main .data-list .nav .money .money-list .items .item {
+.main .data-list .v-nav .money .money-list .items .item {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 12px 0;
 }
-.main .data-list .nav .close {
+.main .data-list .v-nav .v-close {
   width: 58px;
   height: 58px;
   border-radius: 5px;
@@ -319,10 +319,10 @@ input {
   justify-content: center;
   cursor: pointer;
 }
-.main .data-list .nav .close img {
+.main .data-list .v-nav .v-close img {
   width: 14px;
 }
-.main .data-list .nav .pie-chart-help {
+.main .data-list .v-nav .pie-chart-help {
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -330,7 +330,7 @@ input {
   padding-left: 15px;
   position: relative;
 }
-.main .data-list .nav .pie-chart-help img {
+.main .data-list .v-nav .pie-chart-help img {
   width: 13px;
   height: 13px;
   margin-left: 10px;
@@ -391,21 +391,21 @@ input {
 .pie-chart-help-img:hover .h-hover {
   display: block;
 }
-.main .data-list .nav .right {
+.main .data-list .v-nav .right {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   line-height: 14px;
 }
-.main .data-list .nav .nav-left {
+.main .data-list .v-nav .nav-left {
   width: 625px;
   padding-left: 15px;
   font-size: 20px;
   box-sizing: border-box;
   vertical-align: middle;
 }
-.main .data-list .nav .right .time {
+.main .data-list .v-nav .right .time {
   width: 190px;
   height: 38px;
   border-radius: 5px;
@@ -415,7 +415,7 @@ input {
   justify-content: center;
   margin-left: 8px;
 }
-.main .data-list .nav .right .time img {
+.main .data-list .v-nav .right .time img {
   width: 15px;
   margin-right: 10px;
 }
@@ -497,7 +497,7 @@ input {
   justify-content: center;
   align-items: center;
 }
-.main .pie-chart-1-list .nav {
+.main .pie-chart-1-list .v-nav {
   justify-content: center;
   padding: 10px 0;
 }
@@ -964,7 +964,7 @@ video {
   width: 900px;
   display: block;
 }
-.main .video-pop .video .close {
+.main .video-pop .video .v-close {
   position: absolute;
   top: 25px;
   right: 20px;
