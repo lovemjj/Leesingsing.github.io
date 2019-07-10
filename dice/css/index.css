@@ -345,7 +345,7 @@ input {
 }
 .main .data-list .pie-chart-help .help-pop {
   position: absolute;
-  left: -140px;
+  left: -127px;
   bottom: -45px;
   width: 619px;
   height: 273px;
@@ -509,7 +509,7 @@ input {
   padding: 10px 0;
 }
 .main .data-list .pie-chart-1-list .help-pop {
-  left: -150px;
+  left: -140px;
 }
 .main .data-list .pie-chart-1-list .help-pop .help-pop-main .help-pop-text {
   top: 50px;
