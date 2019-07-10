@@ -177,7 +177,7 @@ input {
   top: 25px;
   left: 22px;
   right: 22px;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
   font-weight: 900;
 }
 .main .data .item .text {
@@ -966,7 +966,7 @@ input {
   bottom: 0;
   z-index: 3;
   font-weight: 900;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
 }
 #video-pop {
   display: none;
@@ -1033,7 +1033,6 @@ video {
   font-size: 16px;
   line-height: 28px;
   opacity: 0.8;
-  letter-spacing: 1px;
 }
 .main .more .item .text .subtitle .icon {
   width: 10px;
@@ -1195,7 +1194,6 @@ video {
 }
 .footer .top .mid {
   height: 100px;
-  letter-spacing: 1px;
 }
 .footer .logo {
   width: 100px;
@@ -1242,6 +1240,8 @@ video {
 .footer .bx {
   padding-left: 28px;
   padding-right: 28px;
+  letter-spacing: 0px;
+  line-height: 1.42857143;
 }
 .footer .tips .bx p {
   font-size: 11px;
