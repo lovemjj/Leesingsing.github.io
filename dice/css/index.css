@@ -815,7 +815,7 @@ input {
 .main .introduction {
   padding: 0 185px;
   color: #40496b;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 28px;
   background-color: #ffffff;
 }
@@ -1030,7 +1030,7 @@ video {
   vertical-align: bottom;
 }
 .main .more .item .text .subtitle {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 28px;
   opacity: 0.8;
   letter-spacing: 1px;
@@ -1178,7 +1178,7 @@ video {
   padding-bottom: 10px;
 }
 .main .list .item .text {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 28px;
   padding-bottom: 35px;
   opacity: 0.6;
