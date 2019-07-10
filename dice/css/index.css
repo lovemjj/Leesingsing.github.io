@@ -966,6 +966,7 @@ input {
   bottom: 0;
   z-index: 3;
   font-weight: 900;
+  letter-spacing: 1px;
 }
 #video-pop {
   display: none;
