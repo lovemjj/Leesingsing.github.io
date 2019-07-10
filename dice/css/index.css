@@ -789,7 +789,13 @@ input {
   font-weight: 900;
 }
 .main .day-item .day-item-name {
+  display: flex;
+  align-items: center;
   width: 20%;
+}
+.main .day-item .day-item-name img {
+  width: 24px;
+  margin: 0 20px;
 }
 .main .day-item .day-item-text {
   width: 40%;
