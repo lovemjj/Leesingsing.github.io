@@ -188,6 +188,9 @@ function selectData (id) {
   }
   if (id === 'month') {
     document.getElementById('flag-list').style.display = 'block'
+    if (document.getElementById('open-text').innerHTML === '收起') {
+      openMonthList()
+    }
   }
   if (id === 'day') {
     document.getElementById('flag-list').style.display = 'none'
@@ -281,13 +284,14 @@ function closeHelp (id) {
   document.getElementById(id).style.display = 'none'
 }
 function openMonthList () {
-  if (document.getElementById('month-items').style.maxHeight === '1064px') {
+  if (document.getElementById('open-text').innerHTML === '向下展开') {
+    document.documentElement.scrollTop = document.body.scrollTop = document.getElementById('data-list').offsetTop - 40
+    document.getElementById('month-items').style.maxHeight = window.innerHeight - 220 + 'px'
+    document.getElementById('open-img').style.transform = 'rotate(180deg)'
+    document.getElementById('open-text').innerHTML = '收起'
+  } else {
     document.getElementById('month-items').style.maxHeight = '325px'
     document.getElementById('open-img').style.transform = 'rotate(0deg)'
     document.getElementById('open-text').innerHTML = '向下展开'
-  } else {
-    document.getElementById('month-items').style.maxHeight = '1064px'
-    document.getElementById('open-img').style.transform = 'rotate(180deg)'
-    document.getElementById('open-text').innerHTML = '收起'
   }
 }
