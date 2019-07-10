@@ -488,6 +488,7 @@ input {
 .main .data-list .list-main .lists .item .item-right .item-right-second {
   padding-top: 15px;
   font-size: 13px;
+  white-space: nowrap;
 }
 .main .data-list .list-main .lists .item .item-right .item-right-second .number {
   font-size: 16px;
