@@ -178,9 +178,10 @@ input {
   left: 22px;
   right: 22px;
   letter-spacing: 0px;
+  font-weight: 900;
 }
 .main .data .item .text {
-  font-size: 22px;
+  font-size: 24px;
 }
 .main .data .item .icon {
   margin: 0 auto;
