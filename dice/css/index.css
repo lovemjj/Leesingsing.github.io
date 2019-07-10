@@ -6,6 +6,7 @@ html,body {
   user-select: none;
   font-weight: 400;
   letter-spacing: 2px;
+  min-width: 1920px;
 }
 img {
   display: block;
@@ -132,8 +133,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 297px;
-  margin-top: -50px;
+  height: 300px;
 }
 .main .data .item {
   background-color: #ffffff;
@@ -1273,7 +1273,7 @@ p {
 }
 .left-pop {
   position: fixed;
-  top: 615px;
+  bottom: 50px;
   left: 120px;
   z-index: 8;
   border-radius: 26px;
