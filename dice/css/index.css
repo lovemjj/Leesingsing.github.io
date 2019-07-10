@@ -1,6 +1,6 @@
 html,body {
   margin: 0;
-  font-family: 'SimHei', 'Microsoft YaHei',sans-serif;
+  font-family: 'Microsoft YaHei',sans-serif;
   text-align: center;
   scroll-behavior: smooth;
   user-select: none;
@@ -123,7 +123,7 @@ input {
   width: 205px;
   border: 2px solid #fff;
   height: 50px; 
-  font-size: 20px;
+  font-size: 22px;
   color: #fff;
   border-radius: 1px;
   cursor: pointer;
@@ -181,7 +181,7 @@ input {
   font-weight: 900;
 }
 .main .data .item .text {
-  font-size: 21px;
+  font-size: 22px;
 }
 .main .data .item .icon {
   margin: 0 auto;
@@ -203,7 +203,7 @@ input {
   margin-bottom: 27px;
 }
 .main .data .item span {
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 900;
 }
 .main .data .item span.eos {
@@ -332,7 +332,7 @@ input {
 .main .data-list .nav .pie-chart-help {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 20px;
   padding-left: 15px;
   position: relative;
@@ -369,7 +369,7 @@ input {
   margin: 0;
 }
 .main .data-list .pie-chart-help .help-pop .help-pop-main .help-pop-title {
-  font-size: 20px;
+  font-size: 22px;
   line-height: 35px;
   font-weight: 900;
 }
@@ -408,7 +408,7 @@ input {
 .main .data-list .nav .nav-left {
   width: 535px;
   padding-left: 15px;
-  font-size: 20px;
+  font-size: 22px;
   box-sizing: border-box;
   vertical-align: middle;
 }
@@ -598,7 +598,7 @@ input {
   padding-bottom: 15px;
 }
 .main .pie-chart-2-title {
-  font-size: 20px;
+  font-size: 22px;
 }
 .main .pie-chart-2-date {
   display: flex;
@@ -669,7 +669,7 @@ input {
   margin: 0 auto;
 }
 .main .pie-chart-3-item .number {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 900;
 }
 .main .pie-chart-3-btn {
@@ -784,7 +784,7 @@ input {
 }
 .main .month-item-name {
   width: 45%;
-  font-size: 20px;
+  font-size: 22px;
 }
 .main .month-item-name img {
   width: 155px;
