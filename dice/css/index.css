@@ -876,7 +876,7 @@ input {
 .main .introduction {
   padding: 0 185px;
   color: #40496b;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 30px;
 }
 .main .introduction .logo {
@@ -1089,7 +1089,7 @@ video {
   vertical-align: bottom;
 }
 .main .more .item .text .subtitle {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 30px;
   letter-spacing: 2.5px;
   opacity: 0.8;
