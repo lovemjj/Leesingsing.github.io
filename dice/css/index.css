@@ -151,6 +151,9 @@ input {
   transition: all 0.1s;
   cursor: pointer;
 }
+.main .data .data-main {
+  transition: opacity 1s;
+}
 .main .data .item .pop {
   position: absolute;
   bottom: -97px;
