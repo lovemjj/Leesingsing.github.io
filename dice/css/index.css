@@ -1251,6 +1251,9 @@ video {
   border-radius: 10px;
   position: relative;
 }
+.main .list .item .hover-img img {
+  border-radius: 10px;
+}
 .main .list .item .hover-img .hover-div {
   position: absolute;
   top: 0;
@@ -1677,6 +1680,10 @@ p {
 .community-list-main-text-item {
   text-decoration: none;
   cursor: pointer;
+}
+.community-list-main-text-item .a:hover {
+  border-bottom: 1px solid rgba(64, 73, 107, 0.5);
+  margin-bottom: -1px;
 }
 .community-list-main-text-item + .community-list-main-text-item {
   margin-top: 20px;
