@@ -88,9 +88,12 @@
                             <div class="community-list-nav-item" onclick="selectedCommunityId(0)">LOGO & 高清壁纸</div>
                             <div class="community-list-nav-item" onclick="selectedCommunityId(1)">DICE KITTY 表情包</div>
                             <div class="community-list-nav-item" onclick="selectedCommunityId(2)">宣传 & 教学视频</div>
-                            <div class="community-list-nav-item" onclick="selectedCommunityId(3)">DICE WEEKLY & NEWS</div>
+                            <div class="community-list-nav-item" onclick="selectedCommunityId(3)">DICE WEEKLY</div>
                             <div class="community-list-nav-item" onclick="selectedCommunityId(4)">官方资料</div>
                             <div class="community-list-nav-item" onclick="goNotice()">公告</div>
+                        </div>
+                        <div class="community-list-nav-back community-list-nav-item" onclick="goback()">
+                            返回
                         </div>
                     </div>
                     <div class="community-list-main">
@@ -110,9 +113,6 @@
                                 <img src="./img/normal/up.png" alt="">
                             </div>
                             <div class="community-list-main-list" id="community-list-main-list-0">
-                                <div class="community-list-main-list-item community-list-main-list-item-0" onclick="selectedCommunityListItem(this, 0)">
-                                    <img src="./img/small/1/DICE LOGO.png" alt="DICE LOGO">
-                                </div>
                                 <div class="community-list-main-list-item community-list-main-list-item-0" onclick="selectedCommunityListItem(this, 0)">
                                     <img src="./img/small/1/DICE高清壁纸01.jpg" alt="DICE高清壁纸01">
                                 </div>
@@ -142,6 +142,9 @@
                                 </div>
                                 <div class="community-list-main-list-item community-list-main-list-item-0" onclick="selectedCommunityListItem(this, 0)">
                                     <img src="./img/small/1/DICE高清壁纸10.jpg" alt="DICE高清壁纸10">
+                                </div>
+                                <div class="community-list-main-list-item community-list-main-list-item-0" onclick="selectedCommunityListItem(this, 0)">
+                                    <img src="./img/small/1/DICE LOGO.png" alt="DICE LOGO">
                                 </div>
                             </div>
                             <div class="community-list-main-list-top" onclick="scrollCommunityListDown(0)">
@@ -226,7 +229,7 @@
                     <div class="community-list-main">
                         <div class="community-list-main-else">
                             <div class="community-list-main-else-list community-list-main-else-list-2">
-                                <div class="community-list-main-else-list-title">宣传</div>
+                                <div class="community-list-main-else-list-title">宣传片</div>
                                 <div class="community-list-main-else-list-main">
                                     <div class="community-list-main-else-list-both" onclick="scrollCommunityListLeft('2-1')">
                                         <img src="./img/normal/left.png" alt="">
@@ -241,7 +244,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE 宣传片</div>
+                                            <div class="community-list-main-else-list-item-text">Dice 宣传片</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-2-1" onclick="openSecond(1, 0, '2-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -252,7 +255,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>Texas Hold'em宣传片</div>
+                                            <div class="community-list-main-else-list-item-text">Texas Hold'em宣传片</div>
                                         </div>
                                     </div>
                                     <div class="community-list-main-else-list-both" onclick="scrollCommunityListRight('2-1')">
@@ -276,7 +279,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE Sicbo Tutorial</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Sicbo Tutorial</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-2-2" onclick="openSecond(1, 1, '2-2')">
                                             <div class="community-list-main-else-list-item-img">
@@ -287,7 +290,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE Dice Tutorial</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Dice Tutorial</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-2-2" onclick="openSecond(2, 1, '2-2')">
                                             <div class="community-list-main-else-list-item-img">
@@ -298,7 +301,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE BlackJack Tutorial</div>
+                                            <div class="community-list-main-else-list-item-text">Dice BlackJack Tutorial</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-2-2" onclick="openSecond(3, 1, '2-2')">
                                             <div class="community-list-main-else-list-item-img">
@@ -309,7 +312,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE Baccarat Tutorial</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Baccarat Tutorial</div>
                                         </div>
                                     </div>
                                     <div class="community-list-main-else-list-both" onclick="scrollCommunityListRight('2-2')">
@@ -401,7 +404,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 01</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 01</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(1, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -412,7 +415,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 02</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 02</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(2, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -423,7 +426,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 03</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 03</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(3, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -434,7 +437,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 04</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 04</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(4, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -445,7 +448,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 05</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 05</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(5, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -456,7 +459,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 06</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 06</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(6, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -467,7 +470,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 07</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 07</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(7, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -478,7 +481,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 08</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 08</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(8, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -489,7 +492,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 09</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 09</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(9, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -500,7 +503,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 10</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 10</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(10, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -511,7 +514,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 11</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 11</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(11, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -522,7 +525,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 12</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 12</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(12, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -533,7 +536,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 13</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 13</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(13, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -544,7 +547,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 14</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 14</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(14, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -555,7 +558,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 15</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 15</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(15, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -566,7 +569,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 16</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 16</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(16, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -577,7 +580,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 17</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 17</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(17, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -588,7 +591,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 18</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 18</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(18, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -599,7 +602,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 19</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 19</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-1" onclick="openSecond(19, 0, '3-1')">
                                             <div class="community-list-main-else-list-item-img">
@@ -610,7 +613,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE WEEKLY EP 20</div>
+                                            <div class="community-list-main-else-list-item-text">Dice Weekly Ep 20</div>
                                         </div>
                                     </div>
                                     <div class="community-list-main-else-list-both" onclick="scrollCommunityListRight('3-1')">
@@ -634,7 +637,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE NEWS APR 1</div>
+                                            <div class="community-list-main-else-list-item-text">Dice News Apr 1</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-2" onclick="openSecond(1, 1, '3-2')">
                                             <div class="community-list-main-else-list-item-img">
@@ -645,7 +648,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE NEWS MAR 10</div>
+                                            <div class="community-list-main-else-list-item-text">Dice News Mar 10</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-2" onclick="openSecond(2, 1, '3-2')">
                                             <div class="community-list-main-else-list-item-img">
@@ -656,7 +659,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE NEWS MAY 20</div>
+                                            <div class="community-list-main-else-list-item-text">Dice News May 20</div>
                                         </div>
                                         <div class="community-list-main-else-list-item community-list-main-else-list-item-3-2" onclick="openSecond(3 , 1, '3-2')">
                                             <div class="community-list-main-else-list-item-img">
@@ -667,7 +670,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>DICE NEWS JUN 16</div>
+                                            <div class="community-list-main-else-list-item-text">Dice News Jun 16</div>
                                         </div>
                                     </div>
                                     <div class="community-list-main-else-list-both" onclick="scrollCommunityListRight('3-2')">
@@ -797,24 +800,24 @@
                     </div>
                     <div class="community-list-main">
                         <div class="community-list-main-text">
-                            <div class="community-list-main-text-item">
-                                <a href="./pdf/1. Dice白皮书-中文版.pdf" target="_Blank">1. DICE白皮书-中文版</a>
-                            </div>
-                            <div class="community-list-main-text-item">
-                                <a href="./pdf/2. WhitePaper - English.pdf" target="_Blank">2. DICE WGITEPAPER - ENGLISH</a>
-                            </div>
-                            <div class="community-list-main-text-item">
-                                <a href="./pdf/3. Dice游戏公平性验证步骤详解.pdf" target="_Blank">3. DICE游戏公平性验证步骤详解</a>
-                            </div>
-                            <div class="community-list-main-text-item">
-                                <a href="./pdf/4. 轮盘和德州介绍.pdf" target="_Blank">4. 轮盘和德州介绍</a>
-                            </div>
-                            <div class="community-list-main-text-item">
-                                <a href="./pdf/5. 骰宝玩法.pdf" target="_Blank">5. 骰宝玩法</a>
-                            </div>
-                            <div class="community-list-main-text-item">
-                                <a href="./pdf/6. 银行系统.pdf" target="_Blank">6. 银行系统</a>
-                            </div>
+                            <a href="./pdf/1. Dice白皮书-中文版.pdf" target="_Blank" class="community-list-main-text-item">
+                                <span>1. DICE白皮书-中文版</span><span>2019年7月26日</span>
+                            </a>
+                            <a href="./pdf/2. WhitePaper - English.pdf" target="_Blank" class="community-list-main-text-item">
+                                <span>2. DICE WGITEPAPER - ENGLISH</span><span>2019年7月26日</span>
+                            </a>
+                            <a href="./pdf/3. Dice游戏公平性验证步骤详解.pdf" target="_Blank" class="community-list-main-text-item">
+                                <span>3. DICE游戏公平性验证步骤详解</span><span>2019年7月26日</span>
+                            </a>
+                            <a href="./pdf/4. 轮盘和德州介绍.pdf" target="_Blank" class="community-list-main-text-item">
+                                <span>4. 轮盘和德州介绍</span><span>2019年7月26日</span>
+                            </a>
+                            <a href="./pdf/5. 骰宝玩法.pdf" target="_Blank" class="community-list-main-text-item">
+                                <span>5. 骰宝玩法</span><span>2019年7月26日</span>
+                            </a>
+                            <a href="./pdf/6. 银行系统.pdf" target="_Blank" class="community-list-main-text-item">
+                                <span>6. 银行系统</span><span>2019年7月26日</span>
+                            </a>
                         </div>
                     </div>
                 </div>

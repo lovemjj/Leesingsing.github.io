@@ -270,6 +270,12 @@ function selectedCommunityListItem (item, id) {
   for (let index = 0; index < arr.length; index++) {
     const element = arr[index]
     if (item === element) {
+      let obj = document.getElementById('community-list-main-media-' + id)
+      if (index === 8 || index === 9) {
+        obj.children[1].style.width = 600 / 4 * 3 + 'px'
+      } else {
+        obj.children[1].style.width = '100%'
+      }
       element.classList.add('selected')
     } else {
       element.classList.remove('selected')
@@ -350,4 +356,7 @@ function scrollCommunityListRight (id) {
 }
 function goList (id) {
   window.location.href = window.location.href.split('html')[0].replace('index', 'list') + 'html?id=' + id
+}
+function goback () {
+  window.location.href = window.location.href.split('html')[0].replace('list', 'index') + 'html'
 }
