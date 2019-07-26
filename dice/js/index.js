@@ -31,70 +31,6 @@ function flyClick () {
 function emailClick () {
   window.location.href = 'mailto:admin@dice.one'
 }
-window.onscroll = function (ele) {
-  const fairJustObject = document.getElementById('fair-just').getBoundingClientRect()
-  if (fairJustObject.top < window.innerHeight + 100 && fairJustObject.bottom > 100) {
-    document.getElementById('shield').style.top = '0'
-    document.getElementById('shield').style.opacity = '1'
-    document.getElementById('shield').style.transition = 'all 1s ease-in-out'
-  } else {
-    document.getElementById('shield').style.top = '-100px'
-    document.getElementById('shield').style.opacity = '0'
-    document.getElementById('shield').style.transition = 'none'
-  }
-  const profitObject = document.getElementById('profit').getBoundingClientRect()
-  if (profitObject.top < window.innerHeight + 100 && profitObject.bottom > 100) {
-    document.getElementById('money-left').style.top = '0'
-    document.getElementById('money-left').style.opacity = '1'
-    document.getElementById('money-left').style.transition = 'all 1s ease-in-out'
-    document.getElementById('money-right').style.top = '338px'
-    document.getElementById('money-right').style.opacity = '1'
-    document.getElementById('money-right').style.transition = 'all 1s ease-in-out'
-    document.getElementById('fifty').style.top = '72px'
-    document.getElementById('fifty').style.opacity = '1'
-    document.getElementById('fifty').style.transition = 'all 1s ease-in-out'
-  } else {
-    document.getElementById('money-left').style.top = '-100px'
-    document.getElementById('money-left').style.opacity = '0'
-    document.getElementById('money-left').style.transition = 'none'
-    document.getElementById('money-right').style.top = '238px'
-    document.getElementById('money-right').style.opacity = '0'
-    document.getElementById('money-right').style.transition = 'none'
-    document.getElementById('fifty').style.top = '-28px'
-    document.getElementById('fifty').style.opacity = '0'
-    document.getElementById('fifty').style.transition = 'none'
-  }
-  const openObject = document.getElementById('open').getBoundingClientRect()
-  if (openObject.top < window.innerHeight + 100 && openObject.bottom > 100) {
-    document.getElementById('sifter-left').style.top = '80px'
-    document.getElementById('sifter-left').style.opacity = '1'
-    document.getElementById('sifter-left').style.transition = 'all 1s ease-in-out'
-    document.getElementById('sifter-right').style.top = '385px'
-    document.getElementById('sifter-right').style.opacity = '1'
-    document.getElementById('sifter-right').style.transition = 'all 1s ease-in-out'
-    document.getElementById('seven').style.top = '310px'
-    document.getElementById('seven').style.opacity = '1'
-    document.getElementById('seven').style.transition = 'all 1s ease-in-out'
-  } else {
-    document.getElementById('sifter-left').style.top = '-20px'
-    document.getElementById('sifter-left').style.opacity = '0'
-    document.getElementById('sifter-left').style.transition = 'none'
-    document.getElementById('sifter-right').style.top = '255px'
-    document.getElementById('sifter-right').style.opacity = '0'
-    document.getElementById('sifter-right').style.transition = 'none'
-    document.getElementById('seven').style.top = '190px'
-    document.getElementById('seven').style.opacity = '0'
-    document.getElementById('seven').style.transition = 'none'
-  }
-  const distributedObject = document.getElementById('distributed').getBoundingClientRect()
-  if (distributedObject.top < window.innerHeight + 100 && distributedObject.bottom > 100) {
-    document.getElementById('distributed').style.opacity = '1'
-    document.getElementById('distributed').style.transition = 'all 1.5s ease-in-out'
-  } else {
-    document.getElementById('distributed').style.opacity = '0'
-    document.getElementById('distributed').style.transition = 'none'
-  }
-}
 let dataId = ''
 function dataOnmouseover (id) {
   document.getElementById('pie-chart').style.width = '260px'
@@ -294,4 +230,124 @@ function openMonthList () {
     document.getElementById('open-img').style.transform = 'rotate(0deg)'
     document.getElementById('open-text').innerHTML = '向下展开'
   }
+}
+function selectedCommunityId (id) {
+  let arr = document.getElementsByClassName('community-list-nav-item')
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index]
+    if (index == id) {
+      element.classList.add('selected')
+    } else {
+      element.classList.remove('selected')
+    }
+  }
+  selectedCommunityMain(id)
+}
+function selectedCommunityMain (id) {
+  let arr = document.getElementsByClassName('community-list-main')
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index]
+    if (index == id) {
+      element.classList.add('selected')
+    } else {
+      element.classList.remove('selected')
+    }
+  }
+  if (id == 0 || id == 1) {
+    selectedCommunityListItem(document.getElementsByClassName('community-list-main-list-item-' + id)[0] , id)
+  }
+  if (id == 2) {
+    closeSecond('2-1')
+    closeSecond('2-2')
+  }
+  if (id == 3) {
+    closeSecond('3-1')
+    closeSecond('3-2')
+  }
+}
+function selectedCommunityListItem (item, id) {
+  let arr = document.getElementsByClassName('community-list-main-list-item-' + id)
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index]
+    if (item === element) {
+      element.classList.add('selected')
+    } else {
+      element.classList.remove('selected')
+    }
+  }
+  let obj = document.getElementById('community-list-main-media-' + id)
+  obj.children[0].innerHTML = item.children[0].alt
+  if (id == 0 || id == 1) {
+    obj.children[1].children[0].src = item.children[0].src.replace('small','normal')
+    obj.children[1].children[1].href = item.children[0].src.replace('small','hd')
+    obj.children[1].children[1].download = item.children[0].alt
+  } else {
+    obj.children[1].children[0].poster = item.children[0].src.replace('small','normal')
+    obj.children[1].children[0].src = item.children[0].getAttribute('data')
+  }
+}
+function goNotice () {
+  window.open('https://dice1.zendesk.com/hc/en-us')
+}
+function openSecond (itemIndex, i, id) {
+  let arr = document.getElementsByClassName('community-list-main-else-list-' + id.slice(0, 1))
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index]
+    element.style.display = 'none'
+  }
+  let array = document.getElementsByClassName('community-list-main-else-main-' + id.slice(0, 1))
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index]
+    if (index == i) {
+      element.style.display = 'flex'
+    } else {
+      element.style.display = 'none'
+    }
+  }
+  let item = document.getElementsByClassName('community-list-main-list-item-' + id)[itemIndex]
+  selectedCommunityListItem(item, id)
+}
+function closeSecond (id) {
+  let arr = document.getElementsByClassName('community-list-main-else-list-' + id.slice(0, 1))
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index]
+    element.style.display = 'block'
+  }
+  let array = document.getElementsByClassName('community-list-main-else-main-' + id.slice(0, 1))
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index]
+    element.style.display = 'none'
+  }
+  let arrs = document.getElementsByClassName('community-list-main-media-main-video')
+  for (let index = 0; index < arrs.length; index++) {
+    const element = arrs[index]
+    element.children[0].src = ''
+  }
+}
+function scrollCommunityListUp (id) {
+  let obj = document.getElementById('community-list-main-list-' + id)
+  if (obj.scrollTop > 0) {
+    obj.scrollTop -= obj.offsetHeight
+  }
+}
+function scrollCommunityListDown (id) {
+  let obj = document.getElementById('community-list-main-list-' + id)
+  if (obj.offsetHeight + obj.scrollTop < obj.scrollHeight) {
+    obj.scrollTop += obj.offsetHeight
+  }
+}
+function scrollCommunityListLeft (id) {
+  let obj = document.getElementById('community-list-main-else-list-items-' + id)
+  if (obj.scrollLeft > 0) {
+    obj.scrollLeft -= obj.offsetWidth
+  }
+}
+function scrollCommunityListRight (id) {
+  let obj = document.getElementById('community-list-main-else-list-items-' + id)
+  if (obj.offsetWidth + obj.scrollLeft < obj.scrollWidth) {
+    obj.scrollLeft += obj.offsetWidth
+  }
+}
+function goList (id) {
+  window.location.href = window.location.href.split('html')[0].replace('index', 'list') + 'html?id=' + id
 }

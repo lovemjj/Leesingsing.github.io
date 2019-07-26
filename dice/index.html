@@ -1565,58 +1565,88 @@
                         </div>
                         <div class="title"><span style="font-family: Arial;">DICE</span>社区</div>
                         <div class="list">
-                            <div class="item">
-                                <img src="./img/main/list/1.jpg" alt="">
-                                <div class="subtitle">
-                                    标题内容标题内容标题内容 
+                            <div class="item" onclick="goList(0)">
+                                <div class="hover-img">
+                                    <div class="hover-div"></div>
+                                    <img src="./img/main/list/1.png" alt="">
                                 </div>
-                                <div class="text">
-                                    标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="./img/main/list/2.jpg" alt="">
-                                <div class="subtitle">
-                                    标题内容标题内容标题内容 
-                                </div>
-                                <div class="text">
-                                    标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 
+                                <div class="hover-text">
+                                    <div class="subtitle">
+                                        DICE LOGO & 高清壁纸
+                                    </div>
+                                    <div class="text">
+                                        DICE LOGO及高清壁纸的预览、下载。
+                                    </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <img src="./img/main/list/3.jpg" alt="">
-                                <div class="subtitle">
-                                    标题内容标题内容标题内容 
+                            <div class="item" onclick="goList(1)">
+                                <div class="hover-img">
+                                    <div class="hover-div"></div>
+                                    <img src="./img/main/list/2.png" alt="">
                                 </div>
-                                <div class="text">
-                                    标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="./img/main/list/4.jpg" alt="">
-                                <div class="subtitle">
-                                    标题内容标题内容标题内容 
-                                </div>
-                                <div class="text">
-                                    标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 
+                                <div class="hover-text">
+                                    <div class="subtitle">
+                                        DICE KITTY 表情包
+                                    </div>
+                                    <div class="text">
+                                        DICE社群使用的DICE KITTY表情包下载。
+                                    </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <img src="./img/main/list/5.jpg" alt="">
-                                <div class="subtitle">
-                                    标题内容标题内容标题内容 
+                            <div class="item" onclick="goList(2)">
+                                <div class="hover-img">
+                                    <div class="hover-div"></div>
+                                    <img src="./img/main/list/3.png" alt="">
                                 </div>
-                                <div class="text">
-                                    标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 
+                                <div class="hover-text">
+                                    <div class="subtitle">
+                                        宣传 & 教学视频 
+                                    </div>
+                                    <div class="text">
+                                        可浏览官方发布的宣传片、平台的使用教学视频等DICE平台相关的介绍视频。                            
+                                    </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <img src="./img/main/list/6.jpg" alt="">
-                                <div class="subtitle">
-                                    标题内容标题内容标题内容 
+                            <div class="item" onclick="goList(3)">
+                                <div class="hover-img">
+                                    <div class="hover-div"></div>
+                                    <img src="./img/main/list/4.png" alt="">
                                 </div>
-                                <div class="text">
-                                    标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 标题内容标题内容标题内容 
+                                <div class="hover-text">
+                                    <div class="subtitle">
+                                        DICE WEEKLY & NEWS
+                                    </div>
+                                    <div class="text">   
+                                        DICE WEEKLY视频合集和DICE NEWS视频合集
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item" onclick="goList(4)">
+                                <div class="hover-img">
+                                    <div class="hover-div"></div>
+                                    <img src="./img/main/list/5.png" alt="">
+                                </div>
+                                <div class="hover-text">
+                                    <div class="subtitle">
+                                        官方资料
+                                    </div>
+                                    <div class="text">
+                                        与Dice平台相关的解释说明性文档查看、下载，如白皮书、路线图等。                            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item" onclick="goNotice()">
+                                <div class="hover-img">
+                                    <div class="hover-div"></div>
+                                    <img src="./img/main/list/6.png" alt="">
+                                </div>
+                                <div class="hover-text">
+                                    <div class="subtitle">
+                                        公告
+                                    </div>
+                                    <div class="text">
+                                        与DICE平台相关的重要新闻、公告等。
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1668,4 +1698,70 @@
         </div>
     </div>
 </body>
+<script>
+    window.onscroll = function (ele) {
+        const fairJustObject = document.getElementById('fair-just').getBoundingClientRect()
+        if (fairJustObject.top < window.innerHeight + 100 && fairJustObject.bottom > 100) {
+            document.getElementById('shield').style.top = '0'
+            document.getElementById('shield').style.opacity = '1'
+            document.getElementById('shield').style.transition = 'all 1s ease-in-out'
+        } else {
+            document.getElementById('shield').style.top = '-100px'
+            document.getElementById('shield').style.opacity = '0'
+            document.getElementById('shield').style.transition = 'none'
+        }
+        const profitObject = document.getElementById('profit').getBoundingClientRect()
+        if (profitObject.top < window.innerHeight + 100 && profitObject.bottom > 100) {
+            document.getElementById('money-left').style.top = '0'
+            document.getElementById('money-left').style.opacity = '1'
+            document.getElementById('money-left').style.transition = 'all 1s ease-in-out'
+            document.getElementById('money-right').style.top = '338px'
+            document.getElementById('money-right').style.opacity = '1'
+            document.getElementById('money-right').style.transition = 'all 1s ease-in-out'
+            document.getElementById('fifty').style.top = '72px'
+            document.getElementById('fifty').style.opacity = '1'
+            document.getElementById('fifty').style.transition = 'all 1s ease-in-out'
+        } else {
+            document.getElementById('money-left').style.top = '-100px'
+            document.getElementById('money-left').style.opacity = '0'
+            document.getElementById('money-left').style.transition = 'none'
+            document.getElementById('money-right').style.top = '238px'
+            document.getElementById('money-right').style.opacity = '0'
+            document.getElementById('money-right').style.transition = 'none'
+            document.getElementById('fifty').style.top = '-28px'
+            document.getElementById('fifty').style.opacity = '0'
+            document.getElementById('fifty').style.transition = 'none'
+        }
+        const openObject = document.getElementById('open').getBoundingClientRect()
+        if (openObject.top < window.innerHeight + 100 && openObject.bottom > 100) {
+            document.getElementById('sifter-left').style.top = '80px'
+            document.getElementById('sifter-left').style.opacity = '1'
+            document.getElementById('sifter-left').style.transition = 'all 1s ease-in-out'
+            document.getElementById('sifter-right').style.top = '385px'
+            document.getElementById('sifter-right').style.opacity = '1'
+            document.getElementById('sifter-right').style.transition = 'all 1s ease-in-out'
+            document.getElementById('seven').style.top = '310px'
+            document.getElementById('seven').style.opacity = '1'
+            document.getElementById('seven').style.transition = 'all 1s ease-in-out'
+        } else {
+            document.getElementById('sifter-left').style.top = '-20px'
+            document.getElementById('sifter-left').style.opacity = '0'
+            document.getElementById('sifter-left').style.transition = 'none'
+            document.getElementById('sifter-right').style.top = '255px'
+            document.getElementById('sifter-right').style.opacity = '0'
+            document.getElementById('sifter-right').style.transition = 'none'
+            document.getElementById('seven').style.top = '190px'
+            document.getElementById('seven').style.opacity = '0'
+            document.getElementById('seven').style.transition = 'none'
+        }
+        const distributedObject = document.getElementById('distributed').getBoundingClientRect()
+        if (distributedObject.top < window.innerHeight + 100 && distributedObject.bottom > 100) {
+            document.getElementById('distributed').style.opacity = '1'
+            document.getElementById('distributed').style.transition = 'all 1.5s ease-in-out'
+        } else {
+            document.getElementById('distributed').style.opacity = '0'
+            document.getElementById('distributed').style.transition = 'none'
+        }
+    }
+</script>
 </html>
