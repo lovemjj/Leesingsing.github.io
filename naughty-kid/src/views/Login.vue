@@ -26,6 +26,7 @@
         <div class="icon">
           <img src="../assets/app/mima.svg" alt="password">
         </div>
+
         <input v-model="password" type="password" placeholder="密码" @keyup.enter="login">
       </div>
       <div class="btn" @click="login">
@@ -65,7 +66,9 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               localStorage.setItem('authorization', res.data.data.authorization)
-              t.$store.state.navList = res.data.data.authorities
+              // t.$store.state.authorities = res.data.data.authorities
+              t.$store.state.name = res.data.data.name
+              t.$store.state.branches = res.data.data.branches
               t.$router.push({
                 name: 'selected'
               })

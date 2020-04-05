@@ -6,7 +6,7 @@
         <div class="name">熊孩子推拿</div>
       </div>
       <div class="list" v-if="$store.state.urlName !== 'login' && $store.state.urlName !== 'selected'">
-        <div class="item" :class="{selected: $store.state.urlName === item}" v-for="(item, index) in $store.state.navList" :key="index" @click="goto(item)">
+        <div class="item" :class="{selected: $store.state.urlName === item}" v-for="(item, index) in $store.state.authorities" :key="index" @click="goto(item)">
           {{item}}
         </div>
       </div>
@@ -22,7 +22,7 @@
             <img src="./assets/app/touxiang.svg" alt="">
           </div>
           <el-dropdown @command="caozuo">
-            <div class="name">张医生</div>
+            <div class="name">{{$store.state.name}}</div>
             <div class="down">
               <img src="./assets/app/xia.svg" alt="">
             </div>
@@ -33,7 +33,7 @@
           </el-dropdown>
         </div>
         <div class="shop-name">
-          熊孩子小儿推拿（锦绣东苑店）
+          {{$store.state.branch_name}}
         </div>
       </div>
     </div>
@@ -192,7 +192,9 @@ export default {
         url: '/api/session'
       }).then((res) => {
         if (res.data.code === 200) {
-          t.$store.state.navList = res.data.data.authorities
+          t.$store.state.name = res.data.data.name
+          t.$store.state.branches = res.data.data.branches
+          // t.$store.state.authorities = res.data.data.authorities
         } else {
           t.$message({
             showClose: true,
@@ -544,5 +546,36 @@ img {
 }
 .dislog-jiedai-info .el-input {
   width: 100%;
+}
+.el-pagination {
+  margin-top: 10px;
+}
+.avatar-uploader {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 178px;
+  height: 178px;
+}
+.avatar-uploader input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+.avatar-uploader:hover {
+  border-color: #ff9900;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px !important;
+  text-align: center;
 }
 </style>

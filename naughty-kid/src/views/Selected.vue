@@ -11,27 +11,24 @@
         <div class="title">
           <div class="line"></div>
           <div class="name">
-            欢迎【{{doctor}}】，请选择您要进入的机构/门店
+            欢迎【{{$store.state.name}}】，请选择您要进入的机构/门店
           </div>
           <div class="line"></div>
         </div>
       </div>
-      <div class="item">
-        <div class="text">
-          机构/门店：
-        </div>
-        <div class="value">
-          <el-select v-model="value" placeholder="请选择">
-            <el-option v-for="item in shops" :key="item.value" :label="item.name" :value="item.value">
+      <el-form class="item" :rules="formRules" ref="form" :model="form" label-position="left" label-width="120px">
+        <el-form-item label="机构/门店:" prop="id">
+          <el-select v-model="form.id" placeholder="请选择">
+            <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
-        </div>
-      </div>
+        </el-form-item>
+      </el-form>
       <div class="btns">
         <div class="btn out" @click="navigationBack">
           退出
         </div>
-        <div class="btn" @click="navigationTo">进入</div>
+        <div class="btn" @click="sessionBranch">进入</div>
       </div>
     </div>
   </div>
@@ -42,22 +39,18 @@ export default {
   name: 'selected',
   data () {
     return {
-      doctor: '张医生',
-      value: '',
-      shops: [
-        {
-          value: 0,
-          name: '熊孩子小儿推拿（锦绣东苑店）'
-        },
-        {
-          value: 1,
-          name: '熊孩子小儿推拿（新北万达店）'
-        }
-      ]
+      form: {
+        id: ''
+      },
+      formRules: {
+        id: [
+          { required: true, message: '请选择机构/门店', trigger: 'change' }
+        ]
+      }
     }
   },
   mounted () {
-    this.branch()
+
   },
   methods: {
     navigationBack () {
@@ -81,13 +74,43 @@ export default {
         url: '/api/branch'
       }).then((res) => {
         if (res.data.code === 200) {
-
+          t.$store.state.branches = res.data.data.records
         } else {
           t.$message({
             showClose: true,
             message: res.data.message,
             type: 'error'
           })
+        }
+      })
+    },
+    sessionBranch () {
+      const t = this
+      t.$refs['form'].validate((valid) => {
+        if (valid) {
+          axios({
+            method: 'post',
+            headers: {
+              authorization: t.$store.state.authorization
+            },
+            url: '/api/session/branch',
+            data: t.form
+          }).then((res) => {
+            if (res.data.code === 200) {
+              localStorage.setItem('authorization', res.data.data.authorization)
+              t.$store.state.branch_name = res.data.data.name
+              t.$store.state.branch_id = res.data.data.id
+              t.navigationTo()
+            } else {
+              t.$message({
+                showClose: true,
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        } else {
+          return false
         }
       })
     }
@@ -132,21 +155,8 @@ export default {
   background-color: #ff9900;
 }
 .main .selected .item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 50px;
   margin-bottom: 100px;
-}
-.main .selected .item .text {
-  font-size: 14px;
-  white-space: nowrap;
-}
-.main .selected .item .value {
-  width: 100%;
-}
-.main .selected .item .value select {
-  width: 100%;
 }
 .main .selected .btns {
   display: flex;
