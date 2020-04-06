@@ -72,7 +72,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="dictionaryDataTotal">
+          :total="dictionaryDataTotal"
+          @current-change="dictionary">
         </el-pagination>
       </div>
       <div class="info" v-if="dictionaryName">
@@ -735,7 +736,7 @@ export default {
         this.config()
       }
     },
-    dictionary () {
+    dictionary (e) {
       const t = this
       axios({
         method: 'get',
@@ -744,7 +745,7 @@ export default {
         },
         url: '/api/dictionary',
         params: {
-          page: t.dictionaryDataPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.dictionaryLike
         }
@@ -762,7 +763,7 @@ export default {
         }
       })
     },
-    dictionaryItem () {
+    dictionaryItem (e) {
       const t = this
       axios({
         method: 'get',
@@ -771,7 +772,7 @@ export default {
         },
         url: '/api/dictionary/' + t.dictionaryNumber + '/item',
         params: {
-          page: t.dictionaryItemDataPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.dictionaryItemLike
         }
@@ -899,7 +900,7 @@ export default {
         }
       })
     },
-    massageScheme () {
+    massageScheme (e) {
       const t = this
       axios({
         method: 'get',
@@ -908,7 +909,7 @@ export default {
         },
         url: '/api/dictionary/massage-scheme',
         params: {
-          page: t.massageSchemeDataPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.massageSchemeLike
         }
@@ -988,7 +989,7 @@ export default {
         }
       })
     },
-    massageItem () {
+    massageItem (e) {
       const t = this
       axios({
         method: 'get',
@@ -997,7 +998,7 @@ export default {
         },
         url: '/api/dictionary/massage-item',
         params: {
-          page: t.massageItemDataPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.massageItemLike
         }
@@ -1100,7 +1101,7 @@ export default {
         }
       })
     },
-    material () {
+    material (e) {
       const t = this
       axios({
         method: 'get',
@@ -1109,7 +1110,7 @@ export default {
         },
         url: '/api/dictionary/material',
         params: {
-          page: t.materialDataPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.materialLike
         }
@@ -1181,7 +1182,7 @@ export default {
         }
       })
     },
-    config () {
+    config (e) {
       const t = this
       axios({
         method: 'get',
@@ -1190,7 +1191,7 @@ export default {
         },
         url: '/api/dictionary/config',
         params: {
-          page: t.configDataPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.configLike
         }

@@ -60,9 +60,15 @@ export default {
       })
     },
     navigationTo () {
-      this.$router.push({
-        name: 'index'
-      })
+      if (this.$store.state.authorities.length > 0) {
+        this.$router.push({
+          name: this.$store.state.authorities[0]
+        })
+      } else {
+        this.$router.push({
+          name: 'index'
+        })
+      }
     },
     branch () {
       const t = this

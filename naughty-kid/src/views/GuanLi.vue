@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="tabel">
-        <el-form :rules="branchRules" ref="branchRef" :model="branchForm" class="demo-form-inline" label-width="150px" size="small">
+        <el-form :rules="branchRules" ref="branchRef" :model="branchForm" class="demo-form-inline" label-width="150px" size="small" style="width: 60%">
           <el-form-item label="机构门店编号:">
             <div>{{branchForm.number}}</div>
           </el-form-item>
@@ -70,13 +70,13 @@
             </div>
           </el-form-item>
           <el-form-item label="机构门店负责人:">
-            <el-select v-model="branchForm.administrator" filterable>
-              <el-option v-for="item in employees" :key="item.id" :label="item.name" :value="item.id">
+            <el-select v-model="branchForm.administrator" value-key="id">
+              <el-option v-for="item in employees" :key="item.id" :label="item.name" :value="item">
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="负责人联系电话:">
-            <el-input v-model="branchForm.administrator.contact"></el-input>
+            <el-input v-model="branchForm.administrator.contact" disabled></el-input>
           </el-form-item>
           <el-form-item label="地址:">
             <el-input v-model="branchForm.location"></el-input>
@@ -159,7 +159,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="employeeTotal">
+            :total="employeeTotal"
+            @current-change="employee">
           </el-pagination>
         </div>
       </div>
@@ -208,7 +209,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="branchTotal">
+            :total="branchTotal"
+            @current-change="branch">
           </el-pagination>
         </div>
       </div>
@@ -224,6 +226,7 @@
       <div class="list">
         <div class="items">
           <el-table
+          ref="role"
             :data="roles"
             border
             highlight-current-row
@@ -256,9 +259,8 @@
           ref="tree"
           show-checkbox
           node-key="label"
-          :default-checked-keys="['会员卡']"
           default-expand-all
-          @check-change="authoritiesChange">
+          @check="authoritiesChange">
         </el-tree>
       </div>
     </div>
@@ -307,6 +309,7 @@
     <div class="tuina-main" v-if="selected === 5" key="5">
       <div class="search">
         <div class="value">
+          员工机构管理
         </div>
       </div>
       <div class="list">
@@ -316,10 +319,11 @@
         </div>
         <div class="items">
           <el-table
+            ref="employee-branch"
             :data="employees"
             border
             highlight-current-row
-            @current-change="employeeClick">
+            @current-change="employeeBranchClick">
             <el-table-column
               prop="number"
               label="员工工号">
@@ -332,7 +336,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="employeeTotal">
+            :total="employeeTotal"
+            @current-change="employee">
           </el-pagination>
         </div>
       </div>
@@ -343,8 +348,10 @@
         </div>
         <div class="items">
           <el-table
+            ref="branch-employee"
             :data="branches"
-            border>
+            border
+            @select="branchEmployeeSelected">
             <el-table-column
               type="selection"
               width="55">
@@ -361,7 +368,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="branchTotal">
+            :total="branchTotal"
+            @current-change="branch">
           </el-pagination>
         </div>
       </div>
@@ -383,10 +391,11 @@
         </div>
         <div class="items">
           <el-table
+            ref="employee-role"
             :data="employees"
             border
             highlight-current-row
-            @current-change="employeeClick">
+            @current-change="employeeRoleClick">
             <el-table-column
               prop="number"
               label="员工工号">
@@ -399,7 +408,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="employeeTotal">
+            :total="employeeTotal"
+            @current-change="employee">
           </el-pagination>
         </div>
       </div>
@@ -410,8 +420,10 @@
         </div>
         <div class="items">
           <el-table
+            ref="role-employee"
             :data="roles"
-            border>
+            border
+            @select="roleEmployeeSelected">
             <el-table-column
               type="selection"
               width="55">
@@ -455,7 +467,7 @@
         <el-form-item label="联系电话:">
           <el-input v-model="employeeForm.contact"></el-input>
         </el-form-item>
-        <el-form-item label="归属机构或门店:" prop="branchId">
+        <el-form-item label="归属机构或门店:" prop="branchId" v-if="!employeeForm.id">
           <el-select v-model="employeeForm.branchId" clearable>
             <el-option v-for="item in branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
@@ -483,13 +495,13 @@
           </div>
         </el-form-item>
         <el-form-item label="机构门店负责人:">
-          <el-select v-model="branchForm.administrator" filterable>
-            <el-option v-for="item in employees" :key="item.id" :label="item.name" :value="item.id">
+          <el-select v-model="branchForm.administrator" value-key="id" filterable>
+            <el-option v-for="item in employees" :key="item.id" :label="item.name" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="负责人联系电话:">
-          <el-input v-model="branchForm.administrator.contact"></el-input>
+          <el-input v-model="branchForm.administrator.contact" disabled></el-input>
         </el-form-item>
         <el-form-item label="地址:">
           <el-input v-model="branchForm.location"></el-input>
@@ -499,7 +511,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button size="small" type="primary" @click="AddEmployee">保存</el-button>
+        <el-button size="small" type="primary" @click="AddBranch">保存</el-button>
         <el-button size="small" type="primary" @click="branchPop = false">取消</el-button>
       </div>
     </el-dialog>
@@ -516,8 +528,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button size="small" type="primary" @click="AddEmployee">保存</el-button>
-        <el-button size="small" type="primary" @click="branchPop = false">取消</el-button>
+        <el-button size="small" type="primary" @click="AddRole">保存</el-button>
+        <el-button size="small" type="primary" @click="rolePop = false">取消</el-button>
       </div>
     </el-dialog>
   </div>
@@ -560,9 +572,10 @@ export default {
       employeeForm: {
         number: '',
         name: '',
-        gender: '',
+        gender: '1',
         birthday: '',
         contact: '',
+        disabled: false,
         branchId: ''
       },
       employeeRules: {
@@ -602,7 +615,11 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'label'
-      }
+      },
+      employeeBranchId: '',
+      employeeBranches: [],
+      employeeRoleId: '',
+      employeeRoles: []
     }
   },
   mounted () {
@@ -628,13 +645,11 @@ export default {
         this.getAuthorities()
       }
       if (index === 5) {
-        this.branch()
         this.employee()
       }
       if (index === 6) {
-        this.branch()
         this.employee()
-        this.role()
+        this.branch()
       }
     },
     sessionBranch () {
@@ -664,15 +679,17 @@ export default {
     AddBranch () {
       const t = this
       let method = 'post'
+      let url = '/api/branch'
       if (t.branchType === 'change') {
         method = 'put'
+        url = '/api/branch/' + t.branchForm.id
       }
       axios({
         method,
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/branch',
+        url,
         data: t.branchForm
       }).then((res) => {
         if (res.data.code === 200) {
@@ -681,6 +698,12 @@ export default {
             message: '修改成功',
             type: 'success'
           })
+          if (t.selected === 0) {
+            t.sessionBranch()
+          } else {
+            t.branch()
+            t.branchPop = false
+          }
         } else {
           t.$message({
             showClose: true,
@@ -691,15 +714,16 @@ export default {
       })
     },
     uploadImg () {
-      // const t = this
+      const t = this
       var file = this.$refs.img
       var reader = new FileReader()
       reader.readAsDataURL(file.files[0])
       reader.onload = function (e) {
-        // console.log(this.result)
+        t.branchForm.photoBinary = this.result
+        t.branchForm.photoType = file.files[0].name.split('.')[1]
       }
     },
-    branch () {
+    branch (e) {
       const t = this
       axios({
         method: 'get',
@@ -708,7 +732,7 @@ export default {
         },
         url: '/api/branch',
         params: {
-          page: t.branchPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.branchLike
         }
@@ -716,6 +740,18 @@ export default {
         if (res.data.code === 200) {
           t.branches = res.data.data.records
           t.branchTotal = res.data.data.total
+          if (t.selected === 5 && t.employeeBranches.length > 0) {
+            setTimeout(() => {
+              for (const i of t.employeeBranches) {
+                let arr = t.branches.filter((ele) => {
+                  return ele.id === i.id
+                })
+                if (arr.length > 0) {
+                  t.$refs['branch-employee'].toggleRowSelection(arr[0])
+                }
+              }
+            }, 100)
+          }
         } else {
           t.$message({
             showClose: true,
@@ -725,7 +761,7 @@ export default {
         }
       })
     },
-    employee () {
+    employee (e) {
       const t = this
       let url = '/api/employee'
       if (t.brancheSelectedId) {
@@ -738,7 +774,7 @@ export default {
         },
         url,
         params: {
-          page: t.employeePage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.employeeLike
         }
@@ -746,6 +782,12 @@ export default {
         if (res.data.code === 200) {
           t.employees = res.data.data.records
           t.employeeTotal = res.data.data.total
+          if (t.selected === 5) {
+            this.$refs['employee-branch'].setCurrentRow(t.employees[0])
+          }
+          if (t.selected === 6) {
+            this.$refs['employee-role'].setCurrentRow(t.employees[0])
+          }
         } else {
           t.$message({
             showClose: true,
@@ -759,16 +801,25 @@ export default {
       this.employeeForm = {
         number: '',
         name: '',
-        gender: '',
+        gender: 1,
         birthday: '',
         contact: '',
+        disabled: false,
         branchId: ''
       }
       this.employeeType = 'add'
       this.employeePop = true
     },
     employeeChange (item) {
-      this.employeeForm = item
+      this.employeeForm = {
+        id: item.id,
+        number: item.number,
+        name: item.name,
+        gender: item.gender,
+        birthday: item.birthday,
+        contact: item.contact,
+        disabled: item.disabled
+      }
       this.employeeType = 'change'
       this.employeePop = true
     },
@@ -909,7 +960,7 @@ export default {
         }
       })
     },
-    role () {
+    role (e) {
       const t = this
       axios({
         method: 'get',
@@ -918,13 +969,28 @@ export default {
         },
         url: '/api/role',
         params: {
-          page: t.rolePage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.roleLike
         }
       }).then((res) => {
         if (res.data.code === 200) {
           t.roles = res.data.data
+          if (t.selected === 3) {
+            this.$refs['role'].setCurrentRow(t.roles[0])
+          }
+          if (t.selected === 6 && t.employeeRoles.length > 0) {
+            setTimeout(() => {
+              for (const i of t.employeeRoles) {
+                let arr = t.roles.filter((ele) => {
+                  return ele.id === i.id
+                })
+                if (arr.length > 0) {
+                  t.$refs['role-employee'].toggleRowSelection(arr[0])
+                }
+              }
+            }, 100)
+          }
         } else {
           t.$message({
             showClose: true,
@@ -938,10 +1004,7 @@ export default {
       this.roleForm = {
         number: '',
         name: '',
-        gender: '',
-        birthday: '',
-        contact: '',
-        branchId: ''
+        description: ''
       }
       this.roleType = 'add'
       this.rolePop = true
@@ -1020,14 +1083,71 @@ export default {
       })
     },
     authoritiesChange (e) {
-      // console.log(this.$refs.tree.getCheckedNodes())
       // console.log(this.$refs.tree.getCheckedKeys())
     },
-    roleClick () {
-
+    roleClick (e) {
+      this.$refs.tree.setCheckedKeys(e.authorities)
     },
-    employeeClick () {
+    employeeBranchClick (e) {
+      this.employeeBranches = e.branches
+      this.employeeBranchId = e.id
+      this.branch()
+    },
+    employeeRoleClick (e) {
+      this.employeeRoles = e.roles
+      this.employeeRoleId = e.id
+      this.role()
+    },
+    branchEmployeeSelected (branches) {
+      const t = this
+      axios({
+        method: 'patch',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/employee/' + t.employeeBranchId,
+        data: {
+          branches
+        }
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.$message({
+            showClose: true,
+            message: '修改成功',
+            type: 'success'
+          })
+          t.employee()
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    roleEmployeeSelected (roles) {
+      const t = this
+      axios({
+        method: 'patch',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/branch/' + t.brancheSelectedId + '/employee/' + t.employeeRoleId,
+        data: {
+          roles
+        }
+      }).then((res) => {
+        if (res.data.code === 200) {
 
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
     }
     // handleDragStart (node, ev) {
     //   console.log('drag start', node)
