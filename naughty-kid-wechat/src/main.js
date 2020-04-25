@@ -3,22 +3,39 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-import './plugins/element.js'
-import { Loading } from 'element-ui'
+import Vant from 'vant'
+import 'vant/lib/index.css'
+import moment from 'moment'
 
+Vue.use(Vant)
 Vue.config.productionTip = false
 
+moment.updateLocale('en', {
+  week: {
+    dow: 1
+  }
+})
+
 router.beforeEach((to, from, next) => {
+  if (to.name !== 'login' || to.name !== 'selected') {
+    const arr = store.state.include.filter((ele) => {
+      return ele === to.name
+    })
+    if (arr.length === 0) {
+      store.state.include.push(to.name)
+    }
+  }
   if (to.matched.length === 0) {
     from.name ? next({
       name: from.name
     }) : next('/')
   } else {
     store.state.urlName = to.name
-    if (localStorage.getItem('authorization')) {
+    if (localStorage.getItem('authorization') && localStorage.getItem('id')) {
       store.state.authorization = localStorage.getItem('authorization')
+      store.state.id = parseInt(localStorage.getItem('id'))
       if (localStorage.getItem('branch_id')) {
-        store.state.branch_id = parseInt(localStorage.getItem('branch_id'))
+        store.state.branch_id = localStorage.getItem('branch_id')
         next()
       } else {
         if (to.name !== 'selected') {
@@ -61,7 +78,6 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   // 对响应错误做点什么
-  Loading.service().close()
   return Promise.reject(error)
 })
 

@@ -10,37 +10,37 @@
         </div>
         <div class="name">我的机构/门店</div>
       </div>
-      <div class="item" :class="{selected: selected === 1}" @click="select(1)">
+      <div class="item" :class="{selected: selected === 1}" @click="select(1)" v-if="$store.state.authorities.indexOf('员工管理') > -1">
         <div class="icon">
           <img src="../assets/app/yuangong.svg" alt="">
         </div>
         <div class="name">员工管理</div>
       </div>
-      <div class="item" :class="{selected: selected === 2}" @click="select(2)">
+      <div class="item" :class="{selected: selected === 2}" @click="select(2)" v-if="$store.state.authorities.indexOf('组织机构') > -1">
         <div class="icon">
           <img src="../assets/app/jichu.svg" alt="">
         </div>
         <div class="name">机构门店管理</div>
       </div>
-      <div class="item" :class="{selected: selected === 3}" @click="select(3)">
+      <div class="item" :class="{selected: selected === 3}" @click="select(3)" v-if="$store.state.authorities.indexOf('岗位管理') > -1">
         <div class="icon">
           <img src="../assets/app/jichu.svg" alt="">
         </div>
         <div class="name">岗位管理</div>
       </div>
-      <div class="item" :class="{selected: selected === 4}" @click="select(4)">
+      <div class="item" :class="{selected: selected === 4}" @click="select(4)" v-if="$store.state.authorities.indexOf('组织机构') > -1">
         <div class="icon">
           <img src="../assets/app/jichu.svg" alt="">
         </div>
         <div class="name">组织结构管理</div>
       </div>
-      <div class="item" :class="{selected: selected === 5}" @click="select(5)">
+      <div class="item" :class="{selected: selected === 5}" @click="select(5)" v-if="$store.state.authorities.indexOf('组织机构') > -1">
         <div class="icon">
           <img src="../assets/app/jichu.svg" alt="">
         </div>
         <div class="name">员工机构管理</div>
       </div>
-      <div class="item" :class="{selected: selected === 6}" @click="select(6)">
+      <div class="item" :class="{selected: selected === 6}" @click="select(6)" v-if="$store.state.authorities.indexOf('组织机构') > -1">
         <div class="icon">
           <img src="../assets/app/jichu.svg" alt="">
         </div>
@@ -65,7 +65,7 @@
           <el-form-item label="机构门店照片:">
             <div class="avatar-uploader">
               <input type="file" @change="uploadImg" ref="img"/>
-              <img v-if="branchForm.photoBinary" :src="branchForm.photoBinary" class="avatar">
+              <img v-if="branchForm.photo" :src="branchForm.photo" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </div>
           </el-form-item>
@@ -378,7 +378,7 @@
       <div class="search">
         <div class="value">
           <div class="name">设置当前机构的员工权限：</div>
-          <el-select v-model="brancheSelectedId" clearable size="small" @change="employee">
+          <el-select v-model="brancheSelectedId" size="small" @change="employee">
             <el-option v-for="item in branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
@@ -490,7 +490,7 @@
         <el-form-item label="机构门店照片:">
           <div class="avatar-uploader">
             <input type="file" @change="uploadImg" ref="img"/>
-            <img v-if="branchForm.photoBinary" :src="branchForm.photoBinary" class="avatar">
+            <img v-if="branchForm.photo" :src="branchForm.photo" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </div>
         </el-form-item>
@@ -537,15 +537,13 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'guanli',
   data () {
     return {
       selected: 0,
       branchForm: {
         number: '',
         name: '',
-        photoBinary: '',
-        photoType: '',
+        photo: '',
         location: '',
         description: '',
         disabled: '',
@@ -611,6 +609,7 @@ export default {
           { required: true, message: '请输入岗位名称', trigger: 'change' }
         ]
       },
+      roleId: '',
       authorities: [],
       defaultProps: {
         children: 'children',
@@ -648,6 +647,7 @@ export default {
         this.employee()
       }
       if (index === 6) {
+        this.brancheSelectedId = this.$store.state.branch_id
         this.employee()
         this.branch()
       }
@@ -719,8 +719,7 @@ export default {
       var reader = new FileReader()
       reader.readAsDataURL(file.files[0])
       reader.onload = function (e) {
-        t.branchForm.photoBinary = this.result
-        t.branchForm.photoType = file.files[0].name.split('.')[1]
+        t.branchForm.photo = this.result
       }
     },
     branch (e) {
@@ -764,7 +763,7 @@ export default {
     employee (e) {
       const t = this
       let url = '/api/employee'
-      if (t.brancheSelectedId) {
+      if ((t.selected === 6 && t.brancheSelectedId) || (t.selected === 1 && t.brancheSelectedId)) {
         url = '/api/branch/' + t.brancheSelectedId + '/employee'
       }
       axios({
@@ -783,10 +782,24 @@ export default {
           t.employees = res.data.data.records
           t.employeeTotal = res.data.data.total
           if (t.selected === 5) {
-            this.$refs['employee-branch'].setCurrentRow(t.employees[0])
+            let arr = t.employees.filter((ele) => {
+              return ele.id === t.employeeBranchId
+            })
+            if (arr.length > 0) {
+              this.$refs['employee-branch'].setCurrentRow(arr[0])
+            } else {
+              this.$refs['employee-branch'].setCurrentRow(t.employees[0])
+            }
           }
           if (t.selected === 6) {
-            this.$refs['employee-role'].setCurrentRow(t.employees[0])
+            let arr = t.employees.filter((ele) => {
+              return ele.id === t.employeeRoleId
+            })
+            if (arr.length > 0) {
+              this.$refs['employee-role'].setCurrentRow(arr[0])
+            } else {
+              this.$refs['employee-role'].setCurrentRow(t.employees[0])
+            }
           }
         } else {
           t.$message({
@@ -917,8 +930,7 @@ export default {
       this.branchForm = {
         number: '',
         name: '',
-        photoBinary: '',
-        photoType: '',
+        photo: '',
         location: '',
         description: '',
         disabled: '',
@@ -977,7 +989,14 @@ export default {
         if (res.data.code === 200) {
           t.roles = res.data.data
           if (t.selected === 3) {
-            this.$refs['role'].setCurrentRow(t.roles[0])
+            let arr = t.roles.filter((ele) => {
+              return ele.id === t.roleId
+            })
+            if (arr.length > 0) {
+              this.$refs['role'].setCurrentRow(arr[0])
+            } else {
+              this.$refs['role'].setCurrentRow(t.roles[0])
+            }
           }
           if (t.selected === 6 && t.employeeRoles.length > 0) {
             setTimeout(() => {
@@ -1083,9 +1102,35 @@ export default {
       })
     },
     authoritiesChange (e) {
-      // console.log(this.$refs.tree.getCheckedKeys())
+      const t = this
+      axios({
+        method: 'patch',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/role/' + t.roleId,
+        data: {
+          authorities: t.$refs.tree.getCheckedKeys(true)
+        }
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.$message({
+            showClose: true,
+            message: '修改成功',
+            type: 'success'
+          })
+          t.role()
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
     },
     roleClick (e) {
+      this.roleId = e.id
       this.$refs.tree.setCheckedKeys(e.authorities)
     },
     employeeBranchClick (e) {
@@ -1139,7 +1184,12 @@ export default {
         }
       }).then((res) => {
         if (res.data.code === 200) {
-
+          t.$message({
+            showClose: true,
+            message: '修改成功',
+            type: 'success'
+          })
+          t.employee()
         } else {
           t.$message({
             showClose: true,

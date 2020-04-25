@@ -11,15 +11,15 @@
         <div class="title">
           <div class="line"></div>
           <div class="name">
-            欢迎【{{$store.state.name}}】，请选择您要进入的机构/门店
+            欢迎【{{$store.state.name}}】<br> 请选择您要进入的机构/门店
           </div>
           <div class="line"></div>
         </div>
       </div>
       <el-form class="item" :rules="formRules" ref="form" :model="form" label-position="left" label-width="120px">
         <el-form-item label="机构/门店:" prop="id">
-          <el-select v-model="form.id" placeholder="请选择">
-            <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
+          <el-select v-model="form" value-key="id" placeholder="请选择">
+            <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
@@ -40,53 +40,76 @@ export default {
   data () {
     return {
       form: {
+        name: '',
         id: ''
       },
       formRules: {
         id: [
           { required: true, message: '请选择机构/门店', trigger: 'change' }
         ]
-      }
+      },
+      showPicker: false,
+      name: ''
     }
   },
   mounted () {
-
+    this.getSession()
   },
   methods: {
     navigationBack () {
       localStorage.removeItem('authorization')
+      localStorage.removeItem('branch_id')
       this.$router.replace({
         name: 'login'
       })
     },
     navigationTo () {
-      if (this.$store.state.authorities.length > 0) {
-        this.$router.push({
-          name: this.$store.state.authorities[0]
+      if (this.$store.state.navAuthorities.length > 0) {
+        this.$router.replace({
+          name: this.$store.state.navAuthorities[0]
         })
       } else {
-        this.$router.push({
+        this.$router.replace({
           name: 'index'
         })
       }
     },
-    branch () {
+    getSession (e) {
       const t = this
       axios({
         method: 'get',
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/branch'
+        url: '/api/session'
       }).then((res) => {
         if (res.data.code === 200) {
-          t.$store.state.branches = res.data.data.records
+          t.$store.state.branches = res.data.data.branches
+          t.$store.state.name = res.data.data.name
+          t.$store.state.id = res.data.data.id
+          t.$store.state.authorities = []
+          t.$store.state.navAuthorities = []
+          t.$store.state.authorities = res.data.data.authorities
+          if (res.data.data.authorities.length > 0) {
+            for (const ele of res.data.data.authorities) {
+              if (ele === '推拿接待' || ele === '推拿管理') {
+                if (t.$store.state.navAuthorities.indexOf('推拿') < 0) {
+                  t.$store.state.navAuthorities.push('推拿')
+                }
+              } else if (ele === '员工管理' || ele === '岗位管理' || ele === '组织机构') {
+                if (t.$store.state.navAuthorities.indexOf('员工机构管理') < 0) {
+                  t.$store.state.navAuthorities.push('员工机构管理')
+                }
+              } else {
+                t.$store.state.navAuthorities.push(ele)
+              }
+            }
+          }
+          if (e === 'navigationTo') {
+            t.navigationTo()
+          }
         } else {
-          t.$message({
-            showClose: true,
-            message: res.data.message,
-            type: 'error'
-          })
+          t.$notify({ message: res.data.message, type: 'warning' })
         }
       })
     },
@@ -103,10 +126,11 @@ export default {
             data: t.form
           }).then((res) => {
             if (res.data.code === 200) {
+              t.$store.state.authorization = res.data.data.authorization
               localStorage.setItem('authorization', res.data.data.authorization)
-              t.$store.state.branch_name = res.data.data.name
-              t.$store.state.branch_id = res.data.data.id
-              t.navigationTo()
+              localStorage.setItem('branch_id', res.data.data.id)
+              t.$store.state.branch_name = t.form.name
+              t.getSession('navigationTo')
             } else {
               t.$message({
                 showClose: true,
@@ -132,15 +156,21 @@ export default {
 }
 .main .img {
   width: 338px;
+  margin-right: 100px;
+}
+.mobile .main .img {
+  display: none;
 }
 .main .selected {
   box-shadow: 2px 2px 5px #ff9900;
   width: 617px;
   border: 1px solid #ff9900;
   border-radius: 4px;
-  margin-left: 100px;
   padding: 15px 40px;
   box-sizing: border-box;
+}
+.mobile .main .selected {
+  width: 80%;
 }
 .main .selected .icon {
   width: 58px;
@@ -154,6 +184,7 @@ export default {
   font-size: 18px;
   font-weight: bold;
   color: #ff9900;
+  text-align: center;
 }
 .main .selected .title .line {
   width: 36px;
@@ -189,5 +220,7 @@ export default {
 }
 .el-select {
   width: 100%;
+}
+.select {
 }
 </style>

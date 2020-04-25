@@ -4,52 +4,141 @@
       <div class="value">
         <div class="name">咨询接待日期：</div>
         <el-radio-group v-model="date" size="small">
-          <el-radio-button label="本日"></el-radio-button>
-          <el-radio-button label="本周"></el-radio-button>
-          <el-radio-button label="本月"></el-radio-button>
-          <el-radio-button label="本年"></el-radio-button>
-          <el-radio-button label="自定义"></el-radio-button>
+          <el-radio-button :label="index" v-for="(item, index) in dates" :key="index">{{item.name}}</el-radio-button>
         </el-radio-group>
-        <el-date-picker :disabled="dateDisabled" v-model="dates" type="daterange" size="small" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker :readonly="dateDisabled" value-format="yyyy-MM-dd" v-model="dates[date].label" type="daterange" size="small" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
         <div class="name">机构门店：</div>
-        <el-select v-model="shop" placeholder="请选择" size="small">
-          <el-option v-for="item in shops" :key="item.value" :label="item.name" :value="item.value">
+        <el-select v-model="branch_id" placeholder="请选择" size="small">
+          <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </div>
-      <el-button size="small" type="primary">查询</el-button>
+      <el-button size="small" type="primary" @click="getWorkbench">查询</el-button>
     </div>
     <div class="times">
-      <div class="item" v-for="(item, index) in 5" :key="index">
+      <div class="item">
         <div class="title">
           顾客数量统计
         </div>
         <div class="value">
-          <div class="num">
-            <span>
-              256
-            </span>
-            人
-          </div>
+          <div class="num"><span>{{data.customerStatistic.count}}</span>人</div>
           <div class="type">
-            <div class="i">
-              <div class="c"></div>
-              同比
-            </div>
-            <div class="i">
-              <div class="c"></div>
-              环比
-            </div>
+            <div class="i"><div class="c zeng"></div>同比</div>
+            <div class="i"><div class="c jiang"></div>环比</div>
           </div>
           <div class="percent">
             <div class="i zeng">
-              8.5%
+              {{data.customerStatistic.chainRatio}}%
               <div class="icon">
                 <img src="../assets/app/zeng.svg" alt="">
               </div>
             </div>
             <div class="i jiang">
-              4.5%
+              {{data.customerStatistic.yearOnYear}}%
+              <div class="icon">
+                <img src="../assets/app/jiang.svg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="title">
+          服务次数统计
+        </div>
+        <div class="value">
+          <div class="num"><span>{{data.massageStatistic.count}}</span>人</div>
+          <div class="type">
+            <div class="i"><div class="c zeng"></div>同比</div>
+            <div class="i"><div class="c jiang"></div>环比</div>
+          </div>
+          <div class="percent">
+            <div class="i zeng">
+              {{data.massageStatistic.chainRatio}}%
+              <div class="icon">
+                <img src="../assets/app/zeng.svg" alt="">
+              </div>
+            </div>
+            <div class="i jiang">
+              {{data.massageStatistic.yearOnYear}}%
+              <div class="icon">
+                <img src="../assets/app/jiang.svg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="title">
+          本店服务技师统计
+        </div>
+        <div class="value">
+          <div class="num"><span>{{data.technicianStatistic.count}}</span>人</div>
+          <div class="type">
+            <div class="i"><div class="c zeng"></div>同比</div>
+            <div class="i"><div class="c jiang"></div>环比</div>
+          </div>
+          <div class="percent">
+            <div class="i zeng">
+              {{data.technicianStatistic.chainRatio}}%
+              <div class="icon">
+                <img src="../assets/app/zeng.svg" alt="">
+              </div>
+            </div>
+            <div class="i jiang">
+              {{data.technicianStatistic.yearOnYear}}%
+              <div class="icon">
+                <img src="../assets/app/jiang.svg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="title">
+          消费统计
+        </div>
+        <div class="value">
+          <div class="num"><span>{{data.consumptionStatistic.count}}</span>人</div>
+          <div class="type">
+            <div class="i"><div class="c zeng"></div>同比</div>
+            <div class="i"><div class="c jiang"></div>环比</div>
+          </div>
+          <div class="percent">
+            <div class="i zeng">
+              {{data.consumptionStatistic.chainRatio}}%
+              <div class="icon">
+                <img src="../assets/app/zeng.svg" alt="">
+              </div>
+            </div>
+            <div class="i jiang">
+              {{data.consumptionStatistic.yearOnYear}}%
+              <div class="icon">
+                <img src="../assets/app/jiang.svg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="title">
+          充值统计
+        </div>
+        <div class="value">
+          <div class="num"><span>{{data.rechargeStatistic.count}}</span>人</div>
+          <div class="type">
+            <div class="i"><div class="c zeng"></div>同比</div>
+            <div class="i"><div class="c jiang"></div>环比</div>
+          </div>
+          <div class="percent">
+            <div class="i zeng">
+              {{data.rechargeStatistic.chainRatio}}%
+              <div class="icon">
+                <img src="../assets/app/zeng.svg" alt="">
+              </div>
+            </div>
+            <div class="i jiang">
+              {{data.rechargeStatistic.yearOnYear}}%
               <div class="icon">
                 <img src="../assets/app/jiang.svg" alt="">
               </div>
@@ -89,51 +178,19 @@
           <div id="rechargeId" class="echartsClass"></div>
         </div>
       </div>
-      <div class="item">
+      <div class="item" v-for="(item, index) in data.tops" :key="index">
         <div class="title">
-          会员卡充值统计
+          {{item.title}}
         </div>
         <div class="value">
-          <div class="i">
+          <div class="i" v-for="(e, i) in item.items" :key="i">
             <div class="name">
               <div class="num">
-                1
+                {{i + 1}}
               </div>
-              <div>刘女士</div>
+              <div>{{e.name}}</div>
             </div>
-            <div class="money">4566元</div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          会员卡充值统计
-        </div>
-        <div class="value">
-          <div class="i">
-            <div class="name">
-              <div class="num">
-                1
-              </div>
-              <div>刘女士</div>
-            </div>
-            <div class="money">4566元</div>
-          </div>
-        </div>
-      </div>
-      <div class="item last">
-        <div class="title">
-          会员卡充值统计
-        </div>
-        <div class="value">
-          <div class="i">
-            <div class="name">
-              <div class="num">
-                1
-              </div>
-              <div>刘女士</div>
-            </div>
-            <div class="money">4566元</div>
+            <div class="money">{{e.amont}}元</div>
           </div>
         </div>
       </div>
@@ -141,241 +198,300 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
+import { Loading } from 'element-ui'
 import moment from 'moment'
 import echarts from 'echarts'
 export default {
-  name: 'home',
   components: {
 
   },
   data () {
     return {
-      date: '',
-      dates: [],
-      dateDisabled: true,
-      shop: '',
-      shops: [
+      date: 0,
+      dates: [
         {
-          value: 0,
-          name: '熊孩子小儿推拿（锦绣东苑店）'
+          label: [moment().startOf('day').format('YYYY-MM-DD'), moment().endOf('day').format('YYYY-MM-DD')],
+          name: '本日'
         },
         {
-          value: 1,
-          name: '熊孩子小儿推拿（新北万达店）'
+          label: [moment().startOf('week').format('YYYY-MM-DD'), moment().endOf('week').format('YYYY-MM-DD')],
+          name: '本周'
+        },
+        {
+          label: [moment().startOf('month').format('YYYY-MM-DD'), moment().endOf('month').format('YYYY-MM-DD')],
+          name: '本月'
+        },
+        {
+          label: [moment().startOf('year').format('YYYY-MM-DD'), moment().endOf('year').format('YYYY-MM-DD')],
+          name: '本年'
+        },
+        {
+          label: ['', ''],
+          name: '自定义'
         }
-      ]
+      ],
+      dateDisabled: true,
+      branch_id: '',
+      data: {
+        customerStatistic: {},
+        massageStatistic: {},
+        technicianStatistic: {},
+        consumptionStatistic: {},
+        rechargeStatistic: {},
+        tops: []
+      }
     }
   },
   watch: {
     date (val) {
-      this.dateDisabled = true
-      if (val === '本日') {
-        this.dates = [moment().startOf('day').format(), moment().endOf('day').format()]
-      }
-      if (val === '本周') {
-        this.dates = [moment().startOf('week').format(), moment().endOf('week').format()]
-      }
-      if (val === '本月') {
-        this.dates = [moment().startOf('month').format(), moment().endOf('month').format()]
-      }
-      if (val === '本年') {
-        this.dates = [moment().startOf('year').format(), moment().endOf('year').format()]
-      }
-      if (val === '自定义') {
-        this.dates = []
+      if (val === 4) {
         this.dateDisabled = false
+      } else {
+        this.dateDisabled = true
       }
     }
   },
   mounted () {
-    this.date = '本周'
-    let scheduleChart = echarts.init(document.getElementById('scheduleId'))
-    let payChart = echarts.init(document.getElementById('payId'))
-    let totalChart = echarts.init(document.getElementById('totalId'))
-    let rechargeChart = echarts.init(document.getElementById('rechargeId'))
-    let scheduleOption = {
-      tooltip: {
-        trigger: 'item',
-        formatter: '{b}: {c} ({d}%)'
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'auto',
-        data: ['已完成', '未完成', '执行中', '执行完成', '收费待执行', '已开单', '咨询接待', '已终止']
-      },
-      series: [
-        {
-          name: '访问来源',
-          type: 'pie',
-          radius: [0, '30%'],
-
-          label: {
-            position: 'inner'
-          },
-          labelLine: {
-            show: false
-          },
-          data: [
-            { value: 17, name: '已完成' },
-            { value: 42, name: '未完成' },
-            { value: 13, name: '已终止' }
-          ]
+    this.branch_id = this.$store.state.branch_id
+    this.getWorkbench()
+  },
+  methods: {
+    getWorkbench () {
+      const t = this
+      Loading.service()
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
         },
-        {
-          name: '访问来源',
-          type: 'pie',
-          radius: ['40%', '55%'],
-          label: {
-            formatter: '  {b|{b}:}{c}  {per|{d}%}  ',
-            backgroundColor: '#eee',
-            borderColor: '#aaa',
-            borderWidth: 1,
-            borderRadius: 4,
-            rich: {
-              a: {
-                color: '#999',
-                lineHeight: 22,
-                align: 'center'
-              },
-              hr: {
-                borderColor: '#aaa',
-                width: '100%',
-                borderWidth: 0.5,
-                height: 0
-              },
-              b: {
-                fontSize: 16,
-                lineHeight: 33
-              },
-              per: {
-                color: '#eee',
-                backgroundColor: '#334455',
-                padding: [2, 4],
-                borderRadius: 2
-              }
-            }
-          },
-          data: [
-            { value: 17, name: '已完成' },
-            { value: 5, name: '执行中' },
-            { value: 8, name: '执行完成' },
-            { value: 8, name: '收费待执行' },
-            { value: 11, name: '已开单' },
-            { value: 10, name: '咨询接待' },
-            { value: 13, name: '已终止' }
-          ]
+        url: '/api/workbench',
+        params: {
+          after: t.dates[t.date].label[0],
+          before: t.dates[t.date].label[1],
+          branchId: t.branch_id
         }
-      ]
-    }
-    let payOption = {
-      tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)'
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['会员卡', '现金', '支付宝', '微信', '信用卡']
-      },
-      series: [
-        {
-          name: '访问来源',
-          type: 'pie',
-          radius: '55%',
-          center: ['50%', '60%'],
-          data: [
-            { value: 335, name: '会员卡' },
-            { value: 310, name: '现金' },
-            { value: 234, name: '支付宝' },
-            { value: 135, name: '微信' },
-            { value: 1548, name: '信用卡' }
-          ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
+      }).then((res) => {
+        if (res.data.code === 200) {
+          this.data = res.data.data
+          let scheduleChart = echarts.init(document.getElementById('scheduleId'))
+          let payChart = echarts.init(document.getElementById('payId'))
+          let totalChart = echarts.init(document.getElementById('totalId'))
+          let rechargeChart = echarts.init(document.getElementById('rechargeId'))
+          let data0 = []
+          let data1 = []
+          let data2 = []
+          let data3 = []
+          let data4 = []
+          for (const i of this.data.massageStatus0.items) {
+            data0.push(i.title)
+            data1.push({
+              value: i.value,
+              name: i.title
+            })
           }
+          for (const i of this.data.massageStatus1.items) {
+            data2.push({
+              value: i.value,
+              name: i.title
+            })
+          }
+
+          let scheduleOption = {
+            tooltip: {
+              trigger: 'item',
+              formatter: '{b}: {c} ({d}%)'
+            },
+            legend: {
+              orient: 'vertical',
+              left: 'auto',
+              data: data0
+            },
+            series: [
+              {
+                name: this.data.massageStatus0.title,
+                type: 'pie',
+                radius: [0, '30%'],
+
+                label: {
+                  position: 'inner'
+                },
+                labelLine: {
+                  show: false
+                },
+                data: data2
+              },
+              {
+                name: this.data.massageStatus0.title,
+                type: 'pie',
+                radius: ['40%', '55%'],
+                label: {
+                  formatter: '  {b|{b}:}{c}  {per|{d}%}  ',
+                  backgroundColor: '#eee',
+                  borderColor: '#aaa',
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  rich: {
+                    a: {
+                      color: '#999',
+                      lineHeight: 22,
+                      align: 'center'
+                    },
+                    hr: {
+                      borderColor: '#aaa',
+                      width: '100%',
+                      borderWidth: 0.5,
+                      height: 0
+                    },
+                    b: {
+                      fontSize: 16,
+                      lineHeight: 33
+                    },
+                    per: {
+                      color: '#eee',
+                      backgroundColor: '#334455',
+                      padding: [2, 4],
+                      borderRadius: 2
+                    }
+                  }
+                },
+                data: data1
+              }
+            ]
+          }
+          for (const i of this.data.paymentStatistic.items) {
+            data3.push(i.title)
+            data4.push({
+              value: i.value,
+              name: i.title
+            })
+          }
+
+          let payOption = {
+            tooltip: {
+              trigger: 'item',
+              formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+              orient: 'vertical',
+              left: 'left',
+              data: data3
+            },
+            series: [
+              {
+                name: this.data.paymentStatistic.title,
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: data4,
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                  }
+                }
+              }
+            ]
+          }
+          let data5 = []
+          let data6 = []
+          for (const i of this.data.histograms[0].yaxis) {
+            data5.push(i.value)
+            data6.push(i.proportion)
+          }
+          let totalOption = {
+            xAxis: {
+              type: 'category',
+              data: this.data.histograms[0].xaxis
+            },
+            yAxis: [
+              {
+                name: '金额（元）',
+                type: 'value'
+              },
+              {
+                name: '百分比（%）',
+                type: 'value',
+                max: 100,
+                min: 0
+              }
+            ],
+            series: [
+              {
+                label: {
+                  show: true,
+                  position: 'top'
+                },
+                data: data5,
+                type: 'bar'
+              },
+              {
+                label: {
+                  show: true,
+                  position: 'bottom'
+                },
+                data: data6,
+                type: 'line'
+              }
+            ]
+          }
+          let data7 = []
+          let data8 = []
+          for (const i of this.data.histograms[1].yaxis) {
+            data7.push(i.value)
+            data8.push(i.proportion)
+          }
+          let rechargeOption = {
+            xAxis: {
+              type: 'category',
+              data: this.data.histograms[1].xaxis
+            },
+            yAxis: [
+              {
+                name: '金额（元）',
+                type: 'value'
+              },
+              {
+                name: '百分比（%）',
+                type: 'value',
+                max: 100,
+                min: 0
+              }
+            ],
+            series: [
+              {
+                label: {
+                  show: true,
+                  position: 'top'
+                },
+                data: data7,
+                type: 'bar'
+              },
+              {
+                label: {
+                  show: true,
+                  position: 'top'
+                },
+                data: data8,
+                type: 'line'
+              }
+            ]
+          }
+          scheduleChart.setOption(scheduleOption)
+          payChart.setOption(payOption)
+          totalChart.setOption(totalOption)
+          rechargeChart.setOption(rechargeOption)
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
         }
-      ]
+        Loading.service().close()
+      })
     }
-    let totalOption = {
-      xAxis: {
-        type: 'category',
-        data: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05', '2020-01-06', '2020-01-07']
-      },
-      yAxis: [
-        {
-          name: '金额（元）',
-          type: 'value'
-        },
-        {
-          name: '百分比（%）',
-          type: 'value',
-          max: 100,
-          min: 0
-        }
-      ],
-      series: [
-        {
-          label: {
-            show: true,
-            position: 'top'
-          },
-          data: [120, 200, 150, 80, 70, 110, 130],
-          type: 'bar'
-        },
-        {
-          label: {
-            show: true,
-            position: 'bottom'
-          },
-          data: [60, 100, 90, 80, 70, 40, 50],
-          type: 'line'
-        }
-      ]
-    }
-    let rechargeOption = {
-      xAxis: {
-        type: 'category',
-        data: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05', '2020-01-06', '2020-01-07']
-      },
-      yAxis: [
-        {
-          name: '金额（元）',
-          type: 'value'
-        },
-        {
-          name: '百分比（%）',
-          type: 'value',
-          max: 100,
-          min: 0
-        }
-      ],
-      series: [
-        {
-          label: {
-            show: true,
-            position: 'top'
-          },
-          data: [120, 200, 150, 80, 70, 110, 130],
-          type: 'bar'
-        },
-        {
-          label: {
-            show: true,
-            position: 'top'
-          },
-          data: [60, 100, 90, 80, 70, 40, 50],
-          type: 'line'
-        }
-      ]
-    }
-    scheduleChart.setOption(scheduleOption)
-    payChart.setOption(payOption)
-    totalChart.setOption(totalOption)
-    rechargeChart.setOption(rechargeOption)
   }
 }
 </script>
@@ -460,8 +576,14 @@ export default {
 .item .value .i .icon {
   width: 25px;
 }
+.item .value .i .c.zeng {
+  background-color: #ff0000;
+}
 .item .value .i.zeng {
   color: #ff0000;
+}
+.item .value .i .c.jiang {
+  background-color: #008000;
 }
 .item .value .i.jiang {
   color: #008000;
@@ -506,7 +628,7 @@ export default {
   font-weight: bold;
   margin-right: 20px;
 }
-.last {
+.item:last-child {
   margin-right: calc(642 / 1588 * 100%);
 }
 .xiaoxi-list {

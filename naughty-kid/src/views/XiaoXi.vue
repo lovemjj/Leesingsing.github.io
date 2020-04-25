@@ -4,13 +4,13 @@
       <div class="title">
         消息管理
       </div>
-      <div class="item" :class="{selected: selected === 0}" @click="selected = 0">
+      <div class="item" :class="{selected: selected === 0}" @click="select(0)">
         <div class="icon">
           <img src="../assets/app/jichu.svg" alt="">
         </div>
         <div class="name">消息推送</div>
       </div>
-      <div class="item" :class="{selected: selected === 1}" @click="selected = 1">
+      <div class="item" :class="{selected: selected === 1}" @click="select(1)">
         <div class="icon">
           <img src="../assets/app/jichu.svg" alt="">
         </div>
@@ -19,19 +19,18 @@
     </div>
     <div class="tuina-main" v-if="selected === 0">
       <div class="tabel">
-        <el-form :model="form" class="demo-form-inline" label-width="200px" size="small">
-          <el-form-item label="推送的消息（200字内）:">
-            <el-input type="textarea"></el-input>
+        <el-form ref="form" :model="form" class="demo-form-inline" label-width="200px" size="small">
+          <el-form-item label="推送的消息（200字内）:" prop="content" :rules="{ required: true, message: '请输入消息', trigger: 'blur' }">
+            <el-input type="textarea" v-model="form.content" maxlength="200"></el-input>
           </el-form-item>
-          <el-form-item label="接收人:">
-            <el-select v-model="form.label" multiple>
-              <el-option label="到店咨询" value="0"></el-option>
-              <el-option label="电话咨询" value="1"></el-option>
-            </el-select>
+          <el-form-item label="接收人:" prop="receivedBy" :rules="{ type: 'array', required: true, message: '至少选择一个接收人', trigger: 'change' }">
+            <el-select v-model="form.receivedBy" multiple value-key="id">
+                <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in receivedBys" :key="index"></el-option>
+              </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button size="small" type="info">清空</el-button>
-            <el-button size="small" type="primary">发送</el-button>
+            <el-button size="small" type="info" @click="resetForm">清空</el-button>
+            <el-button size="small" type="primary" @click="postMessage">发送</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -40,120 +39,181 @@
       <div class="tabel">
         <div class="title">
           <div class="value">
-            <div class="name">当前状态：</div>
-            <el-select v-model="shop" filterable size="small">
-              <el-option v-for="item in shops" :key="item.value" :label="item.name" :value="item.value">
-              </el-option>
-            </el-select>
-            <div class="name" style="margin-left: 10px">申请日期：</div>
-            <el-date-picker type="daterange" size="small">
+            <div class="name">推送日期：</div>
+            <el-date-picker v-model="time" size="small" type="daterange" value-format="yyyy-MM-dd">
             </el-date-picker>
-            <div class="name" style="margin-left: 10px">物料名称：</div>
-            <el-input size="small"></el-input>
+            <div class="name" style="margin-left: 10px">推送人：</div>
+            <el-input v-model="from" size="small" suffix-icon="el-icon-search" clearable></el-input>
+            <div class="name" style="margin-left: 10px">包含接收人：</div>
+            <el-input v-model="receivedBy" size="small" suffix-icon="el-icon-search" clearable></el-input>
+            <div class="name" style="margin-left: 10px">包含消息内容：</div>
+            <el-input v-model="content" size="small" suffix-icon="el-icon-search" clearable></el-input>
           </div>
-          <el-button size="small" type="primary">查询</el-button>
+          <el-button size="small" type="primary" @click="getMessages">查询</el-button>
         </div>
         <div class="items">
           <el-table
-            :data="applyTableData"
+            :data="messages"
             border
             style="width: 100%">
             <el-table-column
-              prop="name"
-              label="物料名称"
-              width="200">
+              prop="createdAt"
+              label="推送时间">
             </el-table-column>
             <el-table-column
-              prop="id"
-              label="物料编码"
+              prop="from.name"
+              label="推送人"
               show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-              prop="apply_num"
-              label="申请数量"
+              label="接收人"
               show-overflow-tooltip>
+              <template slot-scope="scope">
+                <div v-for="item in scope.row.receivedBy" :key="item.id">{{item.name}}</div>
+              </template>
             </el-table-column>
             <el-table-column
-              prop="out_num"
-              label="对方出库数量"
+              prop="content"
+              label="消息内容"
               show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-              prop="in_num"
-              label="实际入库数量"
-              show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-              prop="people"
-              label="申请人"
-              show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-              prop="apply_time"
-              label="申请时间"
-              show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-              prop="apply_shop"
-              label="请调配机构/门店"
-              show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-              prop="label"
-              label="备注说明"
-              show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-              prop="status"
-              label="当前状态"
-              show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-              prop="caozuo"
-              label="操作">
-              <div>取消调配</div>
             </el-table-column>
           </el-table>
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="messagesTotal"
+            @current-change="messagesCurrentChange">
+          </el-pagination>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-  name: 'tuina',
   data () {
     return {
       selected: 0,
-      form: {},
-      shop: '',
-      shops: [
-        {
-          value: 0,
-          name: '熊孩子小儿推拿（锦绣东苑店）'
-        },
-        {
-          value: 1,
-          name: '熊孩子小儿推拿（新北万达店）'
-        }
-      ],
-      applyTableData: [
-        {
-          name: '小儿退烧贴（单位:盒）',
-          id: '888111222',
-          apply_num: '30',
-          out_num: '20',
-          in_num: '20',
-          people: '哈哈',
-          apply_time: '2020-02-02 08:11',
-          apply_shop: '熊孩子小儿推拿（天宁店）',
-          label: '',
-          status: '等待对方出库'
-        }
-      ]
+      form: {
+        content: '',
+        receivedBy: []
+      },
+      receivedBys: [],
+      time: [],
+      from: '',
+      receivedBy: '',
+      content: '',
+      messages: [],
+      messagesPage: 0,
+      messagesTotal: 0
     }
   },
+  mounted () {
+    this.getReceivedBys()
+  },
   methods: {
+    select (i) {
+      this.selected = i
+      if (i === 1) {
+        this.getMessages()
+      }
+    },
+    getReceivedBys () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/employee'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.receivedBys = res.data.data.records
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    postMessage () {
+      const t = this
+      t.$refs['form'].validate((valid) => {
+        if (valid) {
+          axios({
+            method: 'post',
+            headers: {
+              authorization: t.$store.state.authorization
+            },
+            url: '/api/session/message',
+            data: t.form
+          }).then((res) => {
+            if (res.data.code === 200) {
+              t.$message({
+                showClose: true,
+                message: '推送成功',
+                type: 'success'
+              })
+              t.resetForm()
+            } else {
+              t.$message({
+                showClose: true,
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    resetForm () {
+      this.$refs['form'].resetFields()
+    },
+    getMessages () {
+      const t = this
+      let before = ''
+      let after = ''
+      if (t.time && t.time.length === 2) {
+        before = t.time[0]
+        after = t.time[0]
+      }
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/session/message',
+        params: {
+          page: t.messagesPage,
+          size: 10,
+          before,
+          after,
+          from: t.from,
+          receivedBy: t.receivedBy,
+          content: t.content
+        }
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.messages = res.data.data.records
+          t.messagesTotal = res.data.data.total
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    messagesCurrentChange (e) {
+      this.messagesPage = e
+      this.getMessages()
+    }
   }
 }
 </script>
@@ -240,7 +300,10 @@ export default {
 .xiaoxi .el-textarea, .xiaoxi .el-select {
   width: 600px;
 }
-.xiaoxi .title .el-date-editor, .xiaoxi .title .el-select, .xiaoxi .title .el-input {
+.xiaoxi .title .el-input {
   width: 200px;
+}
+.xiaoxi .title .el-date-editor {
+  width: 300px;
 }
 </style>

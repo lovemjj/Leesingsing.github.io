@@ -337,8 +337,10 @@
       <div class="last">
         <el-table border :data="materialData">
           <el-table-column
-            label="图片"
-            prop="photoBinary">
+            label="图片">
+            <template slot-scope="scope">
+              <el-image style="width: 50px; height: 50px;" :src="scope.row.photo"></el-image>
+            </template>
           </el-table-column>
           <el-table-column
             label="物料编号"
@@ -518,10 +520,10 @@
         <el-form-item label="物料名称:" prop="name">
           <el-input v-model="materialForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="添加照片:" prop="photoBinary">
+        <el-form-item label="添加照片:" prop="photo">
           <div class="avatar-uploader">
             <input type="file" @change="uploadImg" ref="img"/>
-            <img v-if="materialForm.photoBinary" :src="materialForm.photoBinary" class="avatar">
+            <img v-if="materialForm.photo" :src="materialForm.photo" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </div>
         </el-form-item>
@@ -574,7 +576,6 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'zidian',
   data () {
     return {
       selected: 0,
@@ -683,8 +684,7 @@ export default {
         manufacturer: '',
         supplier: '',
         description: '',
-        photoBinary: '',
-        photoType: ''
+        photo: ''
       },
       materialRules: {
         number: [
@@ -1137,8 +1137,7 @@ export default {
         manufacturer: '',
         supplier: '',
         description: '',
-        photoBinary: '',
-        photoType: ''
+        photo: ''
       }
       this.materialPopType = 'add'
       this.materialPop = true
@@ -1240,7 +1239,7 @@ export default {
       var reader = new FileReader()
       reader.readAsDataURL(file.files[0])
       reader.onload = function (e) {
-        t.materialForm.photoBinary = this.result
+        t.materialForm.photo = this.result
       }
     }
   }

@@ -641,7 +641,6 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'vip',
   data () {
     return {
       branch_id: '',

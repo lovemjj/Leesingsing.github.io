@@ -6,17 +6,17 @@
         <div class="name">熊孩子推拿</div>
       </div>
       <div class="list" v-if="$store.state.urlName !== 'login' && $store.state.urlName !== 'selected'">
-        <div class="item" :class="{selected: $store.state.urlName === item}" v-for="(item, index) in $store.state.authorities" :key="index" @click="goto(item)">
+        <div class="item" :class="{selected: $store.state.urlName === item}" v-for="(item, index) in $store.state.navAuthorities" :key="index" @click="goto(item)">
           {{item}}
         </div>
       </div>
       <div class="info" v-if="$store.state.urlName !== 'login' && $store.state.urlName !== 'selected'">
-        <div class="icon" @click="xiaoxi = true">
+        <!-- <div class="icon" @click="xiaoxi = true">
           <img src="./assets/app/xiaoxi.svg" alt="">
           <div class="num">
             4
           </div>
-        </div>
+        </div> -->
         <div class="information">
           <div class="head-portrait">
             <img src="./assets/app/touxiang.svg" alt="">
@@ -27,7 +27,6 @@
               <img src="./assets/app/xia.svg" alt="">
             </div>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="changePassword">修改密码</el-dropdown-item>
               <el-dropdown-item command="logout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -148,6 +147,9 @@ export default {
   },
   data () {
     return {
+      name: '',
+      branch_id: '',
+      branch_name: '',
       xiaoxi: false,
       changePassword: false,
       changePasswordFrom: {
@@ -166,6 +168,7 @@ export default {
     caozuo (e) {
       if (e === 'logout') {
         localStorage.removeItem('authorization')
+        localStorage.removeItem('branch_id')
         this.$router.replace({
           name: 'login'
         })
@@ -193,8 +196,32 @@ export default {
       }).then((res) => {
         if (res.data.code === 200) {
           t.$store.state.name = res.data.data.name
+          t.$store.state.id = res.data.data.id
           t.$store.state.branches = res.data.data.branches
-          // t.$store.state.authorities = res.data.data.authorities
+          let arr = res.data.data.branches.filter((ele) => {
+            return ele.id === t.branch_id
+          })
+          if (arr.length > 0) {
+            t.$store.state.branch_name = arr[0].name
+          }
+          t.$store.state.authorities = []
+          t.$store.state.navAuthorities = []
+          t.$store.state.authorities = res.data.data.authorities
+          if (res.data.data.authorities.length > 0) {
+            for (const ele of res.data.data.authorities) {
+              if (ele === '推拿接待' || ele === '推拿管理') {
+                if (t.$store.state.navAuthorities.indexOf('推拿') < 0) {
+                  t.$store.state.navAuthorities.push('推拿')
+                }
+              } else if (ele === '员工管理' || ele === '岗位管理' || ele === '组织机构') {
+                if (t.$store.state.navAuthorities.indexOf('员工机构管理') < 0) {
+                  t.$store.state.navAuthorities.push('员工机构管理')
+                }
+              } else {
+                t.$store.state.navAuthorities.push(ele)
+              }
+            }
+          }
         } else {
           t.$message({
             showClose: true,
@@ -214,6 +241,9 @@ export default {
     if (localStorage.getItem('authorization')) {
       this.session(localStorage.getItem('authorization'))
     }
+    if (localStorage.getItem('branch_id')) {
+      this.branch_id = parseInt(localStorage.getItem('branch_id'))
+    }
     // this.version()
   }
 }
@@ -228,8 +258,8 @@ export default {
 }
 body {
   margin: 0;
-  min-width: 1600px;
   box-sizing: border-box;
+  min-width: 1600px;
 }
 input {
   padding: 0;
@@ -336,10 +366,12 @@ img {
 }
 .main {
   min-height: calc(100vh - 45px);
-  border: 1px solid #ff9900;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.mobile .main {
+  min-height: 100vh;
 }
 .el-dropdown-menu li {
   white-space: nowrap;
@@ -497,6 +529,7 @@ img {
   padding: 10px 20px;
   border-radius: 10px;
   box-sizing: border-box;
+  margin-bottom: 18px;
 }
 .dislog-jiedai-info-attention .icon {
   width: 20px;
@@ -507,8 +540,9 @@ img {
   align-items: center;
   width: 100%;
   padding: 0 15px;
-  padding-top: 18px;
+  padding-bottom: 18px;
   box-sizing: border-box;
+  color: #333333;
 }
 .dislog-jiedai-info-item .i + .i {
   margin-left: 50px;
@@ -559,6 +593,9 @@ img {
   width: 178px;
   height: 178px;
 }
+.avatar-uploader + .avatar-uploader {
+  margin-left: 10px;
+}
 .avatar-uploader input {
   position: absolute;
   top: 0;
@@ -569,6 +606,18 @@ img {
 }
 .avatar-uploader:hover {
   border-color: #ff9900;
+}
+.avatar-uploader .del {
+  display: none;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 2;
+  color: #ff0000;
+  font-size: 20px;
+}
+.avatar-uploader:hover .del {
+  display: inline-block;
 }
 .avatar-uploader-icon {
   font-size: 28px;

@@ -1,8 +1,5 @@
 <template>
   <div class="main">
-    <div class="img">
-      <img src="../assets/app/xiong.png" alt="bear">
-    </div>
     <div class="login">
       <div class="logo">
         <div class="logo-icon">
@@ -26,7 +23,6 @@
         <div class="icon">
           <img src="../assets/app/mima.svg" alt="password">
         </div>
-
         <input v-model="password" type="password" placeholder="密码" @keyup.enter="login">
       </div>
       <div class="btn" @click="login">
@@ -66,18 +62,19 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               localStorage.setItem('authorization', res.data.data.authorization)
+              localStorage.setItem('id', res.data.data.id)
               t.$router.replace({
                 name: 'selected'
               })
             } else {
-              t.$message({ showClose: true, message: res.data.message, type: 'error' })
+              t.$notify({ message: res.data.message, type: 'warning' })
             }
           })
         } else {
-          t.$message({ showClose: true, message: '密码不能为空', type: 'error' })
+          t.$notify({ message: '密码不能为空', type: 'warning' })
         }
       } else {
-        t.$message({ showClose: true, message: '工号/手机号不能为空', type: 'error' })
+        t.$notify({ message: '工号/手机号不能为空', type: 'warning' })
       }
     }
   }
@@ -89,68 +86,63 @@ export default {
   align-items: center;
   justify-content: center;
   width: 100%;
-}
-.main .img {
-  width: 338px;
-  margin-right: 100px;
-}
-.mobile .main .img {
-  display: none;
+  height: 100vh;
 }
 .main .login {
   box-shadow: 2px 2px 5px #ff9900;
-  width: 315px;
+  width: 80%;
   border: 1px solid #ff9900;
-  border-radius: 4px;
-  padding: 20px;
+  border-radius: calc(4 / 375 * 100vw);
+  padding: calc(20 / 375 * 100vw);
   box-sizing: border-box;
 }
 .mobile .main .login {
   width: 80%;
 }
 .main .login .logo-icon {
-  width: 58px;
+  width: calc(58 / 375 * 100vw);
   margin: 0 auto;
-  padding-bottom: 10px;
+  padding-bottom: calc(10 / 375 * 100vw);
 }
 .main .login .title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: calc(18 / 375 * 100vw);
   font-weight: bold;
   color: #ff9900;
   text-align: center;
 }
 .main .login .title .line {
-  width: 36px;
+  width: calc(36 / 375 * 100vw);
   height: 1px;
   background-color: #ff9900;
 }
 .main .login .item {
   display: flex;
   align-items: center;
-  width: 220px;
-  height: 30px;
-  margin: 30px auto;
+  width: calc(220 / 375 * 100vw);
+  height: calc(30 / 375 * 100vw);
+  margin: calc(30 / 375 * 100vw) auto;
   border: 1px solid #ff9900;
+  font-size: calc(14 / 375 * 100vw);
 }
 .main .login .item .icon {
-  width: 16px;
-  margin: 0 8px;
+  width: calc(16 / 375 * 100vw);
+  margin: 0 calc(8 / 375 * 100vw);
 }
 .main .login .btn {
   background-color: #ff9900;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 220px;
-  height: 40px;
-  font-size: 14px;
+  width: calc(220 / 375 * 100vw);
+  height: calc(40 / 375 * 100vw);
+  font-size: calc(14 / 375 * 100vw);
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: calc(4 / 375 * 100vw);
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: calc(50 / 375 * 100vw);
   color: #ffffff;
 }
 </style>
