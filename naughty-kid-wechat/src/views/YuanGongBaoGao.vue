@@ -2,8 +2,8 @@
   <div class="jie-dan-li-shi">
     <div class="nav">
       <van-dropdown-menu>
-        <van-dropdown-item title="报告类型" v-model="type" :options="types" />
-        <van-dropdown-item title="员工姓名" v-model="employee" :options="employees" />
+        <van-dropdown-item title="报告类型" v-model="type" :options="types" @change="menuChange" />
+        <van-dropdown-item title="员工姓名" v-model="employee" :options="employees" @change="menuChange" />
       </van-dropdown-menu>
       <div class="date-list">
         <div :class="select_id === 0 ? 'i selected' : 'i'" @click="selected(0)">本日</div>
@@ -54,10 +54,10 @@
       <van-cell v-for="item in massages" :key="item.id" :title="item.id" @click="navigation({ name: 'bianxiebaogao', query: { type: item.type, id: item.id, readonly: '1' } })">
         <template #title>
           <div class="info">
-            <div class="top">员工{{item.type === 0 ? '日' : item.type === 1 ? '周' : item.type === 2 ? '月' : '年'}}报</div>
+            <div class="top">员工{{item.type === 0 ? '日' : item.type === 1 ? '周' : item.type === 2 ? '月' : '年'}}报 {{item.employee.name}}</div>
             <div :class="'status' + ' status' + item.type">{{item.type === 0 ? '日' : item.type === 1 ? '周' : item.type === 2 ? '月' : '年'}}报</div>
           </div>
-          <div class="sub">{{item.createdAt}}（{{item.employee.id}}）</div>
+          <div class="sub">{{item.createdAt}}（{{item.id}}）</div>
         </template>
       </van-cell>
     </van-list>
@@ -148,6 +148,10 @@ export default {
       }
       this.popup[pro] = false
     },
+    menuChange () {
+      this.massages = []
+      this.getMassages()
+    },
     getEmployees () {
       const t = this
       axios({
@@ -161,7 +165,7 @@ export default {
           for (const i in res.data.data.records) {
             t.employees.push({
               text: res.data.data.records[i].name,
-              value: i
+              value: res.data.data.records[i].id
             })
           }
         } else {
@@ -183,7 +187,9 @@ export default {
           page: t.massagesPage,
           size: 10,
           before: t.before,
-          after: t.after
+          after: t.after,
+          type: t.type,
+          employeeId: t.employee
         }
       }).then((res) => {
         t.loading = false

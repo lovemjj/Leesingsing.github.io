@@ -107,10 +107,15 @@ export default {
         url: `/api/summary/${t.$route.query.id}`
       }).then((res) => {
         if (res.data.code === 200) {
-          t.thought = ''
-          t.plan = ''
+          t.thought = res.data.data.thought
+          t.plan = res.data.data.plan
           t.appendixes = []
-          t.$router.back()
+          for (const i of res.data.data.appendixes) {
+            t.appendixes.push({
+              url: 'http://49.233.137.52:8080/' + i,
+              isImage: true
+            })
+          }
         } else {
           t.$notify({ message: res.data.message, type: 'warning' })
         }
@@ -128,7 +133,11 @@ export default {
       }
       const appendixes = []
       for (const i of t.appendixes) {
-        appendixes.push(i.content)
+        appendixes.push(i.content || i.url.split('http://49.233.137.52:8080/')[1])
+      }
+      let method = 'post'
+      if (t.$route.query.readonly === '0') {
+        method = 'put'
       }
       let url = '/api/summary'
       if (t.$route.query.id) {
@@ -136,7 +145,7 @@ export default {
       }
       t.$store.state.show = true
       axios({
-        method: 'post',
+        method,
         headers: {
           authorization: t.$store.state.authorization
         },
@@ -151,7 +160,7 @@ export default {
       }).then((res) => {
         t.$store.state.show = false
         t.$store.state.include = t.$store.state.include.filter((ele) => {
-          return ele !== 'baogaolishi' || ele !== 'caogaoxiang' || ele !== 'yuangongbaogao'
+          return ele !== 'baogaolishi' && ele !== 'caogaoxiang' && ele !== 'yuangongbaogao'
         })
         if (res.data.code === 200) {
           t.thought = ''
