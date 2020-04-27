@@ -187,8 +187,7 @@
             <el-form-item label="上传附件（如舌苔照）:" class="whole">
               <div style="display: flex;">
                 <div class="avatar-uploader" v-for="(item, index) in orderForm.appendixes" :key="index">
-                  <img :src="item" class="avatar" v-if="orderForm.status === -1">
-                  <img :src="'http://49.233.137.52:8080/' + item" class="avatar" v-else>
+                  <img :src="item" class="avatar">
                   <i class="el-icon-error del" @click="delImg(index)" v-if="orderForm.status === -1"></i>
                 </div>
                 <div class="avatar-uploader" v-if="orderForm.appendixes.length < 3 && orderForm.status === -1">
@@ -610,7 +609,7 @@
               <el-form-item label="上传附件（如舌苔照）:" class="whole">
                 <div style="display: flex;">
                   <div class="avatar-uploader" v-for="(item, index) in info.appendixes" :key="index">
-                    <img :src="'http://49.233.137.52:8080/' + item" class="avatar">
+                    <img :src="item" class="avatar">
                   </div>
                 </div>
               </el-form-item>

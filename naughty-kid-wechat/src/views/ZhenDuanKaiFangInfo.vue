@@ -27,7 +27,7 @@
         <div class="name">相关照片照片：</div>
       </div>
       <div class="i" style="width: 100%;" v-if="info.appendixes.length > 0">
-        <van-image width="90" height="90" :src="'http://49.233.137.52:8080/'+item" v-for="(item, index) in info.appendixes" :key="index" @click="pre(info.appendixes, index)" />
+        <van-image width="90" height="90" :src="item" v-for="(item, index) in info.appendixes" :key="index" @click="pre(info.appendixes, index)" />
       </div>
     </div>
 
