@@ -247,8 +247,8 @@
         </div>
       </div>
     </div>
-    <!-- <div class="tuina-main" v-if="selected === 4" key="4">
-      <div class="list">
+    <div class="tuina-main" v-if="selected === 4" key="4">
+      <div class="list list1">
         <div class="step">
           第1步：建立方案
         </div>
@@ -256,26 +256,38 @@
           <el-button size="small">新增</el-button>
           <el-input size="small" suffix-icon="el-icon-search"></el-input>
         </div>
-        <el-table border>
+        <el-table :data="auxiliarys" border>
           <el-table-column
-            label="辅助诊断方案">
+            label="辅助诊断方案"
+            prop="name">
           </el-table-column>
         </el-table>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :total="auxiliarysTotal">
+        </el-pagination>
       </div>
-      <div class="info">
+      <div class="info info1">
         <div class="model">
           <div class="step">
             第2-1步：筛选调理人
           </div>
-          <el-table border>
+          <el-table :data="auxiliarys1" border>
             <el-table-column
-              label="项目">
+              label="项目"
+              prop="name"
+              width="200px">
             </el-table-column>
             <el-table-column
-              label="说明">
+              label="说明"
+              prop="label">
             </el-table-column>
             <el-table-column
               label="具体值">
+              <template slot-scope="scope">
+                {{scope.row.value}}
+              </template>
             </el-table-column>
           </el-table>
         </div>
@@ -283,15 +295,21 @@
           <div class="step">
             第2-2步：辅助判断体质辩证结果
           </div>
-          <el-table border>
+          <el-table :data="auxiliarys2" border>
             <el-table-column
-              label="项目">
+              label="项目"
+              prop="name"
+              width="200px">
             </el-table-column>
             <el-table-column
-              label="说明">
+              label="说明"
+              prop="label">
             </el-table-column>
             <el-table-column
               label="具体值">
+              <template slot-scope="scope">
+                {{scope.row.value}}
+              </template>
             </el-table-column>
           </el-table>
         </div>
@@ -299,15 +317,21 @@
           <div class="step">
             第2-3步：辅助判断调理方案
           </div>
-          <el-table border>
+          <el-table :data="auxiliarys3" border>
             <el-table-column
-              label="项目">
+              label="项目"
+              prop="name"
+              width="200px">
             </el-table-column>
             <el-table-column
-              label="说明">
+              label="说明"
+              prop="label">
             </el-table-column>
             <el-table-column
               label="具体值">
+              <template slot-scope="scope">
+                {{scope.row.value}}
+              </template>
             </el-table-column>
           </el-table>
         </div>
@@ -315,20 +339,26 @@
           <div class="step">
             第2-4步：辅助判断调理项目
           </div>
-          <el-table border>
+          <el-table :data="auxiliarys4" border>
             <el-table-column
-              label="项目">
+              label="项目"
+              prop="name"
+              width="200px">
             </el-table-column>
             <el-table-column
-              label="说明">
+              label="说明"
+              prop="label">
             </el-table-column>
             <el-table-column
               label="具体值">
+              <template slot-scope="scope">
+                {{scope.row.value}}
+              </template>
             </el-table-column>
           </el-table>
         </div>
       </div>
-    </div> -->
+    </div>
     <div class="tuina-main" v-if="selected === 5" key="5">
       <div class="search">
         <el-button size="small" @click="materialAdd">新增物料</el-button>
@@ -414,6 +444,9 @@
           <el-table-column
             label="状态"
             prop="disabled">
+            <template slot-scope="scope">
+              {{scope.row.disabled ? '禁用' : '启用'}}
+            </template>
           </el-table-column>
           <el-table-column
             label="操作">
@@ -567,8 +600,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button size="small" type="primary" @click="AddMaterial">保存</el-button>
-        <el-button size="small" type="primary" @click="materialPop = false">取消</el-button>
+        <el-button size="small" type="primary" @click="AddConfig">保存</el-button>
+        <el-button size="small" type="primary" @click="configPop = false">取消</el-button>
       </div>
     </el-dialog>
   </div>
@@ -708,7 +741,43 @@ export default {
         value: '',
         description: '',
         disabled: ''
-      }
+      },
+      auxiliarys: [],
+      auxiliarys1: [
+        {
+          name: '年龄范围',
+          label: '范围区间，如录入 0,12 表示大于等于0岁且小于等于12岁',
+          value: []
+        },
+        {
+          name: '症状',
+          label: '多选',
+          value: []
+        }
+      ],
+      auxiliarys2: [
+        {
+          name: '体质辩证',
+          label: '多选',
+          value: []
+        }
+      ],
+      auxiliarys3: [
+        {
+          name: '调理方案',
+          label: '多选',
+          value: []
+        }
+      ],
+      auxiliarys4: [
+        {
+          name: '调理项目',
+          label: '多选',
+          value: []
+        }
+      ],
+      auxiliarysPage: 0,
+      auxiliarysTotal: 0
     }
   },
   mounted () {
@@ -728,6 +797,9 @@ export default {
       }
       if (index === 3) {
         this.massageScheme()
+      }
+      if (index === 4) {
+        this.getAuxiliary()
       }
       if (index === 5) {
         this.material()
@@ -1241,6 +1313,31 @@ export default {
       reader.onload = function (e) {
         t.materialForm.photo = this.result
       }
+    },
+    addAuxiliary () {
+
+    },
+    getAuxiliary () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/auxiliary',
+        data: t.configForm
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.auxiliarys = res.data.data.records
+          t.auxiliarysTotal = res.data.data.total
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
     }
   }
 }
@@ -1331,6 +1428,9 @@ export default {
   overflow: auto;
   text-align: left;
 }
+.tuina .tuina-main .list1 {
+  width: calc(260/1378*100%);
+}
 .tuina .tuina-main .step {
   font-size: 14px;
   font-weight: bold;
@@ -1360,6 +1460,11 @@ export default {
 }
 .tuina .tuina-main .info {
   width: calc(808/1378*100%);
+}
+.tuina .tuina-main .info1 {
+  width: calc(1108/1378*100%);
+  height: calc(100vh - 65px);
+  overflow: auto;
 }
 .tuina .tuina-main .title {
   font-size: 18px;

@@ -264,48 +264,24 @@
         </el-tree>
       </div>
     </div>
-    <!-- <div class="tuina-main" v-if="selected === 4">
+    <div class="tuina-main" v-if="selected === 4">
       <div class="search">
         <div class="value">
-          <div class="name">查找机构：</div>
-          <el-input size="small"></el-input>
+          组织结构管理
         </div>
       </div>
-      <div class="list">
-        <div class="title">
-          <div>未分组机构</div>
-        </div>
-        <div class="items">
-          <div class="i">
-            熊孩子小儿推拿（天宁店）
-          </div>
-          <div class="i">
-            熊孩子小儿推拿（锦绣东苑店）
-          </div>
-        </div>
-      </div>
-      <div class="info">
-        <div class="title">
-          <div>已分组机构</div>
-        </div>
+      <div class="tabel">
         <div class="items">
           <el-tree
-            :data="data"
+            :data="branchTree"
+            :props="branchTreeProps"
             node-key="id"
             default-expand-all
-            @node-drag-start="handleDragStart"
-            @node-drag-enter="handleDragEnter"
-            @node-drag-leave="handleDragLeave"
-            @node-drag-over="handleDragOver"
-            @node-drag-end="handleDragEnd"
-            @node-drop="handleDrop"
-            draggable
-            :allow-drop="allowDrop"
-            :allow-drag="allowDrag">
+            draggable>
           </el-tree>
         </div>
       </div>
-    </div> -->
+    </div>
     <div class="tuina-main" v-if="selected === 5" key="5">
       <div class="search">
         <div class="value">
@@ -611,14 +587,15 @@ export default {
       },
       roleId: '',
       authorities: [],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      },
       employeeBranchId: '',
       employeeBranches: [],
       employeeRoleId: '',
-      employeeRoles: []
+      employeeRoles: [],
+      branchTree: [],
+      branchTreeProps: {
+        children: 'children',
+        label: 'name'
+      }
     }
   },
   mounted () {
@@ -642,6 +619,9 @@ export default {
       if (index === 3) {
         this.role()
         this.getAuthorities()
+      }
+      if (index === 4) {
+        this.getBranchTree()
       }
       if (index === 5) {
         this.employee()
@@ -1198,35 +1178,78 @@ export default {
           })
         }
       })
+    },
+    getBranchTree () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/branch-tree'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.branchTree = [
+            {
+              name: '已分组机构',
+              children: [
+                {
+                  name: '熊孩子集团',
+                  children: [
+                    {
+                      name: '分店',
+                      children: [
+                        {
+                          name: '熊孩子小儿推拿（1号分店）'
+                        },
+                        {
+                          name: '熊孩子小儿推拿（2号分店）'
+                        },
+                        {
+                          name: '熊孩子小儿推拿（3号分店）'
+                        }
+                      ]
+                    },
+                    {
+                      name: '加盟店',
+                      children: [
+                        {
+                          name: '熊孩子小儿推拿（1号加盟店）'
+                        },
+                        {
+                          name: '熊孩子小儿推拿（2号加盟店）'
+                        },
+                        {
+                          name: '熊孩子小儿推拿（3号加盟店）'
+                        }
+                      ]
+                    },
+                    {
+                      name: '库房',
+                      children: [
+                        {
+                          name: '熊孩子总库房'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: '未分组机构',
+              children: res.data.data.orphans
+            }
+          ]
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
     }
-    // handleDragStart (node, ev) {
-    //   console.log('drag start', node)
-    // },
-    // handleDragEnter (draggingNode, dropNode, ev) {
-    //   console.log('tree drag enter: ', dropNode.label)
-    // },
-    // handleDragLeave (draggingNode, dropNode, ev) {
-    //   console.log('tree drag leave: ', dropNode.label)
-    // },
-    // handleDragOver (draggingNode, dropNode, ev) {
-    //   console.log('tree drag over: ', dropNode.label)
-    // },
-    // handleDragEnd (draggingNode, dropNode, dropType, ev) {
-    //   console.log('tree drag end: ', dropNode && dropNode.label, dropType)
-    // },
-    // handleDrop (draggingNode, dropNode, dropType, ev) {
-    //   console.log('tree drop: ', dropNode.label, dropType)
-    // },
-    // allowDrop (draggingNode, dropNode, type) {
-    //   if (dropNode.data.label === '二级 3-1') {
-    //     return type !== 'inner'
-    //   } else {
-    //     return true
-    //   }
-    // },
-    // allowDrag (draggingNode) {
-    //   return draggingNode.data.label.indexOf('三级 3-2-2') === -1
-    // }
   }
 }
 </script>
