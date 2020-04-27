@@ -26,6 +26,13 @@ module.exports = {
         pathRewrite: {
           '^/api': '/api'
         }
+      },
+      '/img': {
+        target: 'http://49.233.137.52:8080',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/img': '/img'
+        }
       }
     },
     port: '8083'

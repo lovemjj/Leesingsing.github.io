@@ -97,7 +97,7 @@
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="是否初审:">
+            <el-form-item label="是否初诊:">
               <el-radio-group v-model="orderForm.customer.firstVisit" :disabled="orderForm.status > -1 || orderForm.customerDis">
                 <el-radio :label="true">是</el-radio>
                 <el-radio :label="false">否</el-radio>
@@ -711,7 +711,7 @@
                   <i v-if="info.signature === ''" class="el-icon-plus avatar-uploader-icon"></i>
                 </div>
                 <div class="avatar-uploader" v-else>
-                  <img v-if="info.signature" :src="'http://49.233.137.52:8080/' + info.signature" class="avatar">
+                  <img v-if="info.signature" :src="info.signature" class="avatar">
                 </div>
               </div>
             </div>
