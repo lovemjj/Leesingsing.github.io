@@ -30,7 +30,7 @@
         <div class="name">相关照片照片：</div>
       </div>
       <div class="i" style="width: 100%;" v-if="info.appendixes.length > 0">
-        <van-image width="90" height="90" :src="'http://49.233.137.52:8080/'+item" v-for="(item, index) in info.appendixes" :key="index" @click="pre(info.appendixes, index)" />
+        <van-image width="90" height="90" :src="item" v-for="(item, index) in info.appendixes" :key="index" @click="pre(info.appendixes, index)" />
       </div>
       <div class="i" style="width: 100%;">
         <div class="name">调理方案：</div><div class="value"><span class="symptoms" v-for="(item, index) in info.schemes" :key="index"><span class="dian">、</span>{{item.name}}</span></div>
@@ -43,7 +43,7 @@
       <div class="i title" style="width: 100%;margin-bottom: 8px;">
         <div class="name">家长/陪同人员签名（上传理疗单）</div>
       </div>
-      <van-image width="90" height="90" :src="'http://49.233.137.52:8080/'+item" v-for="(item, index) in info.signature" :key="index" @click="pre(info.signature, index)" />
+      <van-image width="90" height="90" :src="item" v-for="(item, index) in info.signature" :key="index" @click="pre(info.signature, index)" />
     </div>
     <div class="info">
       <div class="i title" style="width: 100%;">

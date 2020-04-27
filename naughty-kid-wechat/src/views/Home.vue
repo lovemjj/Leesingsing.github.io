@@ -55,7 +55,7 @@ export default {
       showPicker: false
     }
   },
-  mounted () {
+  activated () {
     this.getSession()
     this.getMenu()
   },
@@ -93,6 +93,7 @@ export default {
         url: '/api/session/menu'
       }).then((res) => {
         if (res.data.code === 200) {
+          t.authorities = []
           for (const i of res.data.data.items) {
             if (i === '问诊接待') {
               t.authorities.push({

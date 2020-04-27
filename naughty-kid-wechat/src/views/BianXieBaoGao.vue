@@ -112,7 +112,7 @@ export default {
           t.appendixes = []
           for (const i of res.data.data.appendixes) {
             t.appendixes.push({
-              url: 'http://49.233.137.52:8080/' + i,
+              url: i,
               isImage: true
             })
           }
@@ -133,7 +133,7 @@ export default {
       }
       const appendixes = []
       for (const i of t.appendixes) {
-        appendixes.push(i.content || i.url.split('http://49.233.137.52:8080/')[1])
+        appendixes.push(i.content || i.url)
       }
       let method = 'post'
       if (t.$route.query.readonly === '0') {
