@@ -1,3 +1,5 @@
+const proxyTarget = 'http://49.233.137.52:8080';
+// const proxyTarget = 'http://localhost'
 module.exports = {
   pages: {
     index: {
@@ -21,14 +23,14 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://49.233.137.52:8080',
+        target: proxyTarget,
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
         }
       },
       '/img': {
-        target: 'http://49.233.137.52:8080',
+        target: proxyTarget,
         changeOrigin: true,
         pathRewrite: {
           '^/img': '/img'
