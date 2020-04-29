@@ -179,8 +179,8 @@ export default {
       let before = ''
       let after = ''
       if (t.time && t.time.length === 2) {
-        before = t.time[0]
         after = t.time[0]
+        before = t.time[1]
       }
       axios({
         method: 'get',

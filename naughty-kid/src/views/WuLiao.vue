@@ -186,7 +186,7 @@
               </el-option>
             </el-select>
             <div class="name">申请日期：</div>
-            <el-date-picker v-model="from.time" type="daterange" value-format="yyyy-MM-dd" clearable size="small">
+            <el-date-picker v-model="from.time" type="daterange" value-format="yyyy-MM-dd" clearable size="small" @change="timeChange">
             </el-date-picker>
             <div class="name">物料名称：</div>
             <el-input v-model="from.material" clearable size="small"></el-input>
@@ -280,7 +280,7 @@
               </el-option>
             </el-select>
             <div class="name">申请日期：</div>
-            <el-date-picker v-model="to.time" type="daterange" value-format="yyyy-MM-dd" clearable size="small">
+            <el-date-picker v-model="to.time" type="daterange" value-format="yyyy-MM-dd" clearable size="small" @change="timeChange">
             </el-date-picker>
             <div class="name">物料名称：</div>
             <el-input v-model="from.material" clearable size="small"></el-input>
@@ -571,7 +571,7 @@
         <el-button size="small" type="primary" @click="cancelOutPop = false">我再考虑一下</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="确认实际出库数量" width="400px" :visible.sync="affirmReturnPop">
+    <el-dialog title="确认实际退库数量" width="400px" :visible.sync="affirmReturnPop">
       <div class="add-pop">
         <el-form ref="affirmReturnPop" :model="info" label-width="120px" size="small">
           <el-form-item label="对方未入库数量:">
@@ -697,8 +697,12 @@ export default {
           name: '已经确认退库或者不需要退库'
         }
       ],
-      to: {},
-      from: {},
+      to: {
+        time: []
+      },
+      from: {
+        time: []
+      },
       froms: [],
       tos: [],
       fromsPage: 0,
@@ -1077,8 +1081,8 @@ export default {
           page: t.fromsPage,
           size: 10,
           material: t.from.material,
-          after: t.from.times ? t.from.times[0] : null,
-          before: t.from.times ? t.from.times[1] : null,
+          after: t.from.time ? t.from.time[0] : null,
+          before: t.from.time ? t.from.time[1] : null,
           status: t.from.status
         }
       }).then((res) => {
@@ -1113,8 +1117,8 @@ export default {
           page: t.tosPage,
           size: 10,
           material: t.to.material,
-          after: t.to.times ? t.from.to[0] : null,
-          before: t.to.times ? t.to.times[1] : null,
+          after: t.to.time ? t.to.time[0] : null,
+          before: t.to.time ? t.to.time[1] : null,
           status: t.to.status
         }
       }).then((res) => {
@@ -1327,6 +1331,9 @@ export default {
           })
         }
       })
+    },
+    timeChange (e) {
+      this.$forceUpdate()
     }
   }
 }

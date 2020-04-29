@@ -119,12 +119,12 @@ export default {
                 url: 'tuinazhixing'
               })
             }
-            // if (i === '物料管理') {
-            //   t.authorities.push({
-            //     name: '物料管理',
-            //     url: 'home'
-            //   })
-            // }
+            if (i === '物料管理') {
+              t.authorities.push({
+                name: '物料管理',
+                url: 'wuliaoguanli'
+              })
+            }
             // if (i === '提成') {
             //   t.authorities.push({
             //     name: '提成',
@@ -137,12 +137,12 @@ export default {
             //     url: 'home'
             //   })
             // }
-            // if (i === '消息') {
-            //   t.authorities.push({
-            //     name: '消息',
-            //     url: 'home'
-            //   })
-            // }
+            if (i === '消息') {
+              t.authorities.push({
+                name: '消息',
+                url: 'xiaoxi'
+              })
+            }
             if (i === '我的报告') {
               t.authorities.push({
                 name: '我的报告',
@@ -155,12 +155,12 @@ export default {
                 url: 'yuangongbaogao'
               })
             }
-            // if (i === '门店运营') {
-            //   t.authorities.push({
-            //     name: '门店运营',
-            //     url: 'home'
-            //   })
-            // }
+            if (i === '门店运营') {
+              t.authorities.push({
+                name: '门店运营',
+                url: 'mendianyunying'
+              })
+            }
           }
         } else {
           t.$notify({ message: res.data.message, type: 'warning' })

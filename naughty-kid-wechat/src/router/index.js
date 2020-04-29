@@ -98,6 +98,46 @@ const routes = [
     path: '/bianxiebaogao',
     name: 'bianxiebaogao',
     component: () => import('../views/BianXieBaoGao.vue')
+  },
+  {
+    path: '/xiaoxi',
+    name: 'xiaoxi',
+    component: () => import('../views/XiaoXi.vue')
+  },
+  {
+    path: '/mendianyunying',
+    name: 'mendianyunying',
+    component: () => import('../views/MenDianYunYing.vue')
+  },
+  {
+    path: '/wuliaoguanli',
+    name: 'wuliaoguanli',
+    component: () => import('../views/WuLiaoGuanLi.vue')
+  },
+  {
+    path: '/bendiankucun',
+    name: 'bendiankucun',
+    component: () => import('../views/BenDianKuCun.vue')
+  },
+  {
+    path: '/biangengmingxi',
+    name: 'biangengmingxi',
+    component: () => import('../views/BianGengMingXi.vue')
+  },
+  {
+    path: '/zongkucun',
+    name: 'zongkucun',
+    component: () => import('../views/ZongKuCun.vue')
+  },
+  {
+    path: '/diaopeishenqing',
+    name: 'diaopeishenqing',
+    component: () => import('../views/DiaoPeiShenQing.vue')
+  },
+  {
+    path: '/diaopeijilu',
+    name: 'diaopeijilu',
+    component: () => import('../views/DiaoPeiJiLu.vue')
   }
 ]
 

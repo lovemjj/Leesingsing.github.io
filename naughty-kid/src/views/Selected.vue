@@ -105,6 +105,7 @@ export default {
               }
             }
           }
+          t.$store.state.navAuthorities.push('消息管理')
           if (e === 'navigationTo') {
             t.navigationTo()
           }
