@@ -1,9 +1,6 @@
 <template>
   <div class="jie-dan-li-shi">
     <div class="nav">
-      <van-dropdown-menu>
-        <van-dropdown-item title="报告类型" v-model="type" :options="types" @change="menuChange" />
-      </van-dropdown-menu>
       <div class="date-list">
         <div :class="select_id === 0 ? 'i selected' : 'i'" @click="selected(0)">本日</div>
         <div :class="select_id === 1 ? 'i selected' : 'i'" @click="selected(1)">本周</div>
@@ -50,24 +47,26 @@
       offset="30"
       @load="onLoad"
     >
-      <van-cell v-for="item in massages" :key="item.id" :title="item.id" @click="navigation({ name: 'bianxiebaogao', query: { type: item.type, id: item.id, readonly: '1' } })">
-        <template #title>
-          <div class="info">
-            <div class="top">员工{{item.type === 0 ? '日' : item.type === 1 ? '周' : item.type === 2 ? '月' : '年'}}报 {{item.employee.name}}</div>
-            <div :class="'status' + ' status' + item.type">{{item.type === 0 ? '日' : item.type === 1 ? '周' : item.type === 2 ? '月' : '年'}}报</div>
+      <div class="list">
+        <div class="item">
+          <div class="num">
+            <div class="i" style="width: 100%"><span>调理时间：</span>2020-01-01 12:33 ~ 2020-01-01 13:33</div>
+            <div class="i"><span>调理人姓名：</span>张鹏鹏（男）</div>
+            <div class="i"><span>调理人年龄：</span>3岁</div>
+            <div class="i" style="width: 100%"><span>调理方案：</span>小儿推拿</div>
+            <div class="i"><span>共计消费金额：</span>￥500</div>
+            <div class="i money"><span>共计提成：￥300</span></div>
           </div>
-          <div class="sub">{{item.createdAt}}（{{item.id}}）</div>
-        </template>
-      </van-cell>
+        </div>
+      </div>
     </van-list>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import moment from 'moment'
 export default {
-  name: 'baogaolishi',
+  name: 'fuwujilu',
   data () {
     return {
       select_id: 0,
@@ -80,19 +79,8 @@ export default {
         after: false,
         type: false
       },
-      massages: [],
-      massagesPage: 0,
-      massagesTotal: 0,
       loading: false,
-      finished: false,
-      type: '',
-      types: [
-        { text: '全部', value: '' },
-        { text: '日报', value: 0 },
-        { text: '周报', value: 1 },
-        { text: '月报', value: 2 },
-        { text: '年报', value: 3 }
-      ]
+      finished: false
     }
   },
   mounted () {
@@ -122,9 +110,6 @@ export default {
         this.after = moment().format('YYYY-MM-DD')
       }
       this.select_id = e
-      this.massagesPage = 0
-      this.massages = []
-      this.getMassages()
     },
     onConfirm (e, pro) {
       this[pro] = e
@@ -136,54 +121,11 @@ export default {
         if (pro === 'before' && moment(this.before) < moment(this.after)) {
           this.after = this.before
         }
-        this.massagesPage = 0
-        this.massages = []
-        this.getMassages()
       }
       this.popup[pro] = false
     },
-    menuChange () {
-      this.massages = []
-      this.getMassages()
-    },
-    getMassages () {
-      const t = this
-      t.loading = true
-      t.finished = false
-      axios({
-        method: 'get',
-        headers: {
-          authorization: t.$store.state.authorization
-        },
-        url: '/api/session/summary',
-        params: {
-          page: t.massagesPage,
-          size: 10,
-          before: t.before,
-          after: t.after,
-          draft: false,
-          type: t.type
-        }
-      }).then((res) => {
-        t.loading = false
-        if (res.data.code === 200) {
-          t.massages = t.massages.concat(res.data.data.records)
-          t.massagesTotal = res.data.data.total
-        } else {
-          t.$notify({ message: res.data.message, type: 'warning' })
-        }
-      })
-    },
     onLoad () {
-      if (this.massagesTotal > (this.massagesPage + 1) * 10) {
-        this.massagesPage++
-        this.getMassages()
-      } else {
-        this.finished = true
-      }
-    },
-    navigation (e) {
-      this.$router.push(e)
+
     }
   }
 }
@@ -206,8 +148,7 @@ export default {
   text-align: left;
 }
 .van-list {
-  margin-top: calc((90 / 375 * 100vw) + 50px);
-  border: 1px solid #ff9900;
+  margin-top: calc(90 / 375 * 100vw);
 }
 .van-cell:not(:last-child)::after {
   border-color: #ff9900;
@@ -224,7 +165,7 @@ export default {
   border: 1px solid #f0f0f0;
   color: #999999;
   font-size: calc(14 / 375 * 100vw);
-  line-height: calc(26 / 375 * 100vw);
+  line-height: calc(28 / 375 * 100vw);
   border-radius: calc(2 / 375 * 100vw);
 }
 .date-list .i.selected {
@@ -252,39 +193,41 @@ export default {
   font-size: calc(20 / 375 * 100vw);
   font-weight: blod;
 }
-.info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: calc(14 / 375 * 100vw);
-  color: #333333;
-}
-.info .top {
-  display: flex;
-  align-items: center;
-}
-.info .status {
-  padding: 0 calc(10 / 375 * 100vw);
-  line-height: calc(24 / 375 * 100vw);
-  background-color: #c9c9c9;
-  color: #333333;
-  border-radius: calc(6 / 375 * 100vw);
-}
-.info .status.status0 {
-  background-color: rgb(250, 220, 184);
-}
-.info .status.status1 {
-  background-color: rgb(184, 209, 176);
-}
-.info .status.status2 {
-  background-color: rgb(164, 178, 251);
-}
-.info .status.status3 {
-  background-color: rgb(255, 254, 194);
-}
-.sub {
-  font-size: calc(14 / 375 * 100vw);
-  color: #bcbcbc;
+.list {
   text-align: left;
+  font-size: calc(14 / 375 * 100vw);
+}
+.list .item {
+  border: 1px solid #ff9900;
+  border-radius: calc(4 / 375 * 100vw);
+  padding: calc(10 / 375 * 100vw);
+}
+.list .item + .item {
+  margin-top: calc(10 / 375 * 100vw);
+}
+.list .item .name {
+  font-weight: bold;
+  padding-bottom: calc(10 / 375 * 100vw);
+}
+.list .item .info {
+  display: flex;
+  align-items: center;
+}
+.list .item .info .names {
+  padding-left: calc(10 / 375 * 100vw);
+}
+.list .item .num {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: calc(13 / 375 * 100vw);
+}
+.list .item .num .i {
+  width: 50%;
+}
+.list .item .num .i span {
+  font-weight: bold;
+}
+.list .item .num .i.money {
+  color: #ff9900;
 }
 </style>

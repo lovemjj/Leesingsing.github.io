@@ -138,6 +138,26 @@ const routes = [
     path: '/diaopeijilu',
     name: 'diaopeijilu',
     component: () => import('../views/DiaoPeiJiLu.vue')
+  },
+  {
+    path: '/danganpaiban',
+    name: 'danganpaiban',
+    component: () => import('../views/DangAnPaiBan.vue')
+  },
+  {
+    path: '/ticheng',
+    name: 'ticheng',
+    component: () => import('../views/TiCheng.vue')
+  },
+  {
+    path: '/fuwujilu',
+    name: 'fuwujilu',
+    component: () => import('../views/FuWuJiLu.vue')
+  },
+  {
+    path: '/fuwuguke',
+    name: 'fuwuguke',
+    component: () => import('../views/FuWuGuKe.vue')
   }
 ]
 
