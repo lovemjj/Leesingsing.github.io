@@ -16,7 +16,7 @@
     <div class="list">
       <div class="item" v-for="item in authorities" :key="item.name" @click="navition(item.url)">
         <div class="img" v-if="item.name === '问诊接待'"><img src="../assets/app/1.svg" alt=""></div>
-        <div class="img" v-if="item.name === '接待历史'"><img src="../assets/app/2.svg" alt=""></div>
+        <div class="img" v-if="item.name === '接单历史'"><img src="../assets/app/2.svg" alt=""></div>
         <div class="img" v-if="item.name === '诊断开方'"><img src="../assets/app/3.svg" alt=""></div>
         <div class="img" v-if="item.name === '推拿执行'"><img src="../assets/app/4.svg" alt=""></div>
         <div class="img" v-if="item.name === '物料管理'"><img src="../assets/app/5.svg" alt=""></div>
@@ -101,9 +101,9 @@ export default {
                 url: 'wenzhenjiedai'
               })
             }
-            if (i === '接待历史') {
+            if (i === '接单历史') {
               t.authorities.push({
-                name: '接待历史',
+                name: '接单历史',
                 url: 'jiedanlishi'
               })
             }
@@ -119,30 +119,30 @@ export default {
                 url: 'tuinazhixing'
               })
             }
-            // if (i === '物料管理') {
-            //   t.authorities.push({
-            //     name: '物料管理',
-            //     url: 'home'
-            //   })
-            // }
-            // if (i === '提成') {
-            //   t.authorities.push({
-            //     name: '提成',
-            //     url: 'home'
-            //   })
-            // }
-            // if (i === '档案') {
-            //   t.authorities.push({
-            //     name: '档案',
-            //     url: 'home'
-            //   })
-            // }
-            // if (i === '消息') {
-            //   t.authorities.push({
-            //     name: '消息',
-            //     url: 'home'
-            //   })
-            // }
+            if (i === '物料管理') {
+              t.authorities.push({
+                name: '物料管理',
+                url: 'wuliaoguanli'
+              })
+            }
+            if (i === '提成') {
+              t.authorities.push({
+                name: '提成',
+                url: 'ticheng'
+              })
+            }
+            if (i === '档案') {
+              t.authorities.push({
+                name: '档案',
+                url: 'danganpaiban'
+              })
+            }
+            if (i === '消息') {
+              t.authorities.push({
+                name: '消息',
+                url: 'xiaoxi'
+              })
+            }
             if (i === '我的报告') {
               t.authorities.push({
                 name: '我的报告',
@@ -155,12 +155,12 @@ export default {
                 url: 'yuangongbaogao'
               })
             }
-            // if (i === '门店运营') {
-            //   t.authorities.push({
-            //     name: '门店运营',
-            //     url: 'home'
-            //   })
-            // }
+            if (i === '门店运营') {
+              t.authorities.push({
+                name: '门店运营',
+                url: 'mendianyunying'
+              })
+            }
           }
         } else {
           t.$notify({ message: res.data.message, type: 'warning' })

@@ -1,19 +1,47 @@
 <template>
-  <div class="index">
-    <div class="search">
-      <div class="value">
-        <div class="name">咨询接待日期：</div>
-        <el-radio-group v-model="date" size="small">
-          <el-radio-button :label="index" v-for="(item, index) in dates" :key="index">{{item.name}}</el-radio-button>
-        </el-radio-group>
-        <el-date-picker :readonly="dateDisabled" value-format="yyyy-MM-dd" v-model="dates[date].label" type="daterange" size="small" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-        <div class="name">机构门店：</div>
-        <el-select v-model="branch_id" placeholder="请选择" size="small">
-          <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
-          </el-option>
-        </el-select>
+  <div class="mendianyunying">
+    <div class="nav">
+      <van-dropdown-menu>
+        <van-dropdown-item title="机构/门店" v-model="branche_id" :options="branches" @change="menuChange" />
+      </van-dropdown-menu>
+      <div class="date-list">
+        <div :class="select_id === 0 ? 'i selected' : 'i'" @click="selected(0)">本日</div>
+        <div :class="select_id === 1 ? 'i selected' : 'i'" @click="selected(1)">本周</div>
+        <div :class="select_id === 2 ? 'i selected' : 'i'" @click="selected(2)">本月</div>
+        <div :class="select_id === 3 ? 'i selected' : 'i'" @click="selected(3)">本年</div>
+        <div :class="select_id === 4 ? 'i selected' : 'i'" @click="selected(4)">自定义</div>
       </div>
-      <el-button size="small" type="primary" @click="getWorkbench">查询</el-button>
+      <div class="date-arr">
+        <div class="right i" @click="select_id === 4 ? popup.after = true : ''">
+          <van-icon name="arrow-left" />
+          <div>{{after}}</div>
+        </div>
+        <div class="center"></div>
+        <div class="left i" @click="select_id === 4 ? popup.before = true : ''">
+          <div>{{before}}</div>
+          <van-icon name="arrow" />
+        </div>
+      </div>
+      <van-popup
+        v-model="popup.before"
+        position="bottom">
+        <van-datetime-picker
+          :value="before ? new Date(before) : new Date()"
+          type="date"
+          :min-date="before_min_date"
+          @confirm="onConfirm($event, 'before')"
+          @cancel="popup.before = false" />
+      </van-popup>
+      <van-popup
+        v-model="popup.after"
+        position="bottom">
+        <van-datetime-picker
+          :value="after ? new Date(after) : new Date()"
+          type="date"
+          :min-date="after_min_date"
+          @confirm="onConfirm($event, 'after')"
+          @cancel="popup.after = false" />
+      </van-popup>
     </div>
     <div class="times">
       <div class="item">
@@ -146,22 +174,6 @@
           </div>
         </div>
       </div>
-      <div class="item schedule">
-        <div class="title">
-          服务进度统计
-        </div>
-        <div class="value">
-          <div id="scheduleId" class="echartsClass"></div>
-        </div>
-      </div>
-      <div class="item pay">
-        <div class="title">
-          支付方式统计
-        </div>
-        <div class="value">
-          <div id="payId" class="echartsClass"></div>
-        </div>
-      </div>
       <div class="item total">
         <div class="title">
           消费情况统计
@@ -176,6 +188,22 @@
         </div>
         <div class="value">
           <div id="rechargeId" class="echartsClass"></div>
+        </div>
+      </div>
+      <div class="item pay">
+        <div class="title">
+          支付方式统计
+        </div>
+        <div class="value">
+          <div id="payId" class="echartsClass"></div>
+        </div>
+      </div>
+      <div class="item schedule">
+        <div class="title">
+          服务进度统计
+        </div>
+        <div class="value">
+          <div id="scheduleId" class="echartsClass"></div>
         </div>
       </div>
       <div class="item" v-for="(item, index) in data.tops" :key="index">
@@ -199,40 +227,23 @@
 </template>
 <script>
 import axios from 'axios'
-import { Loading } from 'element-ui'
 import moment from 'moment'
 import echarts from 'echarts'
 export default {
-  components: {
-
-  },
+  name: 'mendianyunying',
   data () {
     return {
-      date: 0,
-      dates: [
-        {
-          label: [moment().startOf('day').format('YYYY-MM-DD'), moment().endOf('day').format('YYYY-MM-DD')],
-          name: '本日'
-        },
-        {
-          label: [moment().startOf('week').format('YYYY-MM-DD'), moment().endOf('week').format('YYYY-MM-DD')],
-          name: '本周'
-        },
-        {
-          label: [moment().startOf('month').format('YYYY-MM-DD'), moment().endOf('month').format('YYYY-MM-DD')],
-          name: '本月'
-        },
-        {
-          label: [moment().startOf('year').format('YYYY-MM-DD'), moment().endOf('year').format('YYYY-MM-DD')],
-          name: '本年'
-        },
-        {
-          label: ['', ''],
-          name: '自定义'
-        }
-      ],
-      dateDisabled: true,
-      branch_id: '',
+      select_id: 0,
+      after: '',
+      before: '',
+      after_min_date: new Date('1900-01-01'),
+      before_min_date: new Date('1900-01-01'),
+      popup: {
+        before: false,
+        after: false
+      },
+      branche_id: '',
+      branches: [],
       data: {
         customerStatistic: {},
         massageStatistic: {},
@@ -243,23 +254,77 @@ export default {
       }
     }
   },
-  watch: {
-    date (val) {
-      if (val === 4) {
-        this.dateDisabled = false
-      } else {
-        this.dateDisabled = true
-      }
-    }
-  },
   mounted () {
-    this.branch_id = this.$store.state.branch_id
-    this.getWorkbench()
+    this.selected(0)
+    this.getBranch()
   },
   methods: {
+    selected (e) {
+      if (e === 0) {
+        this.after = moment().startOf('day').format('YYYY-MM-DD')
+        this.before = moment().endOf('day').format('YYYY-MM-DD')
+      }
+      if (e === 1) {
+        this.after = moment().startOf('week').format('YYYY-MM-DD')
+        this.before = moment().endOf('week').format('YYYY-MM-DD')
+      }
+      if (e === 2) {
+        this.after = moment().startOf('month').format('YYYY-MM-DD')
+        this.before = moment().endOf('month').format('YYYY-MM-DD')
+      }
+
+      if (e === 3) {
+        this.after = moment().startOf('year').format('YYYY-MM-DD')
+        this.before = moment().endOf('year').format('YYYY-MM-DD')
+      }
+      if (e === 4) {
+        this.before = moment().format('YYYY-MM-DD')
+        this.after = moment().format('YYYY-MM-DD')
+      }
+      this.select_id = e
+      this.getWorkbench()
+    },
+    onConfirm (e, pro) {
+      this[pro] = e
+      if (pro === 'before' || pro === 'after') {
+        this[pro] = moment(e).format('YYYY-MM-DD')
+        if (pro === 'after' && moment(this.before) < moment(this.after)) {
+          this.before = this.after
+        }
+        if (pro === 'before' && moment(this.before) < moment(this.after)) {
+          this.after = this.before
+        }
+      }
+      this.getWorkbench()
+      this.popup[pro] = false
+    },
+    getBranch () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/branch'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.branches = []
+          for (const i of res.data.data.records) {
+            t.branches.push({
+              text: i.name,
+              value: i.id
+            })
+          }
+        } else {
+          t.$notify({ message: res.data.message, type: 'warning' })
+        }
+      })
+    },
+    menuChange () {
+      this.getWorkbench()
+    },
     getWorkbench () {
       const t = this
-      Loading.service()
       axios({
         method: 'get',
         headers: {
@@ -267,22 +332,22 @@ export default {
         },
         url: '/api/workbench',
         params: {
-          after: t.dates[t.date].label[0],
-          before: t.dates[t.date].label[1],
+          after: t.after,
+          before: t.before,
           branchId: t.branch_id
         }
       }).then((res) => {
         if (res.data.code === 200) {
           this.data = res.data.data
-          let scheduleChart = echarts.init(document.getElementById('scheduleId'))
-          let payChart = echarts.init(document.getElementById('payId'))
-          let totalChart = echarts.init(document.getElementById('totalId'))
-          let rechargeChart = echarts.init(document.getElementById('rechargeId'))
-          let data0 = []
-          let data1 = []
-          let data2 = []
-          let data3 = []
-          let data4 = []
+          const scheduleChart = echarts.init(document.getElementById('scheduleId'))
+          const payChart = echarts.init(document.getElementById('payId'))
+          const totalChart = echarts.init(document.getElementById('totalId'))
+          const rechargeChart = echarts.init(document.getElementById('rechargeId'))
+          const data0 = []
+          const data1 = []
+          const data2 = []
+          const data3 = []
+          const data4 = []
           for (const i of this.data.massageStatus0.items) {
             data0.push(i.title)
             data1.push({
@@ -297,7 +362,7 @@ export default {
             })
           }
 
-          let scheduleOption = {
+          const scheduleOption = {
             tooltip: {
               trigger: 'item',
               formatter: '{b}: {c} ({d}%)'
@@ -325,36 +390,6 @@ export default {
                 name: this.data.massageStatus0.title,
                 type: 'pie',
                 radius: ['40%', '55%'],
-                label: {
-                  formatter: '  {b|{b}:}{c}  {per|{d}%}  ',
-                  backgroundColor: '#eee',
-                  borderColor: '#aaa',
-                  borderWidth: 1,
-                  borderRadius: 4,
-                  rich: {
-                    a: {
-                      color: '#999',
-                      lineHeight: 22,
-                      align: 'center'
-                    },
-                    hr: {
-                      borderColor: '#aaa',
-                      width: '100%',
-                      borderWidth: 0.5,
-                      height: 0
-                    },
-                    b: {
-                      fontSize: 16,
-                      lineHeight: 33
-                    },
-                    per: {
-                      color: '#eee',
-                      backgroundColor: '#334455',
-                      padding: [2, 4],
-                      borderRadius: 2
-                    }
-                  }
-                },
                 data: data1
               }
             ]
@@ -367,7 +402,7 @@ export default {
             })
           }
 
-          let payOption = {
+          const payOption = {
             tooltip: {
               trigger: 'item',
               formatter: '{a} <br/>{b} : {c} ({d}%)'
@@ -394,13 +429,13 @@ export default {
               }
             ]
           }
-          let data5 = []
-          let data6 = []
+          const data5 = []
+          const data6 = []
           for (const i of this.data.histograms[0].yaxis) {
             data5.push(i.value)
             data6.push(i.proportion)
           }
-          let totalOption = {
+          const totalOption = {
             xAxis: {
               type: 'category',
               data: this.data.histograms[0].xaxis
@@ -436,13 +471,13 @@ export default {
               }
             ]
           }
-          let data7 = []
-          let data8 = []
+          const data7 = []
+          const data8 = []
           for (const i of this.data.histograms[1].yaxis) {
             data7.push(i.value)
             data8.push(i.proportion)
           }
-          let rechargeOption = {
+          const rechargeOption = {
             xAxis: {
               type: 'category',
               data: this.data.histograms[1].xaxis
@@ -489,76 +524,98 @@ export default {
             type: 'error'
           })
         }
-        Loading.service().close()
       })
     }
   }
 }
 </script>
 <style scoped>
-.index {
-  box-sizing: border-box;
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  min-height: calc(100vh - 45px);
-  background-color: rgba(234, 234, 234, 0.8);
-  padding: 10px;
-}
-.search {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 50px;
-  background-color: #ffffff;
-  padding: 10px;
+  z-index: 2;
+  padding: 0 calc(10 / 375 * 100vw);
   box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow:0px 2px 10px 0px rgba(72,73,77,0.2);
+  text-align: left;
 }
-.search .value {
+.van-list {
+  margin-top: calc((90 / 375 * 100vw) + 50px);
+  border: 1px solid #ff9900;
+}
+.van-cell:not(:last-child)::after {
+  border-color: #ff9900;
+}
+.date-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: calc(40 / 375 * 100vw);
+}
+.date-list .i {
+  width: 19%;
+  text-align: center;
+  border: 1px solid #f0f0f0;
+  color: #999999;
+  font-size: calc(14 / 375 * 100vw);
+  line-height: calc(28 / 375 * 100vw);
+  border-radius: calc(2 / 375 * 100vw);
+}
+.date-list .i.selected {
+  color: #ff9900;
+  border-color: #ff9900;
+}
+.date-arr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: calc(40 / 375 * 100vw);
+}
+.date-arr .i {
   display: flex;
   align-items: center;
-  font-size: 14px;
-  color: #333333;
+  color: #ff9900;
+  font-size: calc(14 / 375 * 100vw);
 }
-.search .value .el-radio-group {
-  margin-right: 20px;
+.date-arr .center {
+  width: calc(30 / 375 * 100vw);
+  height: 1px;
+  background-color: #ff9900;
 }
-.search .value .el-range-editor {
-  margin-right: 100px;
-}
-.search .value .el-select {
-  width: 300px;
+.date-arr .i .van-icon {
+  font-size: calc(20 / 375 * 100vw);
+  font-weight: blod;
 }
 .times {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 5px 0;
+  margin-top: calc((90 / 375 * 100vw) + 50px);
+  padding: 0 calc(10 / 375 * 100vw);
 }
 .item {
-  width: calc(20% - 10px);
-  background-color: #ffffff;
   border: 1px solid rgba(188, 188, 188, 1);
-  border-radius: 4px;
-  margin: 5px 0;
+  border-radius: calc(4 / 375 * 100vw);
+  margin: calc(10 / 375 * 100vw) 0;
 }
 .item .title {
-  padding: 0 10px;
+  padding: 0 calc(10 / 375 * 100vw);
   display: flex;
   align-items: center;
-  height: 40px;
+  height: calc(40 / 375 * 100vw);
   border-bottom: 1px solid rgba(188, 188, 188, 1);
-  font-size: 16px;
+  font-size: calc(16 / 375 * 100vw);
   font-weight: bold;
 }
 .item .value {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  font-size: 14px;
+  padding: calc(10 / 375 * 100vw);
+  font-size: calc(14 / 375 * 100vw);
 }
 .item .value span {
-  font-size: 36px;
+  font-size: calc(36 / 375 * 100vw);
   font-weight: bold;
 }
 .item .value .i {
@@ -568,13 +625,13 @@ export default {
   width: 100%;
 }
 .item .value .i .c {
-  width: 10px;
-  height: 10px;
+  width: calc(10 / 375 * 100vw);
+  height: calc(10 / 375 * 100vw);
   background-color: #ff6600;
-  margin-right: 10px;
+  margin-right: calc(10 / 375 * 100vw);
 }
 .item .value .i .icon {
-  width: 25px;
+  width: calc(25 / 375 * 100vw);
 }
 .item .value .i .c.zeng {
   background-color: #ff0000;
@@ -589,27 +646,27 @@ export default {
   color: #008000;
 }
 .schedule {
-  width: calc(60% - 7px);
+  width: 100%;
 }
 .schedule .echartsClass {
-  width: 901px;
-  height: 400px;
+  width: 100%;
+  height: calc(250 / 375 * 100vw);
   margin: 0 auto;
 }
 .pay {
-  width: calc(40% - 7px);
+  width: 100%;
 }
 .pay .echartsClass {
-  width: 583px;
-  height: 400px;
+  width: 100%;
+  height: calc(250 / 375 * 100vw);
   margin: 0 auto;
 }
 .total {
-  width: calc(50% - 7px);
+  width: 100%;
 }
 .total .echartsClass {
-  width: 742px;
-  height: 400px;
+  width: 100%;
+  height: calc(250 / 375 * 100vw);
   margin: 0 auto;
 }
 .item .value .i .name {
@@ -617,22 +674,15 @@ export default {
   align-items: center;
 }
 .item .value .i .num {
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
+  width: calc(30 / 375 * 100vw);
+  height: calc(30 / 375 * 100vw);
+  border-radius: calc(4 / 375 * 100vw);
   background-color: #ff0000;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  margin-right: 20px;
-}
-.item:last-child {
-  margin-right: calc(642 / 1588 * 100%);
-}
-.xiaoxi-list {
-  width: 600px;
-  height: 300px;
+  margin-right: calc(20 / 375 * 100vw);
 }
 </style>

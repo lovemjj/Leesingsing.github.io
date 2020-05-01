@@ -11,12 +11,12 @@
         </div>
       </div>
       <div class="info" v-if="$store.state.urlName !== 'login' && $store.state.urlName !== 'selected'">
-        <!-- <div class="icon" @click="xiaoxi = true">
+        <div class="icon" @click="getMessages">
           <img src="./assets/app/xiaoxi.svg" alt="">
-          <div class="num">
+          <!-- <div class="num">
             4
-          </div>
-        </div> -->
+          </div> -->
+        </div>
         <div class="information">
           <div class="head-portrait">
             <img src="./assets/app/touxiang.svg" alt="">
@@ -41,8 +41,8 @@
     </div>
     <el-dialog title="消息通知" width="600px" :visible.sync="xiaoxi">
       <div class="xiao-xi-list">
-        <div class="xiao-xi-item">
-          <div class="xiao-xi-date">2020-01-01 09:43</div>
+        <div class="xiao-xi-item" v-for="(item, index) in messages" :key="index">
+          <div class="xiao-xi-date">{{item.createdAt}}</div>
           <div class="xiao-xi-main">
             <div class="xiao-xi-main-list">
               <div class="xiao-xi-main-item">
@@ -51,60 +51,14 @@
               </div>
               <div class="xiao-xi-main-item">
                 <div class="xiao-xi-name">推送人：</div>
-                <div class="xiao-xi-value">刘店长</div>
+                <div class="xiao-xi-value">{{item.from.name}}</div>
               </div>
               <div class="xiao-xi-main-item">
                 <div class="xiao-xi-name">消息内容：</div>
-                <div class="xiao-xi-value">申请调配小儿退烧贴5盒，请及时处理。</div>
+                <div class="xiao-xi-value">{{item.content}}</div>
               </div>
             </div>
-            <div class="xiao-xi-footer">
-              <div>查看详情</div>
-              <div>>></div>
-            </div>
-          </div>
-        </div>
-        <div class="xiao-xi-item">
-          <div class="xiao-xi-date">2020-01-01 09:43</div>
-          <div class="xiao-xi-main">
-            <div class="xiao-xi-main-list">
-              <div class="xiao-xi-main-item">
-                <div class="xiao-xi-name">消息推送机构/门店：</div>
-                <div class="xiao-xi-value">熊孩子小儿推拿（锦绣东苑店）</div>
-              </div>
-              <div class="xiao-xi-main-item">
-                <div class="xiao-xi-name">推送人：</div>
-                <div class="xiao-xi-value">刘店长</div>
-              </div>
-              <div class="xiao-xi-main-item">
-                <div class="xiao-xi-name">消息内容：</div>
-                <div class="xiao-xi-value">申请调配小儿退烧贴5盒，请及时处理。</div>
-              </div>
-            </div>
-            <div class="xiao-xi-footer">
-              <div>查看详情</div>
-              <div>>></div>
-            </div>
-          </div>
-        </div>
-        <div class="xiao-xi-item">
-          <div class="xiao-xi-date">2020-01-01 09:43</div>
-          <div class="xiao-xi-main">
-            <div class="xiao-xi-main-list">
-              <div class="xiao-xi-main-item">
-                <div class="xiao-xi-name">消息推送机构/门店：</div>
-                <div class="xiao-xi-value">熊孩子小儿推拿（锦绣东苑店）</div>
-              </div>
-              <div class="xiao-xi-main-item">
-                <div class="xiao-xi-name">推送人：</div>
-                <div class="xiao-xi-value">刘店长</div>
-              </div>
-              <div class="xiao-xi-main-item">
-                <div class="xiao-xi-name">消息内容：</div>
-                <div class="xiao-xi-value">申请调配小儿退烧贴5盒，请及时处理。</div>
-              </div>
-            </div>
-            <div class="xiao-xi-footer">
+            <div class="xiao-xi-footer" @click="goto('消息管理')">
               <div>查看详情</div>
               <div>>></div>
             </div>
@@ -112,7 +66,6 @@
         </div>
       </div>
       <div slot="footer">
-        <el-button size="small" @click="xiaoxi = false">取 消</el-button>
         <el-button size="small" type="primary" @click="xiaoxi = false">确 定</el-button>
       </div>
     </el-dialog>
@@ -156,7 +109,8 @@ export default {
         oldPassWord: '',
         newPassWord: '',
         affirmPassWord: ''
-      }
+      },
+      messages: []
     }
   },
   methods: {
@@ -164,6 +118,7 @@ export default {
       this.$router.push({
         name
       })
+      this.xiaoxi = false
     },
     caozuo (e) {
       if (e === 'logout') {
@@ -222,6 +177,28 @@ export default {
               }
             }
           }
+          t.$store.state.navAuthorities.push('消息管理')
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    getMessages () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/session/message'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.messages = res.data.data.records
+          t.xiaoxi = true
         } else {
           t.$message({
             showClose: true,

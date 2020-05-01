@@ -354,7 +354,7 @@
       <div class="search">
         <div class="value">
           <div class="name">设置当前机构的员工权限：</div>
-          <el-select v-model="brancheSelectedId" size="small" @change="employee">
+          <el-select v-model="brancheSelectedId" size="small" @change="employee(1)">
             <el-option v-for="item in branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
