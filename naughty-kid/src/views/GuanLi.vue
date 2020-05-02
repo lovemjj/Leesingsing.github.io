@@ -94,7 +94,7 @@
           <div class="name">查找员工：</div>
           <el-input size="small" v-model="employeeLike" @input="employee" suffix-icon="el-icon-search"></el-input>
           <div class="name">归属机构或门店：</div>
-          <el-select v-model="brancheSelectedId" clearable size="small" @change="employee">
+          <el-select v-model="brancheSelectedId" clearable size="small" @change="employee(null)">
             <el-option v-for="item in branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
