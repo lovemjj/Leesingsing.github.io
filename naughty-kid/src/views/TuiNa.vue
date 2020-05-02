@@ -642,7 +642,7 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item required label="预计调理次数:" class="short">
-                  <el-input v-model="info.customer.course[1]"></el-input>
+                  <el-input type="number" v-model="info.customer.course[1]"></el-input>
                 </el-form-item>
               </div>
               <el-form-item required label="本次调理项目意见:" class="whole">
@@ -1244,6 +1244,14 @@ export default {
           this.$message({
             showClose: true,
             message: '至少选择一次专家团体设定调理方案',
+            type: 'error'
+          })
+          return
+        }
+        if (e.customer.course[1] < 1) {
+          this.$message({
+            showClose: true,
+            message: '请填写调理次数',
             type: 'error'
           })
           return

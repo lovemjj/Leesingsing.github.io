@@ -1181,7 +1181,7 @@ export default {
       })
     },
     handleDrop (e) {
-      console.log(e)
+
     },
     getBranchTree () {
       const t = this

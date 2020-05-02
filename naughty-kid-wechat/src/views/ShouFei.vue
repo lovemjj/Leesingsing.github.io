@@ -109,7 +109,6 @@
       <van-button type="primary" block @click="tocontinue">继续执行</van-button>
     </div>
     <div class="buttons" v-else>
-      <van-button type="info" block>上一步</van-button>
       <van-button type="default" block @click="patchOrder">确认收费</van-button>
       <van-button type="danger" block>暂不计费</van-button>
     </div>

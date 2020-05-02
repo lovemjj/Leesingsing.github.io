@@ -89,6 +89,8 @@
       </van-popup>
 
       <van-field
+        required
+        type="number"
         label="预计调理次数:"
         placeholder="请输入预计调理次数"
         v-model="form.customer.course[1]" />
@@ -172,7 +174,6 @@
       <van-button type="primary" block @click="tocontinue">继续执行</van-button>
     </div>
     <div class="buttons" v-else>
-      <van-button type="info" block>上一步</van-button>
       <van-button type="default" block @click="patchOrder">确认开方</van-button>
       <van-button type="danger" block @click="termination">终止流程</van-button>
     </div>
@@ -425,6 +426,10 @@ export default {
       }
       if (t.form.schemes.length < 1) {
         this.$notify({ message: '至少选择一次专家团体设定调理方案', type: 'warning' })
+        return true
+      }
+      if (t.form.customer.course[1] < 1) {
+        this.$notify({ message: '请填写调理次数', type: 'warning' })
         return true
       }
       if (t.form.items.length < 1) {
