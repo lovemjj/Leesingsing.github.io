@@ -251,6 +251,12 @@
               </template>
             </el-table-column>
           </el-table>
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="roleTotal"
+            @current-change="role">
+          </el-pagination>
         </div>
       </div>
       <div class="info">
@@ -747,6 +753,12 @@ export default {
       if ((t.selected === 6 && t.brancheSelectedId) || (t.selected === 1 && t.brancheSelectedId)) {
         url = '/api/branch/' + t.brancheSelectedId + '/employee'
       }
+      let page = (typeof e === 'number') ? (e - 1) : 0
+      let size = 10
+      if (t.selected === 0) {
+        page = ''
+        size = ''
+      }
       axios({
         method: 'get',
         headers: {
@@ -754,8 +766,8 @@ export default {
         },
         url,
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
-          size: 10,
+          page,
+          size,
           like: t.employeeLike
         }
       }).then((res) => {
@@ -968,7 +980,8 @@ export default {
         }
       }).then((res) => {
         if (res.data.code === 200) {
-          t.roles = res.data.data
+          t.roles = res.data.data.records
+          t.roleTotal = res.data.data.total
           if (t.selected === 3) {
             let arr = t.roles.filter((ele) => {
               return ele.id === t.roleId
