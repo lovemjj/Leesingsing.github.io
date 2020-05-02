@@ -38,6 +38,9 @@
         @cancel="showPicker = false"
       />
     </van-popup>
+    <div class="btn">
+      <van-button type="danger" block @click="logout">注销</van-button>
+    </div>
   </div>
 </template>
 
@@ -173,6 +176,14 @@ export default {
     },
     navition (name) {
       this.$router.push({ name })
+    },
+    logout () {
+      localStorage.removeItem('authorization')
+      localStorage.removeItem('branch_id')
+      localStorage.removeItem('id')
+      this.$router.replace({
+        name: 'login'
+      })
     }
   }
 }
@@ -180,6 +191,8 @@ export default {
 <style lang="scss" scoped>
 .home {
   padding: calc(10 / 375 * 100vw);
+  padding-bottom: calc((20 / 375 * 100vw) + 44px);
+  box-sizing: border-box;
 }
 .nav {
   border: 1px solid #ff9900;
@@ -228,7 +241,15 @@ export default {
 }
 .list .item .name {
   color: #ff9900;
-  font-size: calc(14 / 375 * 100vw);;
-  line-height: calc(32 / 375 * 100vw);;
+  font-size: calc(14 / 375 * 100vw);
+  line-height: calc(32 / 375 * 100vw);
+}
+.btn {
+ position: fixed;
+ bottom: calc(10 / 375 * 100vw);
+ left: calc(10 / 375 * 100vw);
+ right: calc(10 / 375 * 100vw);
+ z-index: 9;
+ box-sizing: border-box;
 }
 </style>

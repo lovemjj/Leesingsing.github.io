@@ -277,7 +277,8 @@
             :props="branchTreeProps"
             node-key="id"
             default-expand-all
-            draggable>
+            draggable
+            @node-drop="handleDrop">
           </el-tree>
         </div>
       </div>
@@ -1179,6 +1180,9 @@ export default {
         }
       })
     },
+    handleDrop (e) {
+      console.log(e)
+    },
     getBranchTree () {
       const t = this
       axios({
@@ -1197,40 +1201,13 @@ export default {
                   name: '熊孩子集团',
                   children: [
                     {
-                      name: '分店',
-                      children: [
-                        {
-                          name: '熊孩子小儿推拿（1号分店）'
-                        },
-                        {
-                          name: '熊孩子小儿推拿（2号分店）'
-                        },
-                        {
-                          name: '熊孩子小儿推拿（3号分店）'
-                        }
-                      ]
+                      name: '分店'
                     },
                     {
-                      name: '加盟店',
-                      children: [
-                        {
-                          name: '熊孩子小儿推拿（1号加盟店）'
-                        },
-                        {
-                          name: '熊孩子小儿推拿（2号加盟店）'
-                        },
-                        {
-                          name: '熊孩子小儿推拿（3号加盟店）'
-                        }
-                      ]
+                      name: '加盟店'
                     },
                     {
-                      name: '库房',
-                      children: [
-                        {
-                          name: '熊孩子总库房'
-                        }
-                      ]
+                      name: '库房'
                     }
                   ]
                 }
