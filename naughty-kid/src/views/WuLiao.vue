@@ -315,7 +315,7 @@
               label="实际入库数量">
             </el-table-column>
             <el-table-column
-              prop="createdBy.nmae"
+              prop="createdBy.name"
               label="申请人">
             </el-table-column>
             <el-table-column
