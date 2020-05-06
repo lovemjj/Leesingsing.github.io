@@ -728,6 +728,12 @@ export default {
         ],
         unitName: [
           { required: true, message: '请输入单位（最小可拆分单位）', trigger: 'change' }
+        ],
+        costPrice: [
+          { required: true, message: '请输入成本价', trigger: 'change' }
+        ],
+        retailPrice: [
+          { required: true, message: '请输入零售价', trigger: 'change' }
         ]
       },
       configLike: '',
