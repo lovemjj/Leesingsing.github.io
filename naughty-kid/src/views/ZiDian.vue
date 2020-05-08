@@ -253,13 +253,19 @@
           第1步：建立方案
         </div>
         <div class="list-title">
-          <el-button size="small" @click="addAuxiliary">新增</el-button>
-          <el-input size="small" v-model="auxiliarysLike" suffix-icon="el-icon-search"></el-input>
+          <el-button size="small" @click="auxiliarysAdd">新增</el-button>
+          <el-input size="small" v-model="auxiliarysLike" suffix-icon="el-icon-search" @input="getAuxiliary"></el-input>
         </div>
-        <el-table :data="auxiliarys" border @cell-dblclick="dblclick">
+        <el-table ref="auxiliaryRef" :data="auxiliarys" border highlight-current-row @current-change="auxiliaryClick">
           <el-table-column
             label="辅助诊断方案"
             prop="name">
+          </el-table-column>
+          <el-table-column
+            label="操作">
+            <template slot-scope="scope">
+              <el-button @click="auxiliarysChange(scope.row)" type="text" size="small">修改</el-button>
+            </template>
           </el-table-column>
         </el-table>
         <el-pagination
@@ -280,13 +286,9 @@
               width="200px">
             </el-table-column>
             <el-table-column
-              label="说明"
-              prop="label">
-            </el-table-column>
-            <el-table-column
               label="具体值">
               <template slot-scope="scope">
-                {{scope.row.value}}
+                <span class="auxiliary-value" v-for="(item, index) in scope.row.value" :key="index"><span class="dian">、</span>{{item.name}}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -302,13 +304,9 @@
               width="200px">
             </el-table-column>
             <el-table-column
-              label="说明"
-              prop="label">
-            </el-table-column>
-            <el-table-column
               label="具体值">
               <template slot-scope="scope">
-                {{scope.row.value}}
+                <span class="auxiliary-value" v-for="(item, index) in scope.row.value" :key="index"><span class="dian">、</span>{{item.name}}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -324,13 +322,9 @@
               width="200px">
             </el-table-column>
             <el-table-column
-              label="说明"
-              prop="label">
-            </el-table-column>
-            <el-table-column
               label="具体值">
               <template slot-scope="scope">
-                {{scope.row.value}}
+                <span class="auxiliary-value" v-for="(item, index) in scope.row.value" :key="index"><span class="dian">、</span>{{item.name}}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -346,13 +340,9 @@
               width="200px">
             </el-table-column>
             <el-table-column
-              label="说明"
-              prop="label">
-            </el-table-column>
-            <el-table-column
               label="具体值">
               <template slot-scope="scope">
-                {{scope.row.value}}
+                <span class="auxiliary-value" v-for="(item, index) in scope.row.value" :key="index"><span class="dian">、</span>{{item.name}}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -607,6 +597,46 @@
         <el-button size="small" type="primary" @click="configPop = false">取消</el-button>
       </div>
     </el-dialog>
+    <el-dialog width="600px" title="辅助诊断方案" :visible.sync="auxiliarysPop">
+      <el-form :model="auxiliary" :rules="auxiliaryRules" ref="auxiliaryRefs" label-width="120px" size="small">
+        <el-form-item label="方案名称:" prop="name">
+          <el-input v-model="auxiliary.name"></el-input>
+        </el-form-item>
+        <el-form-item required label="年龄范围:" class="ages">
+          <el-form-item class="age" prop="age0">
+            <el-input type="number" v-model="auxiliary.age0"></el-input>
+          </el-form-item>
+          <div class="line">-</div>
+          <el-form-item class="age" prop="age1">
+            <el-input type="number" v-model="auxiliary.age1"></el-input>
+          </el-form-item>
+        </el-form-item>
+        <el-form-item label="症状:" prop="symptoms">
+          <el-select v-model="auxiliary.symptoms" multiple value-key="number">
+            <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in symptoms" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="体质辩证:" prop="constitutions">
+          <el-select v-model="auxiliary.constitutions" multiple value-key="number">
+            <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in constitutions" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="调理方案:" prop="schemes">
+          <el-select v-model="auxiliary.schemes" multiple value-key="id">
+            <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in schemes" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="调理项目:" prop="items">
+          <el-select v-model="auxiliary.items" multiple value-key="id">
+            <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in items" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer">
+        <el-button size="small" type="primary" @click="addAuxiliary">{{auxiliary.id ? '修改' : '保存'}}</el-button>
+        <el-button size="small" type="primary" @click="auxiliarysPop = false">取消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -753,40 +783,49 @@ export default {
         disabled: ''
       },
       auxiliarysLike: '',
+      auxiliarysPop: false,
+      auxiliary: {
+        name: '',
+        items: [],
+        schemes: [],
+        constitutions: [],
+        symptoms: [],
+        age1: '',
+        age0: ''
+      },
+      symptoms: [],
+      constitutions: [],
+      schemes: [],
+      items: [],
+      auxiliaryRules: {
+        name: [
+          { required: true, message: '请输入方案名称', trigger: 'change' }
+        ],
+        age0: [
+          { required: true, message: '请输入最小年龄', trigger: 'change' }
+        ],
+        age1: [
+          { required: true, message: '请输入最大年龄', trigger: 'change' }
+        ],
+        items: [
+          { required: true, message: '请选择调理项目', trigger: 'change' }
+        ],
+        schemes: [
+          { required: true, message: '请选择调理方案', trigger: 'change' }
+        ],
+        constitutions: [
+          { required: true, message: '请选择体质辩证', trigger: 'change' }
+        ],
+        symptoms: [
+          { required: true, message: '请选择症状', trigger: 'change' }
+        ]
+      },
       auxiliarys: [],
-      auxiliarys1: [
-        {
-          name: '年龄范围',
-          label: '范围区间，如录入 0,12 表示大于等于0岁且小于等于12岁',
-          value: []
-        },
-        {
-          name: '症状',
-          label: '多选',
-          value: []
-        }
-      ],
-      auxiliarys2: [
-        {
-          name: '体质辩证',
-          label: '多选',
-          value: []
-        }
-      ],
-      auxiliarys3: [
-        {
-          name: '调理方案',
-          label: '多选',
-          value: []
-        }
-      ],
-      auxiliarys4: [
-        {
-          name: '调理项目',
-          label: '多选',
-          value: []
-        }
-      ],
+      auxiliarySelected: {},
+      auxiliarys1: [],
+      auxiliarys2: [],
+      auxiliarys3: [],
+      auxiliarys4: [],
       auxiliarysPage: 0,
       auxiliarysTotal: 0
     }
@@ -795,9 +834,6 @@ export default {
     this.select(0)
   },
   methods: {
-    dblclick (row, column, cell, event) {
-
-    },
     select (index) {
       this.selected = index
       if (index === 0) {
@@ -1350,21 +1386,17 @@ export default {
         t.materialForm.photo = this.result
       }
     },
-    addAuxiliary () {
+    getSymptoms () {
       const t = this
       axios({
-        method: 'post',
+        method: 'get',
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/dictionary/auxiliary',
-        data: {
-
-        }
+        url: '/api/dictionary/4/item'
       }).then((res) => {
         if (res.data.code === 200) {
-          t.auxiliarys = res.data.data.records
-          t.auxiliarysTotal = res.data.data.total
+          t.symptoms = res.data.data.records
         } else {
           t.$message({
             showClose: true,
@@ -1373,6 +1405,127 @@ export default {
           })
         }
       })
+    },
+    getConstitutions () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/5/item'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.constitutions = res.data.data.records
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    getSchemes () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/massage-scheme'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.schemes = res.data.data.records
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    getItems () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/massage-item'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.items = res.data.data.records
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    auxiliarysAdd () {
+      this.auxiliary = {
+        name: '',
+        items: [],
+        schemes: [],
+        constitutions: [],
+        symptoms: [],
+        age1: '',
+        age0: ''
+      }
+      this.getSymptoms()
+      this.getConstitutions()
+      this.getSchemes()
+      this.getItems()
+      this.auxiliarysPop = true
+      setTimeout(() => {
+        this.$refs['auxiliaryRefs'].resetFields()
+      }, 100)
+    },
+    addAuxiliary () {
+      const t = this
+      t.$refs['auxiliaryRefs'].validate((valid) => {
+        if (valid) {
+          let method = 'post'
+          let url = '/api/dictionary/auxiliary'
+          if (t.auxiliary.id) {
+            method = 'put'
+            url = `/api/dictionary/auxiliary/${t.auxiliary.id}`
+          }
+          axios({
+            method,
+            headers: {
+              authorization: t.$store.state.authorization
+            },
+            url,
+            data: t.auxiliary
+          }).then((res) => {
+            if (res.data.code === 200) {
+              t.getAuxiliary()
+              t.auxiliarysPop = false
+            } else {
+              t.$message({
+                showClose: true,
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    auxiliarysChange (e) {
+      this.auxiliary = Object.assign({}, e)
+      this.getSymptoms()
+      this.getConstitutions()
+      this.getSchemes()
+      this.getItems()
+      this.auxiliarysPop = true
     },
     getAuxiliary () {
       const t = this
@@ -1391,6 +1544,20 @@ export default {
         if (res.data.code === 200) {
           t.auxiliarys = res.data.data.records
           t.auxiliarysTotal = res.data.data.total
+          if (res.data.data.records.length > 0) {
+            if (t.auxiliarySelected.id) {
+              let arr = t.auxiliarys.filter((ele) => {
+                return ele.id === t.auxiliarySelected.id
+              })
+              if (arr.length > 0) {
+                t.$refs.auxiliaryRef.setCurrentRow(arr[0])
+              } else {
+                t.$refs.auxiliaryRef.setCurrentRow(t.auxiliarys[0])
+              }
+            } else {
+              t.$refs.auxiliaryRef.setCurrentRow(t.auxiliarys[0])
+            }
+          }
         } else {
           t.$message({
             showClose: true,
@@ -1399,6 +1566,46 @@ export default {
           })
         }
       })
+    },
+    auxiliaryClick (e) {
+      if (e) {
+        this.auxiliarySelected = e
+        this.auxiliarys1 = [
+          {
+            name: '年龄范围',
+            value: [
+              {
+                name: e.age0
+              },
+              {
+                name: e.age1
+              }
+            ]
+          },
+          {
+            name: '症状',
+            value: e.symptoms
+          }
+        ]
+        this.auxiliarys2 = [
+          {
+            name: '体质辩证',
+            value: e.constitutions
+          }
+        ]
+        this.auxiliarys3 = [
+          {
+            name: '调理方案',
+            value: e.schemes
+          }
+        ]
+        this.auxiliarys4 = [
+          {
+            name: '调理项目',
+            value: e.items
+          }
+        ]
+      }
     }
   }
 }
@@ -1575,5 +1782,23 @@ export default {
 .xiaoxi .list-title .el-input, .xiaoxi .search .el-input {
   width: 150px;
   margin-left: 10px;
+}
+.ages .el-form-item__content {
+  display: flex;
+}
+.ages .line {
+  margin: 0 10px;
+}
+.age.el-form-item {
+  width: 100px;
+}
+.age.el-form-item--small.el-form-item {
+  margin-bottom: 0;
+}
+.auxiliary-value .dian {
+  display: none;
+}
+.auxiliary-value + .auxiliary-value .dian {
+  display: inline-block;
 }
 </style>
