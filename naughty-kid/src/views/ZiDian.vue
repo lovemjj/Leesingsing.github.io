@@ -1481,9 +1481,6 @@ export default {
       this.getSchemes()
       this.getItems()
       this.auxiliarysPop = true
-      setTimeout(() => {
-        this.$refs['auxiliaryRefs'].resetFields()
-      }, 100)
     },
     addAuxiliary () {
       const t = this
