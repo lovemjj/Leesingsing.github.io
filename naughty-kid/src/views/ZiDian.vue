@@ -253,10 +253,10 @@
           第1步：建立方案
         </div>
         <div class="list-title">
-          <el-button size="small">新增</el-button>
-          <el-input size="small" suffix-icon="el-icon-search"></el-input>
+          <el-button size="small" @click="addAuxiliary">新增</el-button>
+          <el-input size="small" v-model="auxiliarysLike" suffix-icon="el-icon-search"></el-input>
         </div>
-        <el-table :data="auxiliarys" border>
+        <el-table :data="auxiliarys" border @cell-dblclick="dblclick">
           <el-table-column
             label="辅助诊断方案"
             prop="name">
@@ -561,7 +561,10 @@
           </div>
         </el-form-item>
         <el-form-item label="单位（最小可拆分单位）:" prop="unitName">
-          <el-input v-model="materialForm.unitName"></el-input>
+          <el-select v-model="materialForm.unitName" filterable size="small">
+            <el-option v-for="item in materialUnits" :key="item.number" :label="item.name" :value="item.name">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="成本价（单价）:" prop="costPrice">
           <el-input v-model="materialForm.costPrice"></el-input>
@@ -719,6 +722,7 @@ export default {
         description: '',
         photo: ''
       },
+      materialUnits: [],
       materialRules: {
         number: [
           { required: true, message: '请输入物料编码', trigger: 'change' }
@@ -748,6 +752,7 @@ export default {
         description: '',
         disabled: ''
       },
+      auxiliarysLike: '',
       auxiliarys: [],
       auxiliarys1: [
         {
@@ -790,6 +795,9 @@ export default {
     this.select(0)
   },
   methods: {
+    dblclick (row, column, cell, event) {
+
+    },
     select (index) {
       this.selected = index
       if (index === 0) {
@@ -1218,12 +1226,34 @@ export default {
         photo: ''
       }
       this.materialPopType = 'add'
+      this.getMaterialUnit()
       this.materialPop = true
     },
     materialChange (item) {
       this.materialForm = item
       this.materialPopType = 'change'
+      this.getMaterialUnit()
       this.materialPop = true
+    },
+    getMaterialUnit () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/6/item'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.materialUnits = res.data.data.records
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
     },
     AddMaterial () {
       const t = this
@@ -1321,7 +1351,28 @@ export default {
       }
     },
     addAuxiliary () {
+      const t = this
+      axios({
+        method: 'post',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/auxiliary',
+        data: {
 
+        }
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.auxiliarys = res.data.data.records
+          t.auxiliarysTotal = res.data.data.total
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
     },
     getAuxiliary () {
       const t = this
@@ -1331,7 +1382,11 @@ export default {
           authorization: t.$store.state.authorization
         },
         url: '/api/dictionary/auxiliary',
-        data: t.configForm
+        params: {
+          page: t.auxiliarysPage,
+          size: 10,
+          like: t.auxiliarysLike
+        }
       }).then((res) => {
         if (res.data.code === 200) {
           t.auxiliarys = res.data.data.records
@@ -1510,6 +1565,9 @@ export default {
 <style>
 .xiaoxi .el-textarea, .xiaoxi .el-select {
   width: 600px;
+}
+.el-dialog  .el-textarea, .xiaoxi .el-select {
+  width: 100%;
 }
 .xiaoxi .title .el-date-editor, .xiaoxi .title .el-select, .xiaoxi .title .el-input {
   width: 200px;

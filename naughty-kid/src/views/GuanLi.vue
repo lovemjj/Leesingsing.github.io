@@ -348,12 +348,6 @@
               label="机构名称">
             </el-table-column>
           </el-table>
-          <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="branchTotal"
-            @current-change="branch">
-          </el-pagination>
         </div>
       </div>
     </div>
@@ -711,6 +705,10 @@ export default {
     },
     branch (e) {
       const t = this
+      let size = 10
+      if (t.selected === 5) {
+        size = 9999
+      }
       axios({
         method: 'get',
         headers: {
@@ -719,7 +717,7 @@ export default {
         url: '/api/branch',
         params: {
           page: (typeof e === 'number') ? (e - 1) : 0,
-          size: 10,
+          size,
           like: t.branchLike
         }
       }).then((res) => {
@@ -967,6 +965,10 @@ export default {
     },
     role (e) {
       const t = this
+      let size = 10
+      if (t.selected === 6) {
+        size = 9999
+      }
       axios({
         method: 'get',
         headers: {
@@ -975,7 +977,7 @@ export default {
         url: '/api/role',
         params: {
           page: (typeof e === 'number') ? (e - 1) : 0,
-          size: 10,
+          size,
           like: t.roleLike
         }
       }).then((res) => {
@@ -1193,8 +1195,51 @@ export default {
         }
       })
     },
-    handleDrop (e) {
+    handleDrop () {
+      let data = {
+        title: '熊孩子集团',
+        children: [],
+        groups: []
+      }
+      for (const ele of this.branchTree[0].children) {
+        if (ele.name === '分店') {
+          data.groups.push({
+            title: '分店',
+            children: ele.children
+          })
+        } else if (ele.name === '加盟店') {
+          data.groups.push({
+            title: '加盟店',
+            children: ele.children
+          })
+        } else if (ele.name === '库房') {
+          data.groups.push({
+            title: '库房',
+            children: ele.children
+          })
+        } else {
+          data.children.push(ele)
+        }
+      }
+      const t = this
+      axios({
+        method: 'post',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/branch-tree',
+        data
+      }).then((res) => {
+        if (res.data.code === 200) {
 
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
     },
     getBranchTree () {
       const t = this
@@ -1206,25 +1251,28 @@ export default {
         url: '/api/branch-tree'
       }).then((res) => {
         if (res.data.code === 200) {
+          let name0 = '熊孩子集团'
+          let children0 = []
+          if (res.data.data.tree.title) {
+            name0 = res.data.data.tree.title
+          }
+          if (res.data.data.tree.children) {
+            for (const e of res.data.data.tree.children) {
+              children0.push(e)
+            }
+          }
+          if (res.data.data.tree.groups) {
+            for (const e of res.data.data.tree.groups) {
+              children0.push({
+                name: e.title,
+                children: e.children
+              })
+            }
+          }
           t.branchTree = [
             {
-              name: '已分组机构',
-              children: [
-                {
-                  name: '熊孩子集团',
-                  children: [
-                    {
-                      name: '分店'
-                    },
-                    {
-                      name: '加盟店'
-                    },
-                    {
-                      name: '库房'
-                    }
-                  ]
-                }
-              ]
+              name: name0,
+              children: children0
             },
             {
               name: '未分组机构',
