@@ -58,7 +58,7 @@
         @current-change="customersCurrentChange">
       </el-pagination>
     </div>
-    <div class="info item">
+    <div class="info item" v-if="customer.id">
       <div class="title">
         顾客档案
       </div>

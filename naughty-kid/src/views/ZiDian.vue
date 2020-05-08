@@ -274,7 +274,7 @@
           :total="auxiliarysTotal">
         </el-pagination>
       </div>
-      <div class="info info1">
+      <div class="info info1" v-if="auxiliarySelected.id">
         <div class="model">
           <div class="step">
             第2-1步：筛选调理人
