@@ -753,7 +753,7 @@ export default {
       }
       let page = (typeof e === 'number') ? (e - 1) : 0
       let size = 10
-      if (t.selected === 0) {
+      if (t.selected === 0 || t.selected === 2) {
         page = ''
         size = ''
       }
