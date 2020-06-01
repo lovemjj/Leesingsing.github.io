@@ -280,6 +280,43 @@
         <div class="note-title">
           辅助调理方案
         </div>
+        <div class="note-list" v-for="(item, index) in orderForm.auxiliaries" :key="index">
+          <div class="note-item">
+            <div class="note-name">
+              症状/诊断：
+            </div>
+            <div class="note-value">
+              <div class="t" v-for="(e, i) in item.symptoms" :key="i"><div class="d">、</div>{{e.name}}</div>
+            </div>
+          </div>
+          <div class="note-item">
+            <div class="note-name">
+              辩证意见：
+            </div>
+            <div class="note-value">
+              <div class="t" v-for="(e, i) in item.constitutions" :key="i"><div class="d">、</div>{{e.name}}</div>
+            </div>
+          </div>
+          <div class="note-item">
+            <div class="note-name">
+              调理方案：
+            </div>
+            <div class="note-value">
+              <div class="t" v-for="(e, i) in item.schemes" :key="i"><div class="d">、</div>{{e.name}}</div>
+            </div>
+          </div>
+          <div class="note-item">
+            <div class="note-name">
+              调理项目：
+            </div>
+            <div class="note-value">
+              <div class="t" v-for="(e, i) in item.items" :key="i"><div class="d">、</div>{{e.name}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="note-none" v-if="orderForm.auxiliaries.length === 0">
+          暂无数据
+        </div>
       </div>
     </div>
     <div class="tuina-main" v-if="selected === 1">
@@ -820,7 +857,8 @@ export default {
         pay: [],
         satisfaction: [],
         signature: '',
-        chargedBy: {}
+        chargedBy: {},
+        auxiliaries: []
       },
       contactErr: '',
       partnerContactErr: '',
@@ -1927,5 +1965,31 @@ span {
 }
 .table .el-table th, .el-table td {
   padding: 8px 0;
+}
+.note-list {
+  padding: 10px;
+  font-size: 14px;
+}
+.note-item {
+  display: flex;
+}
+.note-value {
+  display: flex;
+  flex-wrap: wrap;
+}
+.note-value .t {
+  display: flex;
+  flex-wrap: wrap;
+}
+ .note-value .t .d {
+  display: none;
+}
+.note-value .t + .t .d {
+  display: block;
+}
+.note-none {
+  text-align: center;
+  font-size: 13px;
+  color: #999999;
 }
 </style>
