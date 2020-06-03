@@ -75,9 +75,15 @@ axios.interceptors.response.use(function (response) {
   if (response.data.code === 401) {
     router.replace({ name: 'login' })
   }
-  return response
+  if (response.data.code === 402) {
+    Vue.prototype.$notify({ message: 'root账号无法操作', type: 'warning' })
+    store.state.show = false
+  } else {
+    return response
+  }
 }, function (error) {
   // 对响应错误做点什么
+  store.state.show = false
   return Promise.reject(error)
 })
 

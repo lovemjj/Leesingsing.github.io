@@ -1082,10 +1082,10 @@ export default {
       t.$refs['massageSchemeRef'].validate((valid) => {
         if (valid) {
           let method = 'post'
-          let url = '/dictionary/massage-scheme'
+          let url = '/api/dictionary/massage-scheme'
           if (t.massageSchemePopType === 'change') {
             method = 'put'
-            url = '/dictionary/massage-scheme/' + t.massageSchemeForm.id
+            url = '/api/dictionary/massage-scheme/' + t.massageSchemeForm.id
           }
           axios({
             method,
@@ -1168,7 +1168,7 @@ export default {
     massageItemSelected (items) {
       const t = this
       axios({
-        method: 'post',
+        method: 'patch',
         headers: {
           authorization: t.$store.state.authorization
         },
