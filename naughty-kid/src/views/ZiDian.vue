@@ -1040,7 +1040,14 @@ export default {
           t.massageSchemeData = res.data.data.records
           t.massageSchemeDataTotal = res.data.data.total
           if (t.selected === 3) {
-            t.setCurrent2(t.massageSchemeData[0])
+            let arr = t.massageSchemeData.filter((ele) => {
+              return ele.id === t.massageSchemeId
+            })
+            if (arr.length > 0) {
+              t.setCurrent2(arr[0])
+            } else {
+              t.setCurrent2(t.massageSchemeData[0])
+            }
           }
         } else {
           t.$message({
@@ -1179,7 +1186,7 @@ export default {
         }
       }).then((res) => {
         if (res.data.code === 200) {
-
+          t.massageScheme()
         } else {
           t.$message({
             showClose: true,
