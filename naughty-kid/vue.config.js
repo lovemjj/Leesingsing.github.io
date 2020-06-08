@@ -1,5 +1,5 @@
-// const proxyTarget = 'http://49.233.137.52:8080'
-const proxyTarget = 'http://localhost'
+const proxyTarget = 'http://49.233.137.52:8080'
+// const proxyTarget = 'http://localhost'
 module.exports = {
   pages: {
     index: {
