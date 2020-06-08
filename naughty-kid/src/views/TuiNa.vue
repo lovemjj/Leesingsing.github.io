@@ -242,7 +242,7 @@
             </el-form-item>
             <el-form-item label="诊断开方人:">
               <el-select v-model="orderForm.diagnosedBy" filterable value-key="id" :disabled="orderForm.status > 0">
-                <el-option :label="item.name" :value="{ id: item.id }" v-for="(item, index) in createdBys" :key="index"></el-option>
+                <el-option :label="item.name" :value="{ id: item.id }" v-for="(item, index) in diagnosedBys" :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -815,6 +815,7 @@ export default {
       ],
       massageds: [],
       createdBys: [],
+      diagnosedBys: [],
       orderFilterForm: {
         status: '',
         customer: '',
@@ -923,8 +924,12 @@ export default {
   mounted () {
     this.getCustomers()
     this.getMembershipCards()
+    // 咨询接待人  角色是 门店店长 市场督导 儿童理疗师 中医理疗师
     this.getCreatedBys()
+    // 指派技师 角色是 儿童理疗师 中医理疗师
     this.getEmployees()
+    // 开方的人 角色是 门店店长
+    this.getDiagnosedBys()
     this.getPartnerTypes()
     this.getSymptoms()
     this.getConstitutions()
@@ -957,6 +962,26 @@ export default {
       }).then((res) => {
         if (res.data.code === 200) {
           t.partnerTypes = res.data.data.records
+        } else {
+          t.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+    getDiagnosedBys () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/branch/' + t.$store.state.branch_id + '/employee?role=门店店长'
+      }).then((res) => {
+        if (res.data.code === 200) {
+          t.diagnosedBys = res.data.data.records
         } else {
           t.$message({
             showClose: true,
@@ -1136,7 +1161,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/branch/' + t.$store.state.branch_id + '/employee'
+        url: '/api/branch/' + t.$store.state.branch_id + '/employee?role=门店店长_市场督导_儿童理疗师_中医理疗师'
       }).then((res) => {
         if (res.data.code === 200) {
           t.createdBys = res.data.data.records
@@ -1471,7 +1496,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/employee',
+        url: '/api/branch/' + t.$store.state.branch_id + '/employee?role=儿童理疗师_中医理疗师',
         params: {
           role: '5'
         }
