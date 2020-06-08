@@ -384,7 +384,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/employee',
+        url: `/api/branch/${t.$store.state.branch_id}/employee?role=儿童理疗师_中医理疗师`,
         params: {
           role: '5'
         }
@@ -403,7 +403,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: `/api/branch/${t.$store.state.branch_id}/employee`
+        url: `/api/branch/${t.$store.state.branch_id}/employee?role=门店店长`
       }).then((res) => {
         if (res.data.code === 200) {
           t.diagnosedBys = res.data.data.records
