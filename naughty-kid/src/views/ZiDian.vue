@@ -993,7 +993,7 @@ export default {
       t.$refs['dictionaryItemRef'].validate((valid) => {
         if (valid) {
           let method = 'post'
-          let url = '/api/dictionary/' + t.dictionaryNumber
+          let url = '/api/dictionary/' + t.dictionaryNumber + '/item'
           if (t.dictionaryItemPopType === 'change') {
             method = 'put'
             url = '/api/dictionary/' + t.dictionaryNumber + '/item/' + t.dictionaryItemForm.number
