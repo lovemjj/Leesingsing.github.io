@@ -1,5 +1,6 @@
-const proxyTarget = 'http://49.233.137.52:8080'
+let proxyTarget = process.env['PROXY_TARGET'] || 'http://49.233.137.52:8080'
 // const proxyTarget = 'http://localhost'
+
 module.exports = {
   pages: {
     index: {
