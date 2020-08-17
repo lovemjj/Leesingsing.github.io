@@ -427,6 +427,7 @@
             label="操作">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="getInfo(scope.row)">查看</el-button>
+              <el-button type="text" size="small" @click="openTermination(scope.row)">终止</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -771,7 +772,7 @@
               <el-button size="small" type="primary" v-if="info.status === 2" @click="patchOrder(info)">开始执行</el-button>
               <el-button size="small" type="danger" v-if="info.status === 2 && info.assigned !== ''" @click="putOrder(info)">转为公共服务单</el-button>
               <el-button size="small" type="success" v-if="info.status === 3" @click="patchOrder(info)">执行完成</el-button>
-              <el-button size="small" type="danger" v-if="info.status === 3">终止执行</el-button>
+              <!-- <el-button size="small" type="danger" v-if="info.status === 3">终止执行</el-button> -->
               <el-button size="small" type="success" v-if="info.status === 4" @click="patchOrder(info)">家长确认完成</el-button>
             </div>
           </div>
@@ -1629,7 +1630,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: `/api//massage-order/${e.id}`,
+        url: `/api/massage-order/${e.id}`,
         data: {
           disabled: false
         }
@@ -1642,6 +1643,16 @@ export default {
         }
       })
     },
+    openTermination (e) {
+      const t = this
+      this.$confirm('是否终止此单？', '确认信息', {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '删除',
+        cancelButtonText: '取消'
+      }).then(() => {
+        t.termination(e)
+      })
+    },
     termination (e) {
       const t = this
       t.$store.state.show = true
@@ -1650,7 +1661,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: `/api//massage-order/${e.id}`,
+        url: `/api/massage-order/${e.id}`,
         data: {
           disabled: true
         }
