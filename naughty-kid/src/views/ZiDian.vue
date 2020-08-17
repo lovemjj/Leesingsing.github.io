@@ -111,7 +111,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="dictionaryItemDataTotal">
+            :total="dictionaryItemDataTotal"
+            @current-change="dictionaryItem">
           </el-pagination>
         </div>
       </div>
@@ -153,7 +154,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="massageSchemeDataTotal">
+          :total="massageSchemeDataTotal"
+          @current-change="massageScheme">
         </el-pagination>
       </div>
     </div>
@@ -189,7 +191,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="massageItemDataTotal">
+          :total="massageItemDataTotal"
+          @current-change="massageItem">
         </el-pagination>
       </div>
     </div>
@@ -212,7 +215,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="massageSchemeDataTotal">
+          :total="massageSchemeDataTotal"
+          @current-change="massageItem">
         </el-pagination>
       </div>
       <div class="info">
@@ -242,7 +246,8 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="massageItemDataTotal">
+            :total="massageItemDataTotal"
+            @current-change="massageItem">
           </el-pagination>
         </div>
       </div>
@@ -271,7 +276,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="auxiliarysTotal">
+          :total="auxiliarysTotal"
+          @current-change="getAuxiliary">
         </el-pagination>
       </div>
       <div class="info info1" v-if="auxiliarySelected.id">
@@ -404,7 +410,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="materialDataTotal">
+          :total="materialDataTotal"
+          @current-change="material">
         </el-pagination>
       </div>
     </div>
@@ -448,7 +455,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="configDataTotal">
+          :total="configDataTotal"
+          @current-change="config">
         </el-pagination>
       </div>
     </div>
@@ -1531,7 +1539,7 @@ export default {
       this.getItems()
       this.auxiliarysPop = true
     },
-    getAuxiliary () {
+    getAuxiliary (e) {
       const t = this
       axios({
         method: 'get',
@@ -1540,7 +1548,7 @@ export default {
         },
         url: '/api/dictionary/auxiliary',
         params: {
-          page: t.auxiliarysPage,
+          page: (typeof e === 'number') ? (e - 1) : 0,
           size: 10,
           like: t.auxiliarysLike
         }
