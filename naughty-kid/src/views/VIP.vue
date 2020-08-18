@@ -813,9 +813,10 @@ export default {
         }
       })
     },
-    addMembershipCard () {
+    async addMembershipCard () {
+      const r = await axios.get('/api/random-id')
       this.membershipCard = {
-        number: '',
+        number: r.data.data,
         level: '',
         discount: '',
         name: '',
