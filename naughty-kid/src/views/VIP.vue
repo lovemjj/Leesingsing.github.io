@@ -182,7 +182,7 @@
                 会员卡级别：
               </div>
               <div class="info-item-value">
-                {{info.level === 1 ? '铜卡会员' : info.level === 2 ? '银卡会员' : info.level === 3 ? '金卡会员' : ''}}
+                {{info.level.name}}
               </div>
             </div>
             <div class="info-item">
@@ -776,10 +776,22 @@ export default {
     this.getMembershipCards()
     this.getMassageScheme()
     this.getMassageItem()
+    this.getLevels()
   },
   methods: {
     select (e) {
 
+    },
+
+    getLevels (e) {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/3/item'
+      }).then(r => r.data.data.records).then(r => { t.levels = r })
     },
     getMembershipCards (e) {
       const t = this
