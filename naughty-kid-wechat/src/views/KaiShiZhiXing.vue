@@ -18,7 +18,7 @@
         <div class="name">会员卡：</div><div class="value">{{info.membershipCard.number}}</div>
       </div>
       <div class="i" v-if="info.membershipCard.level">
-        <div class="name">会员卡级别：</div><div class="value">{{info.membershipCard.level}}</div>
+        <div class="name">会员卡级别：</div><div class="value">{{info.membershipCard.level.name}}</div>
       </div>
       <div class="i" v-if="info.membershipCard.balance">
         <div class="name">卡内充值余额：</div><div class="value">{{info.membershipCard.balance}}</div>

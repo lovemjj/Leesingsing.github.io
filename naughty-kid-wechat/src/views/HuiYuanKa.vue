@@ -4,7 +4,7 @@
     <div class="list">
       <div class="item" style="width: 100%;">会员卡卡号：{{membershipCard.number}}</div>
       <div class="item">持卡人姓名：{{membershipCard.name}}</div>
-      <div class="item">会员卡级别：{{membershipCard.level === 1 ? '铜卡会员' : membershipCard.level === 2 ? '铜卡会员' : membershipCard.level === 3 ? '铜卡会员' : ''}}</div>
+      <div class="item">会员卡级别：{{membershipCard.level.name}}</div>
       <div class="item">卡内充值余额：{{membershipCard.balance}}</div>
       <div class="item">卡内赠送余额：{{membershipCard.bonus}}</div>
     </div>
@@ -49,6 +49,16 @@ export default {
     }
   },
   methods: {
+    getLevels () {
+      const t = this
+      axios({
+        method: 'get',
+        headers: {
+          authorization: t.$store.state.authorization
+        },
+        url: '/api/dictionary/3/item'
+      }).then(r => r.data.data.records).then(r => { t.levels = r })
+    },
     getInfo (id) {
       const t = this
       axios({

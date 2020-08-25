@@ -542,7 +542,7 @@
           {{info.number}}
         </el-form-item>
         <el-form-item label="会员卡级别:" style="width: 40%">
-          {{info.level === 1 ? '铜卡会员' : info.level === 2 ? '银卡会员' : info.level === 3 ? '金卡会员' : ''}}
+          {{info.level.name}}
         </el-form-item>
         <el-form-item label="持卡人姓名:" style="width: 40%">
           {{info.name}}
@@ -682,20 +682,7 @@ export default {
       },
       membershipCardPop: false,
       membershipCardType: 'add',
-      levels: [
-        {
-          number: 1,
-          name: '铜卡会员'
-        },
-        {
-          number: 2,
-          name: '银卡会员'
-        },
-        {
-          number: 3,
-          name: '金卡会员'
-        }
-      ],
+      levels: [],
       massageSchemeData: [],
       massageItemData: [],
       change: {

@@ -198,7 +198,7 @@
 
       <van-row class="row">
         <van-col class="item" span="12">持卡人姓名：{{form.membershipCard.name}}</van-col>
-        <van-col class="item" span="12">会员卡级别：{{form.membershipCard.level === 1 ? '铜卡会员' : form.membershipCard.level === 2 ? '铜卡会员' : form.membershipCard.level === 3 ? '铜卡会员' : ''}}</van-col>
+        <van-col class="item" span="12">会员卡级别：{{form.membershipCard.level.name}}</van-col>
         <van-col class="item" span="12">卡内充值余额：{{form.membershipCard.balance}}</van-col>
         <van-col class="item" span="12">卡内赠送余额：{{form.membershipCard.bonus}}</van-col>
       </van-row>
