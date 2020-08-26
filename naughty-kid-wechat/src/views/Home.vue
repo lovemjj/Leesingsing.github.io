@@ -172,6 +172,8 @@ export default {
     },
     onConfirm (e) {
       this.branch = e
+      localStorage.setItem('branch_id', e.id)
+      this.$store.state.branch_id = e.id
       this.showPicker = false
     },
     navition (name) {

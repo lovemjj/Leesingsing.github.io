@@ -130,8 +130,7 @@
 
       <van-field
         label="调理总费用(￥):"
-        placeholder="自动计算"
-        disabled
+        placeholder="自动计算（可更改）"
         v-model="form.price" />
 
       <van-field
