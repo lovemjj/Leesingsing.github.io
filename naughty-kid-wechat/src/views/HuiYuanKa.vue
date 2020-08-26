@@ -35,7 +35,7 @@ export default {
       membershipCard: {
         number: '',
         name: '',
-        level: '',
+        level: {},
         balance: '',
         bonus: ''
       },

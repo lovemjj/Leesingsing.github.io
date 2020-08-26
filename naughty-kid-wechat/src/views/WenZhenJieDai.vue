@@ -344,7 +344,9 @@ export default {
           contact: '',
           disabled: false
         }, // 调理人
-        membershipCard: {},
+        membershipCard: {
+          level: {}
+        },
         symptomsDescription: '',
         symptoms: [],
         appendixes: [],

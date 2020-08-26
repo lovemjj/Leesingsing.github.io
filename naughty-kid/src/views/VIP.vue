@@ -749,7 +749,7 @@ export default {
         },
         balance: '',
         bonus: '',
-        level: '',
+        level: {},
         discount: '',
         bonusService: []
       },

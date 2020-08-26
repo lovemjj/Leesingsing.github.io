@@ -123,7 +123,9 @@ export default {
     return {
       info: {
         customer: {},
-        membershipCard: {},
+        membershipCard: {
+          level: {}
+        },
         symptoms: [],
         id: '',
         pay: [],
