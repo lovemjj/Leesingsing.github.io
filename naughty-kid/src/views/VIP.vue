@@ -518,8 +518,11 @@
         <el-form-item label="联系电话:" prop="contact">
           <el-input v-model="change.contact"></el-input>
         </el-form-item>
-        <el-form-item label=" 会员卡折扣:" prop="discount">
+        <el-form-item label="会员卡折扣:" prop="discount">
           <el-input v-model="change.discount"></el-input>
+        </el-form-item>
+        <el-form-item label="卡内充值余额:" prop="discount">
+          <el-input v-model="change.balance"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -692,7 +695,8 @@ export default {
         name: '',
         contact: '',
         gender: 1,
-        birthday: ''
+        birthday: '',
+        balance: 0
       },
       changeRules: {
         number: [
@@ -974,7 +978,8 @@ export default {
         name: item.name,
         contact: item.contact,
         gender: item.gender,
-        birthday: item.birthday
+        birthday: item.birthday,
+        balance: item.balance
       }
       this.changePop = true
     },
