@@ -15,7 +15,7 @@
         <el-input size="small" v-model="contact" suffix-icon="el-icon-search" clearable></el-input>
       </div>
       <div class="btns">
-        <el-button size="small" type="primary" @click="getMembershipCards">查询</el-button>
+        <el-button size="small" type="primary" @click="getMembershipCards(1)">查询</el-button>
         <el-button size="small" type="info" @click="addMembershipCard">办卡</el-button>
       </div>
     </div>
@@ -54,6 +54,7 @@
         background
         layout="prev, pager, next"
         :total="membershipCardsTotal"
+        :current-page="membershipCardsPage"
         @current-change="getMembershipCards">
       </el-pagination>
     </div>
@@ -295,6 +296,7 @@
             background
             layout="prev, pager, next"
             :total="balanceDetailTotal"
+            :current-page="balanceDetailPage"
             @current-change="getBalanceDetails">
           </el-pagination>
         </el-tab-pane>
@@ -359,6 +361,7 @@
             background
             layout="prev, pager, next"
             :total="serviceDetailTotal"
+            :current-page="serviceDetailPage"
             @current-change="getServiceDetails">
           </el-pagination>
         </el-tab-pane>
@@ -755,12 +758,14 @@ export default {
       },
       balanceDetails: [],
       balanceDetailTotal: 0,
+      balanceDetailPage: 0,
       serviceDetails: [],
-      serviceDetailTotal: 0
+      serviceDetailTotal: 0,
+      serviceDetailPage: 0
     }
   },
   mounted () {
-    this.getMembershipCards()
+    this.getMembershipCards(1)
     this.getMassageScheme()
     this.getMassageItem()
     this.getLevels()
@@ -782,6 +787,7 @@ export default {
     },
     getMembershipCards (e) {
       const t = this
+      t.membershipCardsPage = e
       axios({
         method: 'get',
         headers: {
@@ -789,7 +795,7 @@ export default {
         },
         url: '/api/membership-card',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.membershipCardsPage - 1,
           size: 10,
           name: t.name,
           contact: t.contact,
@@ -899,7 +905,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.membershipCardPop = false
-              t.getMembershipCards()
+              t.getMembershipCards(1)
             } else {
               t.$message({
                 showClose: true,
@@ -951,7 +957,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.rechargePop = false
-              t.getMembershipCards()
+              t.getMembershipCards(1)
             } else {
               t.$message({
                 showClose: true,
@@ -992,7 +998,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.changePop = false
-              t.getMembershipCards()
+              t.getMembershipCards(1)
             } else {
               t.$message({
                 showClose: true,
@@ -1010,8 +1016,8 @@ export default {
       if (e) {
         this.info.id = e.id
         this.getInfo()
-        this.getBalanceDetails()
-        this.getServiceDetails()
+        this.getBalanceDetails(1)
+        this.getServiceDetails(1)
       } else {
         this.info = {
           id: '',
@@ -1071,6 +1077,7 @@ export default {
     },
     getBalanceDetails (e) {
       const t = this
+      t.balanceDetailPage = e
       axios({
         method: 'get',
         headers: {
@@ -1078,7 +1085,7 @@ export default {
         },
         url: '/api/membership-card/' + t.info.id + '/balance-detail',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.balanceDetailPage - 1,
           size: 10
         }
       }).then((res) => {
@@ -1096,6 +1103,7 @@ export default {
     },
     getServiceDetails (e) {
       const t = this
+      t.serviceDetailPage = e
       axios({
         method: 'get',
         headers: {
@@ -1103,7 +1111,7 @@ export default {
         },
         url: '/api/membership-card/' + t.info.id + '/service-detail',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.serviceDetailPage - 1,
           size: 10
         }
       }).then((res) => {

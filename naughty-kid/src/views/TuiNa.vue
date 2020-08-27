@@ -351,9 +351,11 @@
           v-loading="massageOrdersLoading"
           style="width: 100%">
           <el-table-column
-            prop="id"
             label="序号"
             width="50">
+            <template slot-scope="scope">
+              <div>{{scope.$index + 1 + ((massageOrderPage - 1) * 10)}}</div>
+            </template>
           </el-table-column>
           <el-table-column
             prop="createdAt"
