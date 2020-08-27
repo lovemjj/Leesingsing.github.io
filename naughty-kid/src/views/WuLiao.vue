@@ -33,7 +33,7 @@
       <div class="search">
         <div class="value">
           <div class="name">当前库房：</div>
-          <el-select v-model="branch_id" filterable size="small" @change="getRepositorys">
+          <el-select v-model="branch_id" filterable size="small" @change="getRepositorys(1)">
             <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
@@ -44,7 +44,7 @@
           <div>本店库存情况</div>
           <div class="value">
             <div class="name">物料搜索：</div>
-            <el-input clearable v-model="repositoryLike" size="small" @input="getRepositorys"></el-input>
+            <el-input clearable v-model="repositoryLike" size="small" @input="getRepositorys(1)"></el-input>
             <el-button size="small" type="primary" @click="onPop('repositoryAddPop')">新增物料</el-button>
           </div>
         </div>
@@ -88,7 +88,8 @@
           background
           layout="prev, pager, next"
           :total="repositorysTotal"
-          @current-change="repositorysCurrentChange">
+          :current-page="repositorysPage"
+          @current-change="getRepositorys">
         </el-pagination>
       </div>
       <div class="info">
@@ -119,7 +120,7 @@
       <div class="search">
         <div class="value">
           <div class="name">物料搜索：</div>
-          <el-input clearable v-model="allRepositoryLike" size="small" @input="getAllRepositorys"></el-input>
+          <el-input clearable v-model="allRepositoryLike" size="small" @input="getAllRepositorys(1)"></el-input>
         </div>
       </div>
       <div class="tabel">
@@ -161,8 +162,9 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="repositorysTotal"
-          @current-change="repositorysCurrentChange">
+          :total="allRepositorysTotal"
+          :current-page="allRepositorysPage"
+          @current-change="getAllRepositorys">
         </el-pagination>
       </div>
     </div>
@@ -190,7 +192,7 @@
             </el-date-picker>
             <div class="name">物料名称：</div>
             <el-input v-model="from.material" clearable size="small"></el-input>
-            <el-button size="small" type="primary" @click="getFroms">查询</el-button>
+            <el-button size="small" type="primary" @click="getFroms(1)">查询</el-button>
           </div>
         </div>
         <div class="items">
@@ -256,7 +258,8 @@
           background
           layout="prev, pager, next"
           :total="fromsTotal"
-          @current-change="fromsCurrentChange">
+          :current-page="fromsPage"
+          @current-change="getFroms">
         </el-pagination>
       </div>
     </div>
@@ -284,7 +287,7 @@
             </el-date-picker>
             <div class="name">物料名称：</div>
             <el-input v-model="from.material" clearable size="small"></el-input>
-            <el-button size="small" type="primary" @click="getTos">查询</el-button>
+            <el-button size="small" type="primary" @click="getTos(1)">查询</el-button>
           </div>
         </div>
         <div class="items">
@@ -350,7 +353,8 @@
           background
           layout="prev, pager, next"
           :total="tosTotal"
-          @current-change="tosCurrentChange">
+          :current-page="tosPage"
+          @current-change="getTos">
         </el-pagination>
       </div>
     </div>
@@ -721,16 +725,16 @@ export default {
     select (e) {
       this.selected = e
       if (e === 0) {
-        this.getRepositorys()
+        this.getRepositorys(1)
       }
       if (e === 1) {
-        this.getAllRepositorys()
+        this.getAllRepositorys(1)
       }
       if (e === 2) {
-        this.getFroms()
+        this.getFroms(1)
       }
       if (e === 3) {
-        this.getTos()
+        this.getTos(1)
       }
     },
     onPop (pro, e) {
@@ -755,8 +759,9 @@ export default {
       }
       this[pro] = true
     },
-    getRepositorys () {
+    getRepositorys (e) {
       const t = this
+      t.repositorysPage = e
       Loading.service()
       axios({
         method: 'get',
@@ -766,7 +771,7 @@ export default {
         url: `/api/branch/${t.branch_id}/repository`,
         params: {
           material: t.repositoryLike,
-          page: t.repositorysPage,
+          page: t.repositorysPage - 1,
           size: 10
         }
       }).then((res) => {
@@ -789,8 +794,9 @@ export default {
         }
       })
     },
-    getAllRepositorys () {
+    getAllRepositorys (e) {
       const t = this
+      t.allRepositorysPage = e
       Loading.service()
       axios({
         method: 'get',
@@ -800,7 +806,7 @@ export default {
         url: `/api/repository`,
         params: {
           material: t.allRepositoryLike,
-          page: t.allRepositorysPage,
+          page: t.allRepositorysPage - 1,
           size: 10
         }
       }).then((res) => {
@@ -841,10 +847,6 @@ export default {
           })
         }
       })
-    },
-    repositorysCurrentChange (e) {
-      this.repositorysPage = e
-      this.getRepositorys()
     },
     selectedRepository (id) {
       this.material_id = id
@@ -908,7 +910,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getRepositorys()
+              t.getRepositorys(1)
               t.repositoryAddPop = false
             } else {
               t.$message({
@@ -940,7 +942,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getRepositorys()
+              t.getRepositorys(1)
               t.locationChangePop = false
             } else {
               t.$message({
@@ -974,7 +976,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getRepositorys()
+              t.getRepositorys(1)
               t.amountAddPop = false
               t.amountCutPop = false
             } else {
@@ -1051,7 +1053,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getRepositorys()
+              t.getRepositorys(1)
               t.returnPop = false
               t.shippingPop = false
             } else {
@@ -1067,8 +1069,9 @@ export default {
         }
       })
     },
-    getFroms () {
+    getFroms (e) {
       const t = this
+      t.fromsPage = e
       Loading.service()
       axios({
         method: 'get',
@@ -1078,7 +1081,7 @@ export default {
         url: '/api/repository-application',
         params: {
           from: t.branch_id,
-          page: t.fromsPage,
+          page: t.fromsPage - 1,
           size: 10,
           material: t.from.material,
           after: t.from.time ? t.from.time[0] : null,
@@ -1099,12 +1102,9 @@ export default {
         }
       })
     },
-    fromsCurrentChange (e) {
-      this.fromsPage = e
-      this.getFroms()
-    },
-    getTos () {
+    getTos (e) {
       const t = this
+      t.tosPage = e
       Loading.service()
       axios({
         method: 'get',
@@ -1114,7 +1114,7 @@ export default {
         url: '/api/repository-application',
         params: {
           to: t.branch_id,
-          page: t.tosPage,
+          page: t.tosPage - 1,
           size: 10,
           material: t.to.material,
           after: t.to.time ? t.to.time[0] : null,
@@ -1134,10 +1134,6 @@ export default {
           })
         }
       })
-    },
-    tosCurrentChange (e) {
-      this.tosPage = e
-      this.getTos()
     },
     application () {
       const t = this
@@ -1166,7 +1162,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getAllRepositorys()
+              t.getAllRepositorys(1)
               t.applicationPop = false
             } else {
               t.$message({
@@ -1199,7 +1195,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getFroms()
+              t.getFroms(1)
               t.affirmOutPop = false
             } else {
               t.$message({
@@ -1229,7 +1225,7 @@ export default {
       }).then((res) => {
         Loading.service().close()
         if (res.data.code === 200) {
-          t.getFroms()
+          t.getFroms(1)
           t.cancelOutPop = false
         } else {
           t.$message({
@@ -1258,7 +1254,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getFroms()
+              t.getFroms(1)
               t.affirmReturnPop = false
             } else {
               t.$message({
@@ -1291,7 +1287,7 @@ export default {
           }).then((res) => {
             Loading.service().close()
             if (res.data.code === 200) {
-              t.getTos()
+              t.getTos(1)
               t.affirmInPop = false
             } else {
               t.$message({
@@ -1321,7 +1317,7 @@ export default {
       }).then((res) => {
         Loading.service().close()
         if (res.data.code === 200) {
-          t.getTos()
+          t.getTos(1)
           t.cancelInPop = false
         } else {
           t.$message({

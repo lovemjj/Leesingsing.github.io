@@ -10,7 +10,7 @@
         <div class="name second">顾客姓名：</div>
         <el-input v-model="name" size="small" suffix-icon="el-icon-search" clearable></el-input>
       </div>
-      <el-button size="small" type="primary" @click="getCustomers">查询</el-button>
+      <el-button size="small" type="primary" @click="getCustomers(1)">查询</el-button>
     </div>
     <div class="list item">
       <div class="title">
@@ -55,7 +55,8 @@
         background
         layout="prev, pager, next"
         :total="customersTotal"
-        @current-change="customersCurrentChange">
+        :current-page="customersPage"
+        @current-change="getCustomers">
       </el-pagination>
     </div>
     <div class="info item" v-if="customer.id">
@@ -322,7 +323,8 @@
             background
             layout="prev, pager, next"
             :total="customersTotal"
-            @current-change="massageCurrentChange">
+            :current-page="customersPage"
+            @current-change="getMassages">
           </el-pagination>
         </el-tab-pane>
       </el-tabs>
@@ -694,8 +696,8 @@ export default {
         partnerUpdateBy: {}
       },
       massages: [],
-      messagesPage: 0,
-      messagesTotal: 0,
+      massagesPage: 0,
+      massagesTotal: 0,
       data: [],
       defaultProps: {
         children: 'children',
@@ -749,12 +751,13 @@ export default {
       symptoms: [],
       constitutions: [],
       schemes: [],
-      items: []
+      items: [],
+      info_id: ''
     }
   },
   mounted () {
     this.branch_id = this.$store.state.branch_id
-    this.getCustomers()
+    this.getCustomers(1)
     this.getPartnerTypes()
     this.getSymptoms()
     this.getConstitutions()
@@ -762,8 +765,9 @@ export default {
     this.getItems()
   },
   methods: {
-    getCustomers () {
+    getCustomers (e) {
       const t = this
+      t.customersPage = e
       let url = '/api/customer'
       if (t.branch_id) {
         url = `/api/branch/${t.branch_id}/customer`
@@ -775,7 +779,7 @@ export default {
         },
         url,
         params: {
-          page: t.customersPage,
+          page: t.customersPage - 1,
           size: 10,
           like: t.name
         }
@@ -801,10 +805,6 @@ export default {
           })
         }
       })
-    },
-    customersCurrentChange (e) {
-      this.customersPage = e
-      this.getCustomers()
     },
     getChangeCustomer (e) {
       const t = this
@@ -855,7 +855,7 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-          t.getCustomers()
+          t.getCustomers(1)
           t.changeInfoPop = false
         } else {
           t.$message({
@@ -905,18 +905,20 @@ export default {
           })
         }
       })
-      this.getMassages(e)
+      this.info_id = e.id
+      this.getMassages(1)
     },
     getMassages (e) {
       const t = this
+      t.massagesPage = e
       axios({
         method: 'get',
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: `/api/customer/${e.id}/massage-order`,
+        url: `/api/customer/${t.info_id}/massage-order`,
         params: {
-          page: t.messagesPage,
+          page: t.massagesPage - 1,
           size: 10
         }
       }).then((res) => {
@@ -931,10 +933,6 @@ export default {
           })
         }
       })
-    },
-    massageCurrentChange (e) {
-      this.messagesPage = e
-      this.getMassages()
     },
     getMassageInfo (e) {
       this.massageInfo = e

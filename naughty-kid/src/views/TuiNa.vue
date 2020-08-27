@@ -339,7 +339,7 @@
         </el-form-item>
         <el-radio v-model="orderFilterForm.disabled" :label="false">流程未终止</el-radio>
         <el-radio v-model="orderFilterForm.disabled" :label="true">流程终止</el-radio>
-        <el-button size="small" type="primary" @click="getOrders">查询</el-button>
+        <el-button size="small" type="primary" @click="getOrders(1)">查询</el-button>
       </el-form>
       <div class="table">
         <el-radio-group v-model="orderFilterForm.status">
@@ -435,6 +435,7 @@
           background
           layout="prev, pager, next"
           :total="massageOrderTotal"
+          :current-page="massageOrderPage"
           @current-change="getOrders">
         </el-pagination>
       </div>
@@ -870,6 +871,7 @@ export default {
       massageOrders: [],
       massageOrdersLoading: false,
       massageOrderTotal: 0,
+      massageOrderPage: 1,
       popPay: false,
       pay: {
         id: '',
@@ -948,7 +950,7 @@ export default {
         this.orderForm.createdAt = moment().format('YYYY-MM-DD HH:mm')
       }
       if (i === 1) {
-        this.getOrders()
+        this.getOrders(1)
         this.getNumber()
       }
     },
@@ -1252,7 +1254,7 @@ export default {
           if (e === '') {
             t.orderForm = res.data.data
           }
-          t.getOrders()
+          t.getOrders(1)
         } else {
           t.$message({
             showClose: true,
@@ -1281,7 +1283,7 @@ export default {
         if (res.data.code === 200) {
           t.popInfo = false
           t.popPay = false
-          t.getOrders()
+          t.getOrders(1)
         } else {
           t.$message({
             showClose: true,
@@ -1408,7 +1410,7 @@ export default {
           }
           t.popInfo = false
           t.popPay = false
-          t.getOrders()
+          t.getOrders(1)
         } else {
           t.$message({
             showClose: true,
@@ -1515,6 +1517,7 @@ export default {
     },
     getOrders (e) {
       const t = this
+      t.massageOrderPage = e
       t.massageOrdersLoading = true
       axios({
         method: 'get',
@@ -1523,7 +1526,7 @@ export default {
         },
         url: '/api/massage-order',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.massageOrderPage - 1,
           size: 10,
           status: t.orderFilterForm.status,
           customer: t.orderFilterForm.customer,
