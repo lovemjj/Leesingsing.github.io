@@ -325,7 +325,7 @@
           <el-input v-model="orderFilterForm.customer"></el-input>
         </el-form-item>
         <el-form-item label="技师:">
-          <el-select v-model="orderFilterForm.massagedBy" filterable>
+          <el-select v-model="orderFilterForm.massagedBy" clearable filterable>
             <el-option :label="item.name" :value="item.id" v-for="(item, index) in massageds" :key="index"></el-option>
           </el-select>
         </el-form-item>
@@ -342,7 +342,7 @@
         <el-button size="small" type="primary" @click="getOrders(1)">查询</el-button>
       </el-form>
       <div class="table">
-        <el-radio-group v-model="orderFilterForm.status">
+        <el-radio-group v-model="orderFilterForm.status" @change="getOrders(1)">
           <el-radio :label="item.label" v-for="(item, index) in numbers" :key="index">{{item.name}}</el-radio>
         </el-radio-group>
         <el-table
@@ -382,25 +382,25 @@
           <el-table-column
             label="症状">
             <template slot-scope="scope">
-              <div v-for="item in scope.row.symptoms" :key="item.id">{{item.name}}</div>
+              <div v-if="scope.row.symptoms.length > 0">{{scope.row.symptoms[0].name}}<span v-if="scope.row.symptoms.length > 1">...</span></div>
             </template>
           </el-table-column>
           <el-table-column
             label="体质辨证">
             <template slot-scope="scope">
-              <div v-for="item in scope.row.constitutions" :key="item.id">{{item.name}}</div>
+              <div v-if="scope.row.constitutions.length > 0">{{scope.row.constitutions[0].name}}<span v-if="scope.row.constitutions.length > 1">...</span></div>
             </template>
           </el-table-column>
           <el-table-column
             label="调理方案">
             <template slot-scope="scope">
-              <div v-for="item in scope.row.schemes" :key="item.id">{{item.name}}</div>
+              <div v-if="scope.row.schemes.length > 0">{{scope.row.schemes[0].name}}<span v-if="scope.row.schemes.length > 1">...</span></div>
             </template>
           </el-table-column>
           <el-table-column
             label="调理项目">
             <template slot-scope="scope">
-              <div v-for="item in scope.row.items" :key="item.id">{{item.name}}</div>
+              <div v-if="scope.row.items.length > 0">{{scope.row.items[0].name}}<span v-if="scope.row.items.length > 1">...</span></div>
             </template>
           </el-table-column>
           <el-table-column
@@ -1532,7 +1532,7 @@ export default {
           size: 10,
           status: t.orderFilterForm.status,
           customer: t.orderFilterForm.customer,
-          massagedBy: t.orderFilterForm.customer,
+          massagedBy: t.orderFilterForm.massagedBy,
           consultedAtBefore: t.orderFilterForm.consultedAt ? t.orderFilterForm.consultedAt[0] || '' : '',
           consultedAtAfter: t.orderFilterForm.consultedAt ? t.orderFilterForm.consultedAt[1] || '' : '',
           treatmentDateBefore: t.orderFilterForm.treatmentDate ? t.orderFilterForm.treatmentDate[0] || '' : '',
@@ -1823,8 +1823,6 @@ export default {
   align-items: center;
 }
 span {
-  text-decoration: underline;
-  color: #0000ff;
   font-size: 14px;
 }
 .else {

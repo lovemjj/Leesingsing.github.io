@@ -11,6 +11,16 @@
   </div>
 </template>
 
+<script>
+export default {
+  computed: {
+    include () {
+      return this.$store.state.include
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

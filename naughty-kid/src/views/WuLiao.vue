@@ -172,7 +172,7 @@
       <div class="search">
         <div class="value">
           <div class="name">机构门店：</div>
-          <el-select v-model="branch_id" filterable size="small">
+          <el-select v-model="branch_id" filterable size="small" @change="getFroms(1)">
             <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
