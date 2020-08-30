@@ -17,7 +17,7 @@ moment.updateLocale('en', {
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'login' || to.name !== 'selected') {
+  if (to.name !== 'login' && to.name !== 'selected') {
     const arr = store.state.include.filter((ele) => {
       return ele === to.name
     })

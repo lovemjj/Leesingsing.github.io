@@ -314,9 +314,16 @@ export default {
       if (e) {
         this.form[pro] = e
         if (pro === 'constitutions' || pro === 'schemes' || pro === 'items') {
-          this.form[pro] = this[pro].filter((ele) => {
-            return e.indexOf(ele.number) > -1
-          })
+          this.form[pro] = []
+          for (const ele of e) {
+            const arr = this[pro].filter((el) => {
+              return ele === el.number
+            })
+            this.form[pro] = this.form[pro].concat(arr)
+          }
+          // this.form[pro] = this[pro].filter((ele) => {
+          //   return e.indexOf(ele.number) > -1
+          // })
         }
       }
       this.popup[pro] = false

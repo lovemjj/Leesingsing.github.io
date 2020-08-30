@@ -92,9 +92,9 @@
         <div class="value">
           <el-button size="small" @click="employeeAdd">添加员工</el-button>
           <div class="name">查找员工：</div>
-          <el-input size="small" v-model="employeeLike" @input="employee" suffix-icon="el-icon-search"></el-input>
+          <el-input size="small" v-model="employeeLike" @input="employee(1)" suffix-icon="el-icon-search"></el-input>
           <div class="name">归属机构或门店：</div>
-          <el-select v-model="brancheSelectedId" clearable size="small" @change="employee(null)">
+          <el-select v-model="brancheSelectedId" clearable size="small" @change="employee(1)">
             <el-option v-for="item in branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
@@ -160,6 +160,7 @@
             background
             layout="prev, pager, next"
             :total="employeeTotal"
+            :current-page="employeePage"
             @current-change="employee">
           </el-pagination>
         </div>
@@ -170,7 +171,7 @@
         <div class="value">
           <el-button size="small" @click="branchAdd">添加机构</el-button>
           <div class="name">查找机构：</div>
-          <el-input size="small" v-model="branchLike" @input="branch" suffix-icon="el-icon-search"></el-input>
+          <el-input size="small" v-model="branchLike" @input="branch(1)" suffix-icon="el-icon-search"></el-input>
         </div>
       </div>
       <div class="tabel">
@@ -210,6 +211,7 @@
             background
             layout="prev, pager, next"
             :total="branchTotal"
+            :current-page="branchPage"
             @current-change="branch">
           </el-pagination>
         </div>
@@ -220,7 +222,7 @@
         <div class="value">
           <el-button size="small" @click="roleAdd">添加岗位</el-button>
           <div class="name">查找岗位：</div>
-          <el-input size="small" v-model="roleLike" @input="role" suffix-icon="el-icon-search"></el-input>
+          <el-input size="small" v-model="roleLike" @input="role(1)" suffix-icon="el-icon-search"></el-input>
         </div>
       </div>
       <div class="list">
@@ -255,6 +257,7 @@
             background
             layout="prev, pager, next"
             :total="roleTotal"
+            :current-page="rolePage"
             @current-change="role">
           </el-pagination>
         </div>
@@ -298,7 +301,7 @@
       <div class="list">
         <div class="title">
           <div>员工列表</div>
-          <el-input size="small" v-model="employeeLike" @input="employee" suffix-icon="el-icon-search"></el-input>
+          <el-input size="small" v-model="employeeLike" @input="employee(1)" suffix-icon="el-icon-search"></el-input>
         </div>
         <div class="items">
           <el-table
@@ -327,7 +330,7 @@
       <div class="info">
         <div class="title">
           <div>员工所属机构</div>
-          <el-input size="small" v-model="branchLike" @input="branch" suffix-icon="el-icon-search"></el-input>
+          <el-input size="small" v-model="branchLike" @input="branch(1)" suffix-icon="el-icon-search"></el-input>
         </div>
         <div class="items">
           <el-table
@@ -364,7 +367,7 @@
       <div class="list">
         <div class="title">
           <div>员工列表</div>
-          <el-input size="small" v-model="employeeLike" @input="employee" suffix-icon="el-icon-search"></el-input>
+          <el-input size="small" v-model="employeeLike" @input="employee(1)" suffix-icon="el-icon-search"></el-input>
         </div>
         <div class="items">
           <el-table
@@ -393,7 +396,7 @@
       <div class="info">
         <div class="title">
           <div>岗位列表</div>
-          <el-input size="small" v-model="roleLike" @input="role" suffix-icon="el-icon-search"></el-input>
+          <el-input size="small" v-model="roleLike" @input="role(1)" suffix-icon="el-icon-search"></el-input>
         </div>
         <div class="items">
           <el-table
@@ -607,30 +610,30 @@ export default {
       this.selected = index
       if (index === 0) {
         this.sessionBranch()
-        this.employee()
+        this.employee(1)
       }
       if (index === 1) {
-        this.branch()
-        this.employee()
+        this.branch(1)
+        this.employee(1)
       }
       if (index === 2) {
-        this.branch()
-        this.employee()
+        this.branch(1)
+        this.employee(1)
       }
       if (index === 3) {
-        this.role()
+        this.role(1)
         this.getAuthorities()
       }
       if (index === 4) {
         this.getBranchTree()
       }
       if (index === 5) {
-        this.employee()
+        this.employee(1)
       }
       if (index === 6) {
         this.brancheSelectedId = this.$store.state.branch_id
-        this.employee()
-        this.branch()
+        this.employee(1)
+        this.branch(1)
       }
     },
     sessionBranch () {
@@ -682,7 +685,7 @@ export default {
           if (t.selected === 0) {
             t.sessionBranch()
           } else {
-            t.branch()
+            t.branch(1)
             t.branchPop = false
           }
         } else {
@@ -705,9 +708,12 @@ export default {
     },
     branch (e) {
       const t = this
+      t.branchPage = e
       let size = 10
-      if (t.selected === 5) {
-        size = 9999
+      let page = t.branchPage - 1
+      if (t.selected === 1 || t.selected === 5) {
+        page = ''
+        size = ''
       }
       axios({
         method: 'get',
@@ -716,7 +722,7 @@ export default {
         },
         url: '/api/branch',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page,
           size,
           like: t.branchLike
         }
@@ -747,11 +753,12 @@ export default {
     },
     employee (e) {
       const t = this
+      t.employeePage = e
       let url = '/api/employee'
       if ((t.selected === 6 && t.brancheSelectedId) || (t.selected === 1 && t.brancheSelectedId)) {
         url = '/api/branch/' + t.brancheSelectedId + '/employee'
       }
-      let page = (typeof e === 'number') ? (e - 1) : 0
+      let page = t.employeePage - 1
       let size = 10
       if (t.selected === 0 || t.selected === 2) {
         page = ''
@@ -847,7 +854,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.employeePop = false
-              t.employee()
+              t.employee(1)
             } else {
               t.$message({
                 showClose: true,
@@ -879,7 +886,7 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-          t.employee()
+          t.employee(1)
         } else {
           t.$message({
             showClose: true,
@@ -907,7 +914,7 @@ export default {
             message: '重置成功',
             type: 'success'
           })
-          t.employee()
+          t.employee(1)
         } else {
           t.$message({
             showClose: true,
@@ -953,7 +960,7 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-          t.branch()
+          t.branch(1)
         } else {
           t.$message({
             showClose: true,
@@ -965,9 +972,12 @@ export default {
     },
     role (e) {
       const t = this
+      t.rolePage = e
+      let page = t.rolePage - 1
       let size = 10
       if (t.selected === 6) {
-        size = 9999
+        page = ''
+        size = ''
       }
       axios({
         method: 'get',
@@ -976,7 +986,7 @@ export default {
         },
         url: '/api/role',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page,
           size,
           like: t.roleLike
         }
@@ -1049,7 +1059,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.rolePop = false
-              t.role()
+              t.role(1)
             } else {
               t.$message({
                 showClose: true,
@@ -1115,7 +1125,7 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-          t.role()
+          t.role(1)
         } else {
           t.$message({
             showClose: true,
@@ -1132,12 +1142,12 @@ export default {
     employeeBranchClick (e) {
       this.employeeBranches = e.branches
       this.employeeBranchId = e.id
-      this.branch()
+      this.branch(1)
     },
     employeeRoleClick (e) {
       this.employeeRoles = e.roles
       this.employeeRoleId = e.id
-      this.role()
+      this.role(1)
     },
     branchEmployeeSelected (branches) {
       const t = this
@@ -1157,7 +1167,7 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-          t.employee()
+          t.employee(1)
         } else {
           t.$message({
             showClose: true,
@@ -1185,7 +1195,7 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-          t.employee()
+          t.employee(1)
         } else {
           t.$message({
             showClose: true,
