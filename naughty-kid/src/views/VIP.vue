@@ -524,8 +524,17 @@
         <el-form-item label="会员卡折扣:" prop="discount">
           <el-input v-model="change.discount"></el-input>
         </el-form-item>
-        <el-form-item label="卡内充值余额:" prop="discount">
+        <el-form-item label="卡内充值余额:" prop="balance">
           <el-input v-model="change.balance"></el-input>
+        </el-form-item>
+        <el-form-item label="会员卡级别:" prop="level">
+          <el-select v-model="change.level" placeholder="请选择">
+            <el-option
+              :label="item.name"
+              :value="item.number"
+              v-for="item in levels" :key="item.number">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -698,8 +707,7 @@ export default {
         name: '',
         contact: '',
         gender: 1,
-        birthday: '',
-        balance: 0
+        birthday: ''
       },
       changeRules: {
         number: [
@@ -979,7 +987,7 @@ export default {
       this.change = {
         id: item.id,
         number: item.number,
-        level: item.level,
+        level: this.info.level.number,
         discount: item.discount,
         name: item.name,
         contact: item.contact,
