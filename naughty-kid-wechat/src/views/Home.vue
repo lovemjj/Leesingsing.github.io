@@ -174,6 +174,7 @@ export default {
       this.branch = e
       localStorage.setItem('branch_id', e.id)
       this.$store.state.branch_id = e.id
+      this.$store.state.include = []
       this.showPicker = false
     },
     navition (name) {
