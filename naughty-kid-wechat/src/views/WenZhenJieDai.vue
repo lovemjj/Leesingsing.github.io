@@ -450,6 +450,16 @@ export default {
               disabled: true
             }
           }
+          const arr = this.membershipCards.filter((ele) => {
+            return ele.name === e.name
+          })
+          if (arr.length > 0) {
+            this.form.membershipCard = arr[0]
+          } else {
+            this.form.membershipCard = {
+              level: {}
+            }
+          }
         }
         if (pro === 'symptoms') {
           this.form[pro] = this[pro].filter((ele) => {
@@ -474,6 +484,7 @@ export default {
       if (pro === 'customer') {
         this.customer_search = this.form[pro].name
         this.getCustomers(this.customer_search)
+        this.getMembershipCards()
       }
       if (pro === 'membershipCard') {
         this.membershipCard_search = ''
@@ -517,7 +528,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/customer',
+        url: `/api/branch/${t.$store.state.branch_id}/customer`,
         params: {
           like: e || ''
         }
