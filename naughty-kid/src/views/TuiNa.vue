@@ -950,9 +950,9 @@ export default {
       this.selected = i
       if (i === 0) {
         this.orderForm.createdAt = moment().format('YYYY-MM-DD HH:mm')
-        this.orderForm.consultedAt = moment().format('YYYY-MM-DD HH:mm')
-        this.orderForm.appointmentDate = moment().format('YYYY-MM-DD HH:mm')
-        this.orderForm.treatmentDate = moment().format('YYYY-MM-DD HH:mm')
+        this.orderForm.consultedAt = moment().format('YYYY-MM-DD')
+        this.orderForm.appointmentDate = moment().format('YYYY-MM-DD')
+        this.orderForm.treatmentDate = moment().format('YYYY-MM-DD')
       }
       if (i === 1) {
         this.getOrders(1)

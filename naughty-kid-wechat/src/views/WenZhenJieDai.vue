@@ -332,7 +332,10 @@ export default {
       method: '',
       form: {
         consultedAt: '', // 咨询日期
-        consultMethod: {}, // 咨询方式
+        consultMethod: {
+          name: '到店咨询',
+          id: 0
+        }, // 咨询方式
         appointmentDate: '', // 预约日期
         treatmentDate: '', // 调理日期
         customer: {
@@ -389,6 +392,9 @@ export default {
   },
   mounted () {
     this.getPartnerTypes()
+    this.form.consultedAt = moment().format('YYYY-MM-DD')
+    this.form.appointmentDate = moment().format('YYYY-MM-DD')
+    this.form.treatmentDate = moment().format('YYYY-MM-DD')
   },
   activated () {
     if (this.$route.query.id) {
