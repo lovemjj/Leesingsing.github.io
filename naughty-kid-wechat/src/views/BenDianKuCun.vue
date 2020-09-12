@@ -72,7 +72,7 @@ export default {
       }).then((res) => {
         t.loading = false
         if (res.data.code === 200) {
-          t.repositorys = res.data.data.records
+          t.repositorys = t.repositorys.concat(res.data.data.records)
           t.repositorysTotal = res.data.data.total
         } else {
           t.$notify({ message: res.data.message, type: 'warning' })

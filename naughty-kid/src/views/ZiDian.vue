@@ -51,7 +51,7 @@
       <div class="list">
         <div class="list-title">
           <el-button size="small" @click="dictionaryAdd">新增字典分类</el-button>
-          <el-input v-model="dictionaryLike" @input="dictionaryInput" size="small" suffix-icon="el-icon-search"></el-input>
+          <el-input v-model="dictionaryLike" @input="dictionary(1)" size="small" suffix-icon="el-icon-search"></el-input>
         </div>
         <el-table ref="dictionaryData" border :data="dictionaryData" highlight-current-row @current-change="dictionaryClick">
           <el-table-column
@@ -73,6 +73,7 @@
           background
           layout="prev, pager, next"
           :total="dictionaryDataTotal"
+          :current-page="dictionaryDataPage"
           @current-change="dictionary">
         </el-pagination>
       </div>
@@ -83,7 +84,7 @@
         <div class="last">
           <div class="list-title">
             <el-button size="small" @click="dictionaryItemAdd">新增字典项</el-button>
-            <el-input v-model="dictionaryItemLike" @input="dictionaryItemInput" size="small" suffix-icon="el-icon-search"></el-input>
+            <el-input v-model="dictionaryItemLike" @input="dictionaryItem(1)" size="small" suffix-icon="el-icon-search"></el-input>
           </div>
           <el-table ref="dictionaryItemData" border :data="dictionaryItemData">
             <el-table-column
@@ -112,6 +113,7 @@
             background
             layout="prev, pager, next"
             :total="dictionaryItemDataTotal"
+            :current-page="dictionaryItemDataPage"
             @current-change="dictionaryItem">
           </el-pagination>
         </div>
@@ -121,7 +123,7 @@
       <div class="tabel">
         <div class="list-title">
           <el-button size="small" @click="massageSchemeAdd">新增调理方案</el-button>
-          <el-input v-model="massageSchemeLike" @input="massageScheme" size="small" suffix-icon="el-icon-search"></el-input>
+          <el-input v-model="massageSchemeLike" @input="massageScheme(1)" size="small" suffix-icon="el-icon-search"></el-input>
         </div>
         <el-table border :data="massageSchemeData">
           <el-table-column
@@ -155,6 +157,7 @@
           background
           layout="prev, pager, next"
           :total="massageSchemeDataTotal"
+          :current-page="massageSchemeDataPage"
           @current-change="massageScheme">
         </el-pagination>
       </div>
@@ -163,7 +166,7 @@
       <div class="tabel">
         <div class="list-title">
           <el-button size="small" @click="massageItemAdd">新增调理项目</el-button>
-          <el-input v-model="massageItemLike" @input="massageItem" size="small" suffix-icon="el-icon-search"></el-input>
+          <el-input v-model="massageItemLike" @input="massageItem(1)" size="small" suffix-icon="el-icon-search"></el-input>
         </div>
         <el-table border  :data="massageItemData">
           <el-table-column
@@ -192,6 +195,7 @@
           background
           layout="prev, pager, next"
           :total="massageItemDataTotal"
+          :current-page="massageItemDataPage"
           @current-change="massageItem">
         </el-pagination>
       </div>
@@ -200,7 +204,7 @@
       <div class="list">
         <div class="list-title">
           调理方案
-          <el-input v-model="massageSchemeLike" @input="massageScheme" size="small" suffix-icon="el-icon-search"></el-input>
+          <el-input v-model="massageSchemeLike" @input="massageScheme(1)" size="small" suffix-icon="el-icon-search"></el-input>
         </div>
         <el-table ref="massageSchemeData" border :data="massageSchemeData" highlight-current-row @current-change="massageSchemeClick">
           <el-table-column
@@ -216,14 +220,15 @@
           background
           layout="prev, pager, next"
           :total="massageSchemeDataTotal"
-          @current-change="massageItem">
+          :current-page="massageSchemeDataPage"
+          @current-change="massageScheme">
         </el-pagination>
       </div>
       <div class="info">
         <div class="tabel">
           <div class="list-title">
             当前选中的调理方案：{{massageSchemeName}}
-            <el-input v-model="massageItemLike" @input="massageItem" size="small" suffix-icon="el-icon-search"></el-input>
+            <el-input v-model="massageItemLike" @input="massageItem(1)" size="small" suffix-icon="el-icon-search"></el-input>
           </div>
           <el-table ref="massageItemData" border :data="massageItemData" @select="massageItemSelected" @select-all="massageItemSelected">
             <el-table-column
@@ -247,6 +252,7 @@
             background
             layout="prev, pager, next"
             :total="massageItemDataTotal"
+            :current-page="massageItemDataPage"
             @current-change="massageItem">
           </el-pagination>
         </div>
@@ -259,7 +265,7 @@
         </div>
         <div class="list-title">
           <el-button size="small" @click="auxiliarysAdd">新增</el-button>
-          <el-input size="small" v-model="auxiliarysLike" suffix-icon="el-icon-search" @input="getAuxiliary"></el-input>
+          <el-input size="small" v-model="auxiliarysLike" suffix-icon="el-icon-search" @input="getAuxiliary(1)"></el-input>
         </div>
         <el-table ref="auxiliaryRef" :data="auxiliarys" border highlight-current-row @current-change="auxiliaryClick">
           <el-table-column
@@ -277,6 +283,7 @@
           background
           layout="prev, pager, next"
           :total="auxiliarysTotal"
+          :current-page="auxiliarysPage"
           @current-change="getAuxiliary">
         </el-pagination>
       </div>
@@ -358,7 +365,7 @@
     <div class="tuina-main" v-if="selected === 5" key="5">
       <div class="search">
         <el-button size="small" @click="materialAdd">新增物料</el-button>
-        <el-input v-model="materialLike" @input="material" size="small" suffix-icon="el-icon-search"></el-input>
+        <el-input v-model="materialLike" @input="material(1)" size="small" suffix-icon="el-icon-search"></el-input>
       </div>
       <div class="last">
         <el-table border :data="materialData">
@@ -411,6 +418,7 @@
           background
           layout="prev, pager, next"
           :total="materialDataTotal"
+          :current-page="materialDataPage"
           @current-change="material">
         </el-pagination>
       </div>
@@ -418,7 +426,7 @@
     <div class="tuina-main" v-if="selected === 6" key="6">
       <div class="search">
         参数名/参数说明：
-        <el-input v-model="configLike" @input="config" size="small" suffix-icon="el-icon-search"></el-input>
+        <el-input v-model="configLike" @input="config(1)" size="small" suffix-icon="el-icon-search"></el-input>
       </div>
       <div class="last">
         <el-table border :data="configData">
@@ -456,6 +464,7 @@
           background
           layout="prev, pager, next"
           :total="configDataTotal"
+          :current-page="configDataPage"
           @current-change="config">
         </el-pagination>
       </div>
@@ -845,29 +854,30 @@ export default {
     select (index) {
       this.selected = index
       if (index === 0) {
-        this.dictionary()
+        this.dictionary(1)
       }
       if (index === 1) {
-        this.massageScheme()
+        this.massageScheme(1)
       }
       if (index === 2) {
-        this.massageItem()
+        this.massageItem(1)
       }
       if (index === 3) {
-        this.massageScheme()
+        this.massageScheme(1)
       }
       if (index === 4) {
-        this.getAuxiliary()
+        this.getAuxiliary(1)
       }
       if (index === 5) {
-        this.material()
+        this.material(1)
       }
       if (index === 6) {
-        this.config()
+        this.config(1)
       }
     },
     dictionary (e) {
       const t = this
+      t.dictionaryDataPage = e
       axios({
         method: 'get',
         headers: {
@@ -875,7 +885,7 @@ export default {
         },
         url: '/api/dictionary',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.dictionaryDataPage - 1,
           size: 10,
           like: t.dictionaryLike
         }
@@ -895,6 +905,7 @@ export default {
     },
     dictionaryItem (e) {
       const t = this
+      t.dictionaryItemDataPage = e
       axios({
         method: 'get',
         headers: {
@@ -902,7 +913,7 @@ export default {
         },
         url: '/api/dictionary/' + t.dictionaryNumber + '/item',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.dictionaryItemDataPage - 1,
           size: 10,
           like: t.dictionaryItemLike
         }
@@ -925,13 +936,7 @@ export default {
     dictionaryClick (row) {
       this.dictionaryName = row.name
       this.dictionaryNumber = row.number
-      this.dictionaryItem()
-    },
-    dictionaryInput () {
-      this.dictionary()
-    },
-    dictionaryItemInput () {
-      this.dictionaryItem()
+      this.dictionaryItem(1)
     },
     dictionaryAdd () {
       this.dictionaryForm = {
@@ -982,7 +987,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.dictionaryPop = false
-              t.dictionary()
+              t.dictionary(1)
             } else {
               t.$message({
                 showClose: true,
@@ -1016,7 +1021,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.dictionaryItemPop = false
-              t.dictionaryItem()
+              t.dictionaryItem(1)
             } else {
               t.$message({
                 showClose: true,
@@ -1032,6 +1037,7 @@ export default {
     },
     massageScheme (e) {
       const t = this
+      t.massageSchemeDataPage = e
       axios({
         method: 'get',
         headers: {
@@ -1039,7 +1045,7 @@ export default {
         },
         url: '/api/dictionary/massage-scheme',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.massageSchemeDataPage - 1,
           size: 10,
           like: t.massageSchemeLike
         }
@@ -1073,7 +1079,7 @@ export default {
       this.massageSchemeName = row.name
       this.massageSchemeId = row.id
       this.massageItems = row.items
-      this.massageItem()
+      this.massageItem(1)
     },
     massageSchemeAdd () {
       this.massageSchemeForm = {
@@ -1112,7 +1118,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.massageSchemePop = false
-              t.massageScheme()
+              t.massageScheme(1)
             } else {
               t.$message({
                 showClose: true,
@@ -1128,6 +1134,7 @@ export default {
     },
     massageItem (e) {
       const t = this
+      t.massageItemDataPage = e
       axios({
         method: 'get',
         headers: {
@@ -1135,7 +1142,7 @@ export default {
         },
         url: '/api/dictionary/massage-item',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.massageItemDataPage - 1,
           size: 10,
           like: t.massageItemLike
         }
@@ -1194,7 +1201,7 @@ export default {
         }
       }).then((res) => {
         if (res.data.code === 200) {
-          t.massageScheme()
+          t.massageScheme(1)
         } else {
           t.$message({
             showClose: true,
@@ -1224,7 +1231,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.massageItemPop = false
-              t.massageItem()
+              t.massageItem(1)
             } else {
               t.$message({
                 showClose: true,
@@ -1240,6 +1247,7 @@ export default {
     },
     material (e) {
       const t = this
+      t.materialDataPage = e
       axios({
         method: 'get',
         headers: {
@@ -1247,7 +1255,7 @@ export default {
         },
         url: '/api/dictionary/material',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.materialDataPage - 1,
           size: 10,
           like: t.materialLike
         }
@@ -1326,7 +1334,7 @@ export default {
           }).then((res) => {
             if (res.data.code === 200) {
               t.materialPop = false
-              t.material()
+              t.material(1)
             } else {
               t.$message({
                 showClose: true,
@@ -1342,6 +1350,7 @@ export default {
     },
     config (e) {
       const t = this
+      t.configDataPage = e
       axios({
         method: 'get',
         headers: {
@@ -1382,7 +1391,7 @@ export default {
       }).then((res) => {
         if (res.data.code === 200) {
           t.configPop = false
-          t.config()
+          t.config(1)
         } else {
           t.$message({
             showClose: true,
@@ -1516,7 +1525,7 @@ export default {
             data: t.auxiliary
           }).then((res) => {
             if (res.data.code === 200) {
-              t.getAuxiliary()
+              t.getAuxiliary(1)
               t.auxiliarysPop = false
             } else {
               t.$message({
@@ -1541,6 +1550,7 @@ export default {
     },
     getAuxiliary (e) {
       const t = this
+      t.auxiliarysPage = e
       axios({
         method: 'get',
         headers: {
@@ -1548,7 +1558,7 @@ export default {
         },
         url: '/api/dictionary/auxiliary',
         params: {
-          page: (typeof e === 'number') ? (e - 1) : 0,
+          page: t.auxiliarysPage - 1,
           size: 10,
           like: t.auxiliarysLike
         }

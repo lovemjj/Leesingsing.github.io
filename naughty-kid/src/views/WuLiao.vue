@@ -267,7 +267,7 @@
       <div class="search">
         <div class="value">
           <div class="name">机构门店：</div>
-          <el-select v-model="branch_id" filterable size="small">
+          <el-select v-model="branch_id" filterable size="small" @change="getTos(1)">
             <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
@@ -1019,7 +1019,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/customer'
+        url: `/api/branch/${t.branch_id}/customer`
       }).then((res) => {
         if (res.data.code === 200) {
           t.customers = res.data.data.records

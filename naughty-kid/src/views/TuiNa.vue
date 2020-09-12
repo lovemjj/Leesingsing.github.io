@@ -833,7 +833,7 @@ export default {
         status: -1,
         createdAt: '',
         consultedAt: '',
-        consultMethod: '',
+        consultMethod: '0',
         appointmentDate: '',
         treatmentDate: '',
         customer: {
@@ -950,6 +950,9 @@ export default {
       this.selected = i
       if (i === 0) {
         this.orderForm.createdAt = moment().format('YYYY-MM-DD HH:mm')
+        this.orderForm.consultedAt = moment().format('YYYY-MM-DD HH:mm')
+        this.orderForm.appointmentDate = moment().format('YYYY-MM-DD HH:mm')
+        this.orderForm.treatmentDate = moment().format('YYYY-MM-DD HH:mm')
       }
       if (i === 1) {
         this.getOrders(1)
@@ -1134,6 +1137,14 @@ export default {
         t.orderForm.customer.firstVisit = true
         t.orderForm.customer.contact = ''
         t.orderForm.customerDis = false
+      }
+      let arr1 = t.membershipCards.filter((ele) => {
+        return ele.name === e
+      })
+      if (arr1.length > 0) {
+        t.orderForm.membershipCard = arr1[0]
+      } else {
+        t.orderForm.membershipCard = {}
       }
     },
     getMembershipCards () {

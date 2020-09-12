@@ -49,7 +49,7 @@
             <div class="name" style="margin-left: 10px">包含消息内容：</div>
             <el-input v-model="content" size="small" suffix-icon="el-icon-search" clearable></el-input>
           </div>
-          <el-button size="small" type="primary" @click="getMessages">查询</el-button>
+          <el-button size="small" type="primary" @click="getMessages(1)">查询</el-button>
         </div>
         <div class="items">
           <el-table
@@ -82,7 +82,8 @@
             background
             layout="prev, pager, next"
             :total="messagesTotal"
-            @current-change="messagesCurrentChange">
+            :current-page="messagesPage"
+            @current-change="getMessages">
           </el-pagination>
         </div>
       </div>
@@ -116,7 +117,7 @@ export default {
     select (i) {
       this.selected = i
       if (i === 1) {
-        this.getMessages()
+        this.getMessages(1)
       }
     },
     getReceivedBys () {
@@ -174,8 +175,9 @@ export default {
     resetForm () {
       this.$refs['form'].resetFields()
     },
-    getMessages () {
+    getMessages (e) {
       const t = this
+      t.messagesPage = e
       let before = ''
       let after = ''
       if (t.time && t.time.length === 2) {
@@ -189,7 +191,7 @@ export default {
         },
         url: '/api/session/message',
         params: {
-          page: t.messagesPage,
+          page: t.messagesPage - 1,
           size: 10,
           before,
           after,
@@ -209,10 +211,6 @@ export default {
           })
         }
       })
-    },
-    messagesCurrentChange (e) {
-      this.messagesPage = e
-      this.getMessages()
     }
   }
 }
