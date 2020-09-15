@@ -502,7 +502,7 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="顾客姓名:" prop="foreign0" v-if="materialSelected.source === 0" :rules="[{ required: true, message: '请选择', trigger: 'change' }]">
-            <el-select v-model="materialSelected.foreign0" filterable>
+            <el-select v-model="materialSelected.foreign0" filterable allow-create>
               <el-option :label="item.name" :value="item.id" v-for="(item, index) in customers" :key="index"></el-option>
             </el-select>
           </el-form-item>
@@ -1037,6 +1037,17 @@ export default {
       t.$refs[e === 4 ? 'returnPop' : 'shippingPop'].validate((valid) => {
         if (valid) {
           Loading.service()
+          let foreign = t.materialSelected['foreign' + t.materialSelected.source]
+          let name = ''
+          if (t.materialSelected.source === 0) {
+            let arr = t.customers.filter((ele) => {
+              return ele.id === t.materialSelected['foreign' + t.materialSelected.source]
+            })
+            if (arr.length === 0) {
+              foreign = 0
+              name = t.materialSelected['foreign' + t.materialSelected.source]
+            }
+          }
           axios({
             method: 'patch',
             headers: {
@@ -1047,7 +1058,8 @@ export default {
               amount: t.materialSelected.amount,
               reason: t.materialSelected.reason,
               source: t.materialSelected.source,
-              foreign: t.materialSelected['foreign' + t.materialSelected.source],
+              foreign,
+              name,
               type: e
             }
           }).then((res) => {
