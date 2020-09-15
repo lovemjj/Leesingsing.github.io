@@ -1066,7 +1066,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/dictionary/massage-item'
+        url: '/api/dictionary/massage-item?orderBy=refs&desc=true'
       }).then((res) => {
         if (res.data.code === 200) {
           t.items = res.data.data.records
