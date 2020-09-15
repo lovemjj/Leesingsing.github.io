@@ -373,7 +373,7 @@ export default {
         headers: {
           authorization: t.$store.state.authorization
         },
-        url: '/api/dictionary/massage-item',
+        url: '/api/dictionary/massage-item?orderBy=refs&desc=true',
         params: {
           like: e
         }
