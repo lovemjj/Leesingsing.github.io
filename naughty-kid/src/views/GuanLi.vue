@@ -475,7 +475,7 @@
           </div>
         </el-form-item>
         <el-form-item label="机构门店负责人:">
-          <el-select v-model="branchForm.administrator" value-key="id" filterable>
+          <el-select v-model="branchForm.administrator" value-key="id" filterable default-first-option>
             <el-option v-for="item in employees" :key="item.id" :label="item.name" :value="item">
             </el-option>
           </el-select>

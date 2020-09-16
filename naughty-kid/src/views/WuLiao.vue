@@ -33,7 +33,7 @@
       <div class="search">
         <div class="value">
           <div class="name">当前库房：</div>
-          <el-select v-model="branch_id" filterable size="small" @change="getRepositorys(1)">
+          <el-select v-model="branch_id" filterable default-first-option size="small" @change="getRepositorys(1)">
             <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
@@ -172,7 +172,7 @@
       <div class="search">
         <div class="value">
           <div class="name">机构门店：</div>
-          <el-select v-model="branch_id" filterable size="small" @change="getFroms(1)">
+          <el-select v-model="branch_id" filterable default-first-option size="small" @change="getFroms(1)">
             <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
@@ -183,7 +183,7 @@
           <div>调配分发记录</div>
           <div class="value">
             <div class="name">当前状态：</div>
-            <el-select v-model="from.status" filterable clearable size="small">
+            <el-select v-model="from.status" filterable default-first-option clearable size="small">
               <el-option v-for="item in bStatus" :key="item.value" :label="item.name" :value="item.status">
               </el-option>
             </el-select>
@@ -267,7 +267,7 @@
       <div class="search">
         <div class="value">
           <div class="name">机构门店：</div>
-          <el-select v-model="branch_id" filterable size="small" @change="getTos(1)">
+          <el-select v-model="branch_id" filterable default-first-option size="small" @change="getTos(1)">
             <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
@@ -278,7 +278,7 @@
           <div>调配申请记录</div>
           <div class="value">
             <div class="name">当前状态：</div>
-            <el-select v-model="to.status" filterable clearable size="small">
+            <el-select v-model="to.status" filterable default-first-option clearable size="small">
               <el-option v-for="item in aStatus" :key="item.value" :label="item.name" :value="item.status">
               </el-option>
             </el-select>
@@ -467,12 +467,12 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="顾客姓名:" prop="foreign0" v-if="materialSelected.source === 0" :rules="[{ required: true, message: '请选择', trigger: 'change' }]">
-            <el-select v-model="materialSelected.foreign0" filterable>
+            <el-select v-model="materialSelected.foreign0" filterable default-first-option>
               <el-option :label="item.name" :value="item.id" v-for="(item, index) in customers" :key="index"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="选择门店/机构:" prop="foreign1" v-else :rules="[{ required: true, message: '请选择', trigger: 'change' }]">
-            <el-select v-model="materialSelected.foreign1" filterable>
+            <el-select v-model="materialSelected.foreign1" filterable default-first-option>
               <el-option :label="item.name" :value="item.id" v-for="(item, index) in branches" :key="index"></el-option>
             </el-select>
           </el-form-item>
@@ -502,12 +502,12 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="顾客姓名:" prop="foreign0" v-if="materialSelected.source === 0" :rules="[{ required: true, message: '请选择', trigger: 'change' }]">
-            <el-select v-model="materialSelected.foreign0" filterable allow-create>
+            <el-select v-model="materialSelected.foreign0" filterable default-first-option allow-create>
               <el-option :label="item.name" :value="item.id" v-for="(item, index) in customers" :key="index"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="选择门店/机构:" prop="foreign1" v-else :rules="[{ required: true, message: '请选择', trigger: 'change' }]">
-            <el-select v-model="materialSelected.foreign1" filterable>
+            <el-select v-model="materialSelected.foreign1" filterable default-first-option>
               <el-option :label="item.name" :value="item.id" v-for="(item, index) in branches" :key="index"></el-option>
             </el-select>
           </el-form-item>
@@ -531,12 +531,12 @@
             <el-input v-model="materialSelected.amount"></el-input>
           </el-form-item>
           <el-form-item label="出库方:">
-            <el-select v-model="materialSelected.branch.id" filterable disabled>
+            <el-select v-model="materialSelected.branch.id" filterable default-first-option disabled>
               <el-option :label="item.name" :value="item.id" v-for="(item, index) in branches" :key="index"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="入库方:" prop="to.id" :rules="[{ required: true, message: '请选择入库方', trigger: 'blur' }]">
-            <el-select v-model="materialSelected.to.id" filterable>
+            <el-select v-model="materialSelected.to.id" filterable default-first-option>
               <el-option :label="item.name" :value="item.id" v-for="(item, index) in branches" :key="index"></el-option>
             </el-select>
           </el-form-item>

@@ -40,14 +40,13 @@
       <div class="i title" style="width: 100%;">
         <div class="name">调理项目</div><div class="value">预计总时长：{{info.duration}}分钟</div>
       </div>
-      <van-row class="i header" style="width: 100%;">
+      <!-- <van-row class="i header" style="width: 100%;">
         <van-col span="10">调理项目</van-col>
         <van-col span="14">预计时长（分钟）</van-col>
-      </van-row>
-      <van-row class="i line" style="width: 100%;" v-for="(item, index) in info.items" :key="index">
-        <van-col span="10">{{item.name}}</van-col>
-        <van-col span="14">{{item.duration}}</van-col>
-      </van-row>
+      </van-row> -->
+      <div class="ies">
+        <div class="ii" v-for="(item, index) in info.items" :key="index">{{item.name}} {{item.duration ? (item.duration + '分钟') : ''}}</div>
+      </div>
     </div>
     <div class="buttons" v-if="info.disabled">
       <van-button type="primary" block @click="tocontinue">继续执行</van-button>
@@ -212,10 +211,23 @@ export default {
   color: #bcbcbc;
   line-height: calc(30 / 375 * 100vw);
 }
+.ies {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ii {
+  border: 1px solid #e9e9eb;
+  background-color: #f4f4f5;
+  color: #909399;
+  border-radius: 5px;
+  padding: 0 5px;
+  margin: calc(2 / 375 * 100vw);
+  font-size: calc(12 / 375 * 100vw);
+}
 .i {
   display: flex;
   align-items: center;
-  width: 50%;
   font-size: calc(14 / 375 * 100vw);
 }
 .title {
@@ -225,6 +237,7 @@ export default {
   color: #333333;
   font-weight: bold;
   line-height: calc(24 / 375 * 100vw);
+  white-space: nowrap;
 }
 .symptoms .dian {
   display: none;

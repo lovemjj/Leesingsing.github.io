@@ -3,7 +3,7 @@
     <div class="search">
       <div class="value">
         <div class="name">机构门店：</div>
-        <el-select v-model="branch_id" filterable size="small">
+        <el-select v-model="branch_id" filterable default-first-option size="small">
           <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
@@ -440,7 +440,7 @@
           <div class="bonus-services-left">
             <div class="row">
               <el-form-item label="赠送调理方案:">
-                <el-select v-model="item.schemes" value-key="id" multiple placeholder="请选择">
+                <el-select v-model="item.schemes" value-key="id" multiple default-first-option placeholder="请选择">
                   <el-option
                     v-for="item in massageSchemeData"
                     :key="item.id"
@@ -453,7 +453,7 @@
             </div>
             <div class="row">
               <el-form-item label="赠送调理项目:">
-                <el-select v-model="item.items" value-key="id" multiple placeholder="请选择">
+                <el-select v-model="item.items" value-key="id" multiple default-first-option placeholder="请选择">
                   <el-option
                     v-for="item in massageItemData"
                     :key="item.id"
@@ -598,7 +598,7 @@
           <div class="bonus-services-left">
             <div class="row">
               <el-form-item label="赠送调理方案:">
-                <el-select v-model="item.schemes" value-key="id" multiple placeholder="请选择">
+                <el-select v-model="item.schemes" value-key="id" multiple default-first-option placeholder="请选择">
                   <el-option
                     v-for="item in massageSchemeData"
                     :key="item.id"
@@ -611,7 +611,7 @@
             </div>
             <div class="row">
               <el-form-item label="赠送调理项目:">
-                <el-select v-model="item.items" value-key="id" multiple placeholder="请选择">
+                <el-select v-model="item.items" value-key="id" multiple default-first-option placeholder="请选择">
                   <el-option
                     v-for="item in massageItemData"
                     :key="item.id"

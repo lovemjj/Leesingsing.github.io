@@ -3,7 +3,7 @@
     <div class="search">
       <div class="value">
         <div class="name">机构门店：</div>
-        <el-select v-model="branch_id" filterable size="small">
+        <el-select v-model="branch_id" filterable default-first-option size="small">
           <el-option v-for="item in $store.state.branches" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
@@ -550,7 +550,7 @@
                 <div class="line"></div>
               </div>
               <el-form-item label="本次调理前症状自我描述（家长陪同可补充）:" class="whole">
-                <el-select v-model="massageInfo.symptoms" multiple value-key="number">
+                <el-select v-model="massageInfo.symptoms" multiple default-first-option value-key="number">
                   <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in symptoms" :key="index"></el-option>
               </el-select>
               </el-form-item>
@@ -580,13 +580,13 @@
                 (会员卡可用余额:{{massageInfo.membershipCard.balance || 0}}+{{massageInfo.membershipCard.bonus || 0}})
               </div>
               <el-form-item label="专家团体体质辩证意见:" class="whole">
-                <el-select v-model="massageInfo.constitutions" multiple value-key="number">
+                <el-select v-model="massageInfo.constitutions" multiple default-first-option value-key="number">
                   <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in constitutions" :key="index"></el-option>
                 </el-select>
               </el-form-item>
               <div class="whole">
                 <el-form-item label="专家团体设定调理方案:" class="whole">
-                  <el-select v-model="massageInfo.schemes" multiple value-key="id">
+                  <el-select v-model="massageInfo.schemes" multiple default-first-option value-key="id">
                     <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in schemes" :key="index"></el-option>
                   </el-select>
                 </el-form-item>
@@ -595,7 +595,7 @@
                 </el-form-item>
               </div>
               <el-form-item label="本次调理项目意见:" class="whole">
-                <el-select v-model="massageInfo.items" multiple value-key="id">
+                <el-select v-model="massageInfo.items" multiple default-first-option value-key="id">
                   <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in items" :key="index"></el-option>
                 </el-select>
               </el-form-item>

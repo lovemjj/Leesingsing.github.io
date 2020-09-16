@@ -80,7 +80,7 @@
               <div class="line"></div>
             </div>
             <el-form-item label="调理人姓名:" required>
-              <el-select v-model="orderForm.customer.name" filterable allow-create @change="getCustomerId" :disabled="orderForm.status > -1">
+              <el-select v-model="orderForm.customer.name" filterable default-first-option allow-create @change="getCustomerId" :disabled="orderForm.status > -1">
                 <el-option :label="item.name" :value="item.name" v-for="(item, index) in customers" :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -117,7 +117,7 @@
               <div class="line"></div>
             </div>
             <el-form-item label="会员卡卡号:">
-              <el-select v-model="orderForm.membershipCard" filterable value-key="id" :disabled="orderForm.status > -1">
+              <el-select v-model="orderForm.membershipCard" filterable default-first-option value-key="id" :disabled="orderForm.status > -1">
                 <el-option :label="item.number" :value="item" v-for="(item, index) in membershipCards" :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -177,7 +177,7 @@
               <div class="line"></div>
             </div>
             <el-form-item label="本次调理前症状自我描述（家长陪同可补充）:" class="whole" prop="symptoms" required>
-              <el-select v-model="orderForm.symptoms" multiple value-key="number" :disabled="orderForm.status > -1">
+              <el-select v-model="orderForm.symptoms" multiple default-first-option value-key="number" :disabled="orderForm.status > -1">
                 <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in symptoms" :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -197,7 +197,7 @@
               </div>
             </el-form-item>
             <el-form-item label="咨询接待人:">
-              <el-select v-model="orderForm.createdBy" filterable value-key="id" :disabled="orderForm.status > -1">
+              <el-select v-model="orderForm.createdBy" filterable default-first-option value-key="id" :disabled="orderForm.status > -1">
                 <el-option :label="item.name" :value="{ id: item.id }" v-for="(item, index) in createdBys" :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -216,13 +216,13 @@
               (会员卡可用余额:{{orderForm.membershipCard.balance || 0}}+{{orderForm.membershipCard.bonus || 0}})
             </div>
             <el-form-item label="专家团体体质辩证意见:" class="whole" required>
-              <el-select v-model="orderForm.constitutions" multiple value-key="number" :disabled="orderForm.status > 0">
+              <el-select v-model="orderForm.constitutions" multiple default-first-option value-key="number" :disabled="orderForm.status > 0">
                 <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in constitutions" :key="index"></el-option>
               </el-select>
             </el-form-item>
             <div class="whole">
               <el-form-item label="专家团体设定调理方案:" class="whole" required>
-                <el-select v-model="orderForm.schemes" multiple value-key="id" :disabled="orderForm.status > 0">
+                <el-select v-model="orderForm.schemes" multiple default-first-option value-key="id" :disabled="orderForm.status > 0">
                   <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in schemes" :key="index"></el-option>
                 </el-select>
               </el-form-item>
@@ -231,17 +231,17 @@
               </el-form-item>
             </div>
             <el-form-item label="本次调理项目意见:" class="whole" required>
-              <el-select v-model="orderForm.items" multiple value-key="id" :disabled="orderForm.status > 0">
+              <el-select v-model="orderForm.items" multiple default-first-option value-key="id" :disabled="orderForm.status > 0">
                 <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in items" :key="index"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="指派技师:">
-              <el-select v-model="orderForm.assigned" filterable value-key="id" :disabled="orderForm.status > 0">
+              <el-select v-model="orderForm.assigned" filterable default-first-option value-key="id" :disabled="orderForm.status > 0">
                 <el-option :label="item.name" :value="{ id: item.id }" v-for="(item, index) in massageds" :key="index"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="诊断开方人:">
-              <el-select v-model="orderForm.diagnosedBy" filterable value-key="id" :disabled="orderForm.status > 0">
+              <el-select v-model="orderForm.diagnosedBy" filterable default-first-option value-key="id" :disabled="orderForm.status > 0">
                 <el-option :label="item.name" :value="{ id: item.id }" v-for="(item, index) in diagnosedBys" :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -325,7 +325,7 @@
           <el-input v-model="orderFilterForm.customer"></el-input>
         </el-form-item>
         <el-form-item label="技师:">
-          <el-select v-model="orderFilterForm.massagedBy" clearable filterable>
+          <el-select v-model="orderFilterForm.massagedBy" clearable filterable default-first-option>
             <el-option :label="item.name" :value="item.id" v-for="(item, index) in massageds" :key="index"></el-option>
           </el-select>
         </el-form-item>
@@ -640,7 +640,7 @@
                 <div class="line"></div>
               </div>
               <el-form-item label="本次调理前症状自我描述（家长陪同可补充）:" class="whole">
-                <el-select v-model="info.symptoms" multiple value-key="number">
+                <el-select v-model="info.symptoms" multiple default-first-option value-key="number">
                   <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in symptoms" :key="index"></el-option>
                 </el-select>
               </el-form-item>
@@ -672,13 +672,13 @@
                 (会员卡可用余额:{{info.membershipCard.balance || 0}}+{{info.membershipCard.bonus || 0}})
               </div>
               <el-form-item required label="专家团体体质辩证意见:" class="whole">
-                <el-select v-model="info.constitutions" multiple value-key="number">
+                <el-select v-model="info.constitutions" multiple default-first-option value-key="number">
                   <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in constitutions" :key="index"></el-option>
                 </el-select>
               </el-form-item>
               <div class="whole">
                 <el-form-item required label="专家团体设定调理方案:" class="whole">
-                  <el-select v-model="info.schemes" multiple value-key="id">
+                  <el-select v-model="info.schemes" multiple default-first-option value-key="id">
                     <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in schemes" :key="index"></el-option>
                   </el-select>
                 </el-form-item>
@@ -687,17 +687,17 @@
                 </el-form-item>
               </div>
               <el-form-item required label="本次调理项目意见:" class="whole">
-                <el-select v-model="info.items" multiple value-key="id">
+                <el-select v-model="info.items" multiple default-first-option value-key="id">
                   <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in items" :key="index"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="指派技师:">
-                <el-select v-model="info.assigned" filterable value-key="id" :disabled="orderForm.status > 0">
+                <el-select v-model="info.assigned" filterable default-first-option value-key="id" :disabled="orderForm.status > 0">
                   <el-option :label="item.name" :value="{ id: item.id }" v-for="(item, index) in massageds" :key="index"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="诊断开方人:">
-                <el-select v-model="info.diagnosedBy" filterable value-key="id" :disabled="orderForm.status > 0">
+                <el-select v-model="info.diagnosedBy" filterable default-first-option value-key="id" :disabled="orderForm.status > 0">
                   <el-option :label="item.name" :value="{ id: item.id }" v-for="(item, index) in createdBys" :key="index"></el-option>
                 </el-select>
               </el-form-item>

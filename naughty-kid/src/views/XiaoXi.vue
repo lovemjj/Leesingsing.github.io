@@ -24,7 +24,7 @@
             <el-input type="textarea" v-model="form.content" maxlength="200"></el-input>
           </el-form-item>
           <el-form-item label="接收人:" prop="receivedBy" :rules="{ type: 'array', required: true, message: '至少选择一个接收人', trigger: 'change' }">
-            <el-select v-model="form.receivedBy" multiple value-key="id">
+            <el-select v-model="form.receivedBy" multiple default-first-option value-key="id">
                 <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in receivedBys" :key="index"></el-option>
               </el-select>
           </el-form-item>

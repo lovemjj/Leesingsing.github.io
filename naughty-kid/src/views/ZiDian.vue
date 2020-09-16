@@ -568,7 +568,7 @@
           </div>
         </el-form-item>
         <el-form-item label="单位（最小可拆分单位）:" prop="unitName">
-          <el-select v-model="materialForm.unitName" filterable size="small">
+          <el-select v-model="materialForm.unitName" filterable default-first-option size="small">
             <el-option v-for="item in materialUnits" :key="item.number" :label="item.name" :value="item.name">
             </el-option>
           </el-select>
@@ -629,22 +629,22 @@
           </el-form-item>
         </el-form-item>
         <el-form-item label="症状:" prop="symptoms">
-          <el-select v-model="auxiliary.symptoms" multiple value-key="number">
+          <el-select v-model="auxiliary.symptoms" multiple default-first-option value-key="number">
             <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in symptoms" :key="index"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="体质辩证:" prop="constitutions">
-          <el-select v-model="auxiliary.constitutions" multiple value-key="number">
+          <el-select v-model="auxiliary.constitutions" multiple default-first-option value-key="number">
             <el-option :label="item.name" :value="{number: item.number}" v-for="(item, index) in constitutions" :key="index"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="调理方案:" prop="schemes">
-          <el-select v-model="auxiliary.schemes" multiple value-key="id">
+          <el-select v-model="auxiliary.schemes" multiple default-first-option value-key="id">
             <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in schemes" :key="index"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="调理项目:" prop="items">
-          <el-select v-model="auxiliary.items" multiple value-key="id">
+          <el-select v-model="auxiliary.items" multiple default-first-option value-key="id">
             <el-option :label="item.name" :value="{id: item.id}" v-for="(item, index) in items" :key="index"></el-option>
           </el-select>
         </el-form-item>

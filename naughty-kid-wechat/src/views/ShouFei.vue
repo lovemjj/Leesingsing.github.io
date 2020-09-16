@@ -333,13 +333,13 @@ export default {
 .i {
   display: flex;
   align-items: center;
-  width: 50%;
   font-size: calc(14 / 375 * 100vw);
 }
 .i .name {
   color: #333333;
   font-weight: bold;
   line-height: calc(24 / 375 * 100vw);
+  white-space: nowrap;
 }
 .symptoms .dian {
   display: none;
